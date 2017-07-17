@@ -28,6 +28,7 @@
     "react-ts": "^2.0.2"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-router-dom": "^4.1.2",

@@ -2,9 +2,9 @@
 .vibrant {
   @include addColor(transparent, transparent);
   @include addColor(primary, #333, #fff);
-  @include addColor(secondary, #607D8B, #fff);
-  @include addColor(ternary, #00bcd4, #333);
-  @include addColor(accent, #00bafa, #fff);
+  @include addColor(secondary, #272222, #fff);
+  @include addColor(ternary, #00bafa, #fff);
+  @include addColor(accent, #FFC107, #333);
   @include addColor(banner, #673AB7, #fff);
   @include addColor(title, #333, #fff);
   @include addColor(card, #ffffff, #666);
@@ -15,4 +15,5 @@
   @include addColor(success, #29D185, #fff);
   @include addColor(warning, #ffae27, #424242);
   @include addColor(divider, rgba(0, 0, 0, 0.1));
+  @include addColor(divider-l, rgba(255, 255, 255, 0.1));
 }

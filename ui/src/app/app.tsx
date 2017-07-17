@@ -9,19 +9,21 @@ import { LoginPage } from './login/login'
 
 export class App extends React.Component<{}, {}> {
 
-  loggedIn = false
+  loggedIn = true
 
-  protect(targetPage, props) {
-    if (!this.loggedIn) {
-      this.loggedIn = true
-      return <Redirect to="/login" />
+  protect(targetPage, roles?: string[]) {
+    return props => {
+      if (!this.loggedIn) {
+        this.loggedIn = true
+        return <Redirect to="/login" />
+      }
+      return React.createElement(HomePage, Object.assign({}, props, props.match && props.match.params))
     }
-    return React.createElement(HomePage, Object.assign({}, props, props.match && props.match.params))
   }
 
   render() {
     return <Switch>
-      <Route path="/home" render={props => this.protect(HomePage, props)} />
+      <Route path="/home" render={this.protect(HomePage)} />
       <Route path="/login" component={LoginPage} />
       <Route path="*" render={() => <Redirect to="/home" />} />
     </Switch>

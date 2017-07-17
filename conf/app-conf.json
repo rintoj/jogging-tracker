@@ -1,6 +1,6 @@
 {
   "database": {
-    "url": "mongodb://toptal_app:welcome123@ds161262.mlab.com:61262/heroku_2kjx4j6d"
+    "url": "mongodb://toptal_app:welcome123@ds161742.mlab.com:61742/heroku_brz0d43j"
   },
   "app": {
     "apiUrl": "//toptal-jogging-tracker.herokuapp.com/api"
