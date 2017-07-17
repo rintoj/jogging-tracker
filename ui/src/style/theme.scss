@@ -1,0 +1,18 @@
+@import '_mixins';
+.vibrant {
+  @include addColor(transparent, transparent);
+  @include addColor(primary, #333, #fff);
+  @include addColor(secondary, #607D8B, #fff);
+  @include addColor(ternary, #00bcd4, #333);
+  @include addColor(accent, #00bafa, #fff);
+  @include addColor(banner, #673AB7, #fff);
+  @include addColor(title, #333, #fff);
+  @include addColor(card, #ffffff, #666);
+  @include addColor(page, #f5f5f5, #666);
+  @include addColor(white, #fff, #000);
+  @include addColor(black, #000, #fff);
+  @include addColor(error, #D02A2B, #fff);
+  @include addColor(success, #29D185, #fff);
+  @include addColor(warning, #ffae27, #424242);
+  @include addColor(divider, rgba(0, 0, 0, 0.1));
+}

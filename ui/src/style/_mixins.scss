@@ -1,0 +1,456 @@
+@mixin box-shadow($depth) {
+  box-shadow: #{1*$depth}px #{1*$depth}px #{5*$depth}px rgba(0, 0, 0, 0.3);
+}
+
+$colors: ();
+@function defineColor($name, $color, $text: false) {
+  $colors: map-merge($colors, ($name: $color)) !global;
+  @if $text {
+    $colors: map-merge($colors, (#{$name}-contrast: $text)) !global;
+  }
+  @return $color;
+}
+
+@mixin addColor($name, $color, $text: false) {
+  $list: '', '--hover:hover', '--focus:focus';
+  @each $type in $list {
+    .#{$name}#{$type} {
+      @if $text {
+        color: $text;
+      }
+      background-color: defineColor($name, $color, $text);
+    }
+    @if $text {
+      .#{$name}-contrast#{$type} {
+        color: $text;
+      }
+    }
+    .#{$name}-text#{$type} {
+      color: $color;
+    }
+    .#{$name}-bg#{$type} {
+      background-color: $color;
+    }
+    .#{$name}-br#{$type} {
+      border-color: $color;
+    }
+    .#{$name}-brt#{$type} {
+      border-top-color: $color;
+    }
+    .#{$name}-brr#{$type} {
+      border-right-color: $color;
+    }
+    .#{$name}-brb#{$type} {
+      border-bottom-color: $color;
+    }
+    .#{$name}-brl#{$type} {
+      border-left-color: $color;
+    }
+    .#{$name}-ol#{$type} {
+      outline-color: $color;
+    }
+    .#{$name}-fi#{$type} {
+      fill: $color;
+    }
+    .#{$name}-st#{$type} {
+      stroke: $color;
+    }
+  }
+}
+
+@mixin shadow($from, $upto) {
+  @for $i from $from through $upto {
+    .s#{$i} {
+      @include box-shadow($i)
+    }
+    .s#{$i}--hover:hover {
+      @include box-shadow($i)
+    }
+    .s#{$i}--focus:focus {
+      @include box-shadow($i)
+    }
+  }
+}
+
+@mixin flexbox($from, $upto) {
+  @for $i from $from through $upto {
+    .flx#{$i} {
+      flex: $i;
+    }
+  }
+  .flx {
+    display: flex;
+  }
+  .flxr {
+    flex-direction: row;
+  }
+  .flxc {
+    flex-direction: column;
+  }
+  .flxrr {
+    flex-direction: row-reverse;
+  }
+  .flxcr {
+    flex-direction: column-reverse;
+  }
+  .flxw {
+    flex-wrap: wrap;
+  }
+  .aifs {
+    align-items: flex-start;
+  }
+  .aic {
+    align-items: center;
+  }
+  .aife {
+    align-items: flex-end;
+  }
+  .acc {
+    align-content: center;
+  }
+  .acfs {
+    align-content: flex-start;
+  }
+  .acfe {
+    align-content: flex-end;
+  }
+  .acsa {
+    align-content: space-around;
+  }
+  .acsb {
+    align-content: space-between;
+  }
+  .acs {
+    align-content: stretch;
+  }
+  .ais {
+    align-items: stretch;
+  }
+  .asfs {
+    align-self: flex-start;
+  }
+  .asc {
+    align-self: center;
+  }
+  .asfe {
+    align-self: flex-end;
+  }
+  .ass {
+    align-self: stretch;
+  }
+  .jcfs {
+    justify-content: flex-start;
+  }
+  .jcfe {
+    justify-content: flex-end;
+  }
+  .jcc {
+    justify-content: center;
+  }
+  .jcsb {
+    justify-content: space-between;
+  }
+  .jcsa {
+    justify-content: space-around;
+  }
+}
+
+@mixin opacity($from, $upto) {
+  @for $i from $from through $upto {
+    $value: $i / 10;
+    .o#{$i} {
+      opacity: $value;
+    }
+    .o#{$i}--hover:hover {
+      opacity: $value;
+    }
+  }
+}
+
+@mixin fontWeight($from, $upto) {
+  @for $i from $from through $upto {
+    $value: $i * 100;
+    .fw#{$i} {
+      font-weight: $value;
+    }
+  }
+}
+
+@mixin unitValue($prefix, $property, $from, $upto) {
+  @for $i from $from through $upto {
+    @if $i==100 {
+      .#{$prefix}#{$i} {
+        #{$property}: 100%;
+      }
+    }
+    @else {
+      $value: ($i / 50 * 100) / 16;
+      .#{$prefix}#{$i} {
+        #{$property}: $value#{'rem'};
+      }
+    }
+  }
+}
+
+@mixin unitValueWithMinMax($prefix, $property, $from, $upto) {
+  @for $i from $from through $upto {
+    @if $i==100 {
+      .#{$prefix}#{$i} {
+        #{$property}: 100%;
+      }
+      .max-#{$prefix}#{$i} {
+        max-#{$property}: 100%;
+      }
+      .min-#{$prefix}#{$i} {
+        min-#{$property}: 100%;
+      }
+    }
+    @else {
+      $value: ($i / 50 * 100) / 16;
+      .#{$prefix}#{$i} {
+        #{$property}: $value#{'rem'};
+      }
+      .max-#{$prefix}#{$i} {
+        max-#{$property}: $value#{'rem'};
+      }
+      .min-#{$prefix}#{$i} {
+        min-#{$property}: $value#{'rem'};
+      }
+    }
+  }
+}
+
+@mixin topRightBottomLeft($prefix, $property, $from, $upto) {
+  @for $i from $from through $upto {
+    $value: ($i / 50 * 100) / 16;
+    .#{$prefix}a#{$i} {
+      #{$property}: $value#{'rem'};
+    }
+    .#{$prefix}t#{$i} {
+      #{$property}-top: $value#{'rem'};
+    }
+    .#{$prefix}r#{$i} {
+      #{$property}-right: $value#{'rem'};
+    }
+    .#{$prefix}b#{$i} {
+      #{$property}-bottom: $value#{'rem'};
+    }
+    .#{$prefix}l#{$i} {
+      #{$property}-left: $value#{'rem'};
+    }
+    .#{$prefix}v#{$i} {
+      #{$property}-top: $value#{'rem'};
+      #{$property}-bottom: $value#{'rem'};
+    }
+    .#{$prefix}h#{$i} {
+      #{$property}-left: $value#{'rem'};
+      #{$property}-right: $value#{'rem'};
+    }
+  }
+}
+
+@mixin borderRadius($from, $upto) {
+  @for $i from $from through $upto {
+    $value: $i / 20;
+    .brd#{$i} {
+      border-radius: $value#{'rem'};
+    }
+  }
+  .brd100 {
+    border-radius: 100%;
+  }
+}
+
+@mixin borderStyle($prefix, $property) {
+  .#{$prefix}--none {
+    #{$property}: none;
+  }
+  .#{$prefix}--solid {
+    #{$property}: solid;
+  }
+  .#{$prefix}--dotted {
+    #{$property}: dotted;
+  }
+  .#{$prefix}--dashed {
+    #{$property}: dashed;
+  }
+}
+
+@mixin outlineStyle {
+  .ol--solid {
+    outline-style: solid;
+  }
+  .ol--dotted {
+    outline-style: dotted;
+  }
+  .ol--dashed {
+    outline-style: dashed;
+  }
+}
+
+@mixin width($prefix, $property, $from, $upto) {
+  @for $i from $from through $upto {
+    $value: ($i / 75 * 100) / 16;
+    $style: solid;
+    @if $value==0 {
+      $style: none;
+    }
+    .#{$prefix}#{$i} {
+      #{$property}-width: $value#{'rem'};
+      #{$property}-style: $style;
+    }
+    .#{$prefix}t#{$i} {
+      #{$property}-top-width: $value#{'rem'};
+      #{$property}-top-style: $style;
+    }
+    .#{$prefix}r#{$i} {
+      #{$property}-right-width: $value#{'rem'};
+      #{$property}-right-style: $style;
+    }
+    .#{$prefix}b#{$i} {
+      #{$property}-bottom-width: $value#{'rem'};
+      #{$property}-bottom-style: $style;
+    }
+    .#{$prefix}l#{$i} {
+      #{$property}-left-width: $value#{'rem'};
+      #{$property}-left-style: $style;
+    }
+    .#{$prefix}v#{$i} {
+      #{$property}-top-width: $value#{'rem'};
+      #{$property}-top-style: $style;
+      #{$property}-bottom-width: $value#{'rem'};
+      #{$property}-bottom-style: $style;
+    }
+    .#{$prefix}h#{$i} {
+      #{$property}-left-width: $value#{'rem'};
+      #{$property}-left-style: $style;
+      #{$property}-right-width: $value#{'rem'};
+      #{$property}-right-style: $style;
+    }
+  }
+}
+
+@mixin imageStyles() {
+  img {
+    background-repeat: no-repeat;
+    background-size: contain;
+    object-fit: contain;
+    object-position: 0 50%;
+    &.center {
+      object-position: 50% 50%;
+    }
+    &.right {
+      object-position: 100% 50%;
+    }
+  }
+}
+
+@mixin textStyles() {
+  .i {
+    font-style: italic;
+  }
+  .b {
+    font-weight: bold;
+  }
+  .lt {
+    text-decoration: line-through;
+  }
+  .tl {
+    text-align: left;
+  }
+  .tc {
+    text-align: center;
+  }
+  .tr {
+    text-align: right;
+  }
+  .tj {
+    text-align: justify;
+  }
+  .uc {
+    text-transform: uppercase;
+  }
+  .lc {
+    text-transform: lowercase;
+  }
+  .ca {
+    text-transform: capitalize;
+  }
+}
+
+@mixin utils() {
+  .action {
+    cursor: pointer;
+    &:active {
+      opacity: .6;
+    }
+  }
+  .absolute-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  }
+  .fill {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .absolute {
+    position: absolute;
+  }
+  .relative {
+    position: relative;
+  }
+  .no-overflow {
+    overflow: hidden;
+  }
+  .scroll {
+    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+  .scroll-x {
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  .scroll-y {
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  .inline-b {
+    display: inline-block;
+  }
+  .vat {
+    vertical-align: top;
+  }
+  .vam {
+    vertical-align: middle;
+  }
+  .vab {
+    vertical-align: bottom;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .popup {
+    z-index: 1;
+  }
+}
+
+@mixin transition($transitions, $properties) {
+  @each $name in $transitions {
+    .#{$name} {
+      transition: all .2s #{$name};
+    }
+    @each $item,
+    $property in $properties {
+      .#{$name}--#{$item} {
+        transition: all .2s #{$name};
+        transition-property: $property;
+      }
+    }
+  }
+}
