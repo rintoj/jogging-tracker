@@ -5,6 +5,8 @@ interface Props {
   type?: 'text' | 'number' | 'password' | 'color'
   value?: string
   label?: string
+  error?: string
+  autoFocus?: boolean
   placeholder?: string
   onFocus?: Function
   onBlur?: Function
@@ -16,15 +18,17 @@ export class TextInput extends React.Component<Props, State> {
 
   render() {
     return <div className="flex flex-column mt3">
-      <label htmlFor={this.props.id}>{this.props.label}</label>
-      <input className="divider-br br1 pa3 mv2"
+      <label className="title-text ttu f6 b" htmlFor={this.props.id}>{this.props.label}</label>
+      <input className={`br1 ba pa3 mv2 ${this.props.error != null ? 'error-br' : 'divider-br'}`}
         id={this.props.id}
+        autoFocus={this.props.autoFocus}
         placeholder={this.props.placeholder || this.props.label}
         type={this.props.type} value={this.props.value}
         onFocus={(event) => this.onFocus(event)}
         onBlur={(event) => this.onBlur(event)}
         onChange={(event) => this.onChange(event)}
       />
+      <div className="error-text">{this.props.error}</div>
     </div>
   }
 
