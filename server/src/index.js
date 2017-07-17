@@ -1,6 +1,9 @@
 // import
+var fallback = require('express-history-api-fallback')
 var mongoRestifier = require('mongo-restifier');
 var isDev = process.env.NODE_ENV === 'development'
+
+
 
 // configure the api
 mongoRestifier(isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json', (properties) => {
@@ -9,5 +12,9 @@ mongoRestifier(isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json', (propert
   })
   .registerModel(require('./model/todo'))
   .startup((app) => {
-    app.use(require('serve-static')(__dirname + '/../../ui/dist'));
+    const root = __dirname + '/../../ui/dist'
+    app.use(require('serve-static')(root));
+    app.use(fallback('index.html', {
+      root
+    }))
   });
