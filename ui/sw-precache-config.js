@@ -4,15 +4,10 @@ function generateId() {
 
 module.exports = {
   staticFileGlobs: [
-    'dist/**.html',
-    'dist/**.js',
-    'dist/**.css',
-    'dist/**.ttf',
-    'dist/**.woff2',
-    'dist/**.woff',
-    'dist/**.eot',
-    'dist/**.svg',
+    'dist/*.html',
+    'dist/*.js',
     'dist/**.json',
+    'dist/assets/fonts/**/*',
     'dist/assets/img/*',
     'dist/assets/icon/*'
   ],
