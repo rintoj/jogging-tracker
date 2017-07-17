@@ -9,7 +9,7 @@
     "develop:ui": "cd ui && npm start",
     "develop:server": "cross-env NODE_ENV=development nodemon server/src/index.js",
     "deploy": "git push heroku master",
-    "publish": "npm run build && npm run deploy",
+    "publish": "npm run build && git add --all && git commit -a -m 'update build' && npm run deploy",
     "build": "cd ui && npm run build",
     "open": "heroku open",
     "test": "echo \"Error: no test specified\" && exit 1"
