@@ -1,5 +1,8 @@
 {
   "database": {
     "url": "mongodb://localhost/jogging-tracker"
+  },
+  "app": {
+    "apiUrl": "//localhost:5000/api"
   }
 }

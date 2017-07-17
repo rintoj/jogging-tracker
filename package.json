@@ -5,7 +5,9 @@
   "main": "server/src/index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server/src/index.js",
-    "develop": "cross-env NODE_ENV=development node server/src/index.js",
+    "develop": "concurrently -r 'npm run develop:server' 'npm run develop:ui'",
+    "develop:ui": "cd ui && npm start",
+    "develop:server": "cross-env NODE_ENV=development nodemon server/src/index.js",
     "deploy": "git push heroku master",
     "build": "cd ui && npm run build",
     "open": "heroku open",
@@ -27,6 +29,8 @@
     "mongo-restifier": "^2.3.2"
   },
   "devDependencies": {
-    "eslint": "^4.2.0"
+    "concurrently": "^3.5.0",
+    "eslint": "^4.2.0",
+    "nodemon": "^1.11.0"
   }
 }

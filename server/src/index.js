@@ -3,7 +3,7 @@ var mongoRestifier = require('mongo-restifier');
 var isDev = process.env.NODE_ENV === 'development'
 
 // configure the api
-mongoRestifier(isDev ? 'server/conf/api-dev.conf.json' : 'server/conf/api.conf.json', (properties) => {
+mongoRestifier(isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json', (properties) => {
     properties.api.port = process.env.PORT || 5000
     return properties
   })
