@@ -61,7 +61,7 @@ export class PasswordPage extends React.Component<Props, State> {
         !/^[\d]{6,6}$/.test(this.state.password) ? 'Invalid password' : undefined,
       confirmation: this.state.confirmation == undefined || this.state.confirmation.trim() === '' ? 'Required' :
         !/^[\d]{6,6}$/.test(this.state.confirmation) ? 'Invalid password' :
-          this.state.password != this.state.confirmation ? 'Does not match' : undefined,
+          this.state.password !== this.state.confirmation ? 'Does not match' : undefined
     }
     this.setState(state => ({
       error
