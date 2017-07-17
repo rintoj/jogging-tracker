@@ -6,8 +6,11 @@ module.exports = {
   staticFileGlobs: [
     'dist/*.html',
     'dist/*.js',
+    'dist/*.css',
+    'dist/*.css.map',
     'dist/**.json',
     'dist/assets/fonts/**/*',
+    'dist/static/**/*',
     'dist/assets/img/*',
     'dist/assets/icon/*'
   ],
