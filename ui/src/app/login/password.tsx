@@ -33,7 +33,7 @@ export class PasswordPage extends React.Component<Props, State> {
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-center login-card">
         <div className="flex flex-column items-center justify-center">
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />
-          <div className="f3 tc mb4 ttu title-text b">Jog Logger</div>
+          <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
         <form className="w-100">
           <TextInput type="text"
