@@ -4,8 +4,10 @@
   "description": "Jogging Tracker is a React project for tracking jogging times of users. This project is built using mongo-restifier as API later and MongoDB as DB.",
   "main": "server/src/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development node server/src/index.js",
+    "start": "cross-env NODE_ENV=production node server/src/index.js",
+    "develop": "cross-env NODE_ENV=development node server/src/index.js",
     "deploy": "git push heroku master",
+    "build": "cd ui && npm run build",
     "open": "heroku open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
