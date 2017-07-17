@@ -6,9 +6,10 @@
   "main": "dist/main.bundle.js",
   "scripts": {
     "start": "react-ts -- serve 3000",
-    "build": "react-ts -- build",
+    "build": "react-ts -- build && npm run precache",
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
+    "precache": "sw-precache --config=sw-precache-config.js --verbose",
     "tdd": "concurrently -r 'npm run watch' 'npm run test:watch'",
     "test": "npm run compile && istanbul cover ./node_modules/mocha/bin/_mocha -- dist/**/*.spec.js",
     "test:watch": "nodemon --delay 1 --watch dist --exec 'istanbul cover ./node_modules/mocha/bin/_mocha -- dist/**/*.spec.js'",
@@ -25,7 +26,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
-    "react-ts": "^2.0.2"
+    "react-ts": "^2.0.2",
+    "sw-precache": "^5.2.0"
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
