@@ -50,13 +50,13 @@ export class RegisterPage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      email: this.state.email == null || this.state.email.trim() === '' ? 'Required' :
+      email: this.state.email == undefined || this.state.email.trim() === '' ? 'Required' :
         !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.email) ? 'Invalid email' : undefined,
     }
     this.setState(state => ({
       error
     }))
-    return Object.keys(error).filter(i => error[i] != null).length === 0
+    return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
   signUp(event) {

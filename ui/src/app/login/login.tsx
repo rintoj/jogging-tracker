@@ -62,14 +62,14 @@ export class LoginPage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      userId: this.state.userId == null || this.state.userId.trim() === '' ? 'Required' :
+      userId: this.state.userId == undefined || this.state.userId.trim() === '' ? 'Required' :
         !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.userId) ? 'Invalid email' : undefined,
-      password: this.state.password == null || this.state.password.trim() === '' ? 'Required' : undefined
+      password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' : undefined
     }
     this.setState(state => ({
       error
     }))
-    return Object.keys(error).filter(i => error[i] != null).length === 0
+    return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
   signIn(event) {

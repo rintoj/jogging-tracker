@@ -50,13 +50,13 @@ export class AuthCodePage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      authCode: this.state.authCode == null || this.state.authCode.trim() === '' ? 'Required' :
+      authCode: this.state.authCode == undefined || this.state.authCode.trim() === '' ? 'Required' :
         !/^[\d]{6,6}$/.test(this.state.authCode) ? 'Invalid authCode' : undefined,
     }
     this.setState(state => ({
       error
     }))
-    return Object.keys(error).filter(i => error[i] != null).length === 0
+    return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
   verify(event) {

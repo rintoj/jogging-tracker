@@ -57,16 +57,16 @@ export class PasswordPage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      password: this.state.password == null || this.state.password.trim() === '' ? 'Required' :
+      password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' :
         !/^[\d]{6,6}$/.test(this.state.password) ? 'Invalid password' : undefined,
-      confirmation: this.state.confirmation == null || this.state.confirmation.trim() === '' ? 'Required' :
+      confirmation: this.state.confirmation == undefined || this.state.confirmation.trim() === '' ? 'Required' :
         !/^[\d]{6,6}$/.test(this.state.confirmation) ? 'Invalid password' :
           this.state.password != this.state.confirmation ? 'Does not match' : undefined,
     }
     this.setState(state => ({
       error
     }))
-    return Object.keys(error).filter(i => error[i] != null).length === 0
+    return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
   create(event) {
