@@ -1,10 +1,10 @@
-
 import './style/app.scss'
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-import { App } from './app'
+import { App } from './app/app'
+import { BrowserRouter } from 'react-router-dom'
 import { INITIAL_STATE } from './state'
 import { initialize } from 'statex'
 
@@ -13,4 +13,7 @@ initialize(INITIAL_STATE, {
   domain: 'jogging-tracker'
 })
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>, document.getElementById('root'))
