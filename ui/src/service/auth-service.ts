@@ -113,15 +113,16 @@ class AuthService {
   //   // return this.restService.put(this.urlCustomerSubmit, userInfo)
   // }
 
-  public logout(): void {
+  public signOut(): void {
     this.clearSession()
     this.auth0.logout({
       returnTo: AUTH_CONFIG.redirectUri
     })
   }
 
-  public isAuthenticated(): boolean {
-    const authInfo: AuthInfo = this.getSession()
+  public isAuthenticated(user: User): boolean {
+    // const authInfo: AuthInfo = this.getSession()
+    const authInfo: AuthInfo = user && user.authInfo
     return authInfo && new Date().getTime() < authInfo.expiresAt
   }
 

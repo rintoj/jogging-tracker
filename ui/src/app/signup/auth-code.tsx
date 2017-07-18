@@ -1,10 +1,17 @@
 import * as React from 'react'
 
-import { Button } from '../../component/button'
-import { TextInput } from '../../component/text-input'
+import { data, inject } from 'statex/react'
 
-interface Props {
+import { AppState } from '../../state/app-state'
+import { Button } from '../../component/button'
+import { SetSignupStateAction } from '../../action/index'
+import { TextInput } from '../../component/text-input'
+import { VerifyAuthCodeAction } from '../../action/user-actions'
+
+class Props {
   history?: string[]
+
+  @data((state: AppState) => state.user.email)
   email?: string
 }
 
@@ -15,6 +22,7 @@ interface State {
   }
 }
 
+@inject(Props)
 export class AuthCodePage extends React.Component<Props, State> {
 
   constructor(props) {
@@ -25,9 +33,9 @@ export class AuthCodePage extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="flex flex-column flex-auto w-100 vh-100 items-center justify-center">
+    return <div className="flex flex-column flex-auto w-100 items-center justify-start">
       <div className="w-100 tc mt3">An email with the code has been sent to
-          <div className="b"> {this.props.email || ' rintoj@gmail.com'}</div>
+          <div className="b"> {this.props.email}</div>
       </div>
       <form className="w-100">
         <TextInput type="text"
@@ -56,7 +64,10 @@ export class AuthCodePage extends React.Component<Props, State> {
   verify(event) {
     event.preventDefault()
     if (this.validate()) {
-      this.props.history.push('/password')
+      Promise.resolve()
+        .then(() => new SetSignupStateAction('loading').dispatch())
+        .then(() => new VerifyAuthCodeAction(this.props.email, this.state.authCode).dispatch())
+        .then(() => new SetSignupStateAction('password').dispatch())
     }
   }
 }

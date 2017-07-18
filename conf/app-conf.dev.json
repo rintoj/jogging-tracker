@@ -9,8 +9,8 @@
     "clientID": "jiLSDWdYOvJucV1ld2tDdVH68mfWhGuC",
     "domain": "rintoj.auth0.com",
     "responseType": "id_token token",
-    "audience": "https: //rintoj.auth0.com/userinfo",
-    "redirectUri": "http: //localhost:3000/authorize",
+    "audience": "https://rintoj.auth0.com/userinfo",
+    "redirectUri": "http://localhost:3000/authorize",
     "scope": "openid email profile",
     "nonce": "6766380992235423"
   }

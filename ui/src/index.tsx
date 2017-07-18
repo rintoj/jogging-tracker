@@ -3,8 +3,9 @@ import './style/app.scss'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
+import { BrowserRouter, withRouter } from 'react-router-dom'
+
 import { App } from './app/app'
-import { BrowserRouter } from 'react-router-dom'
 import { INITIAL_STATE } from './state'
 import { initialize } from 'statex'
 
@@ -15,5 +16,5 @@ initialize(INITIAL_STATE, {
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    {React.createElement(withRouter(App))}
   </BrowserRouter>, document.getElementById('root'))

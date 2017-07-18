@@ -6,11 +6,29 @@ import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { SendAuthCodeAction } from './../action/user-actions'
 import { SetSignupStateAction } from '../action/index'
+import { SignOutAction } from '../action/index'
 import { User } from './../state/user'
+import { VerifyAuthCodeAction } from '../action/index'
 import { services } from './../service/index'
+
+const REDIRECT_URL_KEY = 'redirect_url'
 
 @store()
 export class UserStore {
+
+  private _redirectUrl: string
+
+  get redirectUrl() {
+    return this._redirectUrl ||
+      (this._redirectUrl = localStorage.getItem(REDIRECT_URL_KEY) || 'home')
+  }
+
+  set redirectUrl(url: string) {
+    this._redirectUrl = url
+    if (url != undefined) {
+      localStorage.setItem(REDIRECT_URL_KEY, url)
+    }
+  }
 
   @action()
   authorize(state: AppState, authorizeAction: AuthorizeAction): Observable<AppState> {
@@ -18,12 +36,13 @@ export class UserStore {
       observer.next({ authInProgress: true })
       services.authService.handleAuthentication((error, user: User) => {
         observer.next({ authInProgress: false })
-        if (error) { return observer.next({ user: undefined }) }
+        if (error) {
+          this.redirectUrl = location.pathname
+          authorizeAction.onRedirect('/signin', false)
+          return observer.next({ user: undefined })
+        }
         observer.next({ user })
-        // if (user != null && state.user == null) {
-        //   this.router.navigate([this.redirectUrl])
-        //   this.removeRedirectUrl()
-        // }
+        authorizeAction.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user))
       })
     })
   }
@@ -31,12 +50,26 @@ export class UserStore {
   @action()
   sendAuthCode(state: AppState, sendAuthCodeAction: SendAuthCodeAction): Promise<AppState> {
     return services.authService.requestAuthCode(sendAuthCodeAction.email)
-      .then(() => state, error => error)
+      .then(() => Object.assign({}, state, {
+        user: { email: sendAuthCodeAction.email }
+      }), error => error)
   }
 
   @action()
   setSignupPageState(state: AppState, setSignupPageStateAction: SetSignupStateAction): AppState {
     return { signupPageState: setSignupPageStateAction.state }
+  }
+
+  @action()
+  verifyAuthCode(state: AppState, verifyAuthCodeAction: VerifyAuthCodeAction): Promise<AppState> {
+    return services.authService.verifyAuthCode(verifyAuthCodeAction.email, verifyAuthCodeAction.code)
+      .then(() => state, error => error)
+  }
+
+  @action()
+  signOut(state: AppState, signOutAction: SignOutAction): AppState {
+    services.authService.signOut()
+    return state
   }
 
 }

@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { Accordion, IconText, Profile } from '../../component'
 
+import { SignOutAction } from '../../action'
+
 interface Props {
   history?: string[]
 }
@@ -41,6 +43,6 @@ export class MenuComponent extends React.Component<Props, State> {
   }
 
   signOut(event) {
-    this.props.history.push('/signin')
+    new SignOutAction().dispatch()
   }
 }

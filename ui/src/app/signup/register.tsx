@@ -66,7 +66,7 @@ export class RegisterPage extends React.Component<Props, State> {
       Promise.resolve()
         .then(() => new SetSignupStateAction('loading').dispatch())
         .then(() => new SendAuthCodeAction(this.state.email).dispatch())
-        .then(() => new SetSignupStateAction('password').dispatch())
+        .then(() => new SetSignupStateAction('auth-code').dispatch())
     }
   }
 }
