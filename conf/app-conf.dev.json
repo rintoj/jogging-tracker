@@ -2,8 +2,32 @@
   "database": {
     "url": "mongodb://localhost/jogging-tracker"
   },
-  "app": {
-    "apiUrl": "//localhost:5000/api"
+  "api": {
+    "oauth2": {
+      "enable": false,
+      "rules": [
+        "None        *               OPTIONS             /api/oauth2/register",
+        "None        *               OPTIONS             /api/oauth2/client",
+        "None        *               OPTIONS             /api/oauth2/user",
+        "None        *               POST                /api/user",
+        "Basic       *               GET                 /api/oauth2/user",
+        "Bearer      ADMIN           *                   /api/oauth2/user",
+        "Bearer      ADMIN           *                   /api/oauth2/client"
+      ]
+    }
+  },
+  "apiUrl": "//localhost:5000/api",
+  "jwtSecret": {
+    "cache": true,
+    "rateLimit": true,
+    "jwksRequestsPerMinute": 5,
+    "jwksUri": "https://rintoj.auth0.com/.well-known/jwks.json"
+  },
+  "authService": {
+    "issuer": "https://rintoj.auth0.com/",
+    "algorithms": [
+      "RS256"
+    ]
   },
   "authConfig": {
     "clientID": "jiLSDWdYOvJucV1ld2tDdVH68mfWhGuC",

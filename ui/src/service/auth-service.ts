@@ -2,9 +2,8 @@ import * as auth0 from 'auth0-js'
 
 import { AuthInfo } from './../state/auth-info'
 import { User } from './../state/user'
+import { api } from './api'
 import { config } from '../app/config'
-
-// import { api } from './api'
 
 const ACCESS_INFO_KEY = 'access_info'
 const AUTH_CONFIG = config.authConfig
@@ -57,36 +56,32 @@ class AuthService {
         if (authResult && authResult.accessToken && authResult.idToken) {
           window.location.hash = ''
           authInfo = this.toAuthInfo(authResult)
+          this.fetchUserInfo(authInfo.email, authInfo.idToken)
         } else {
           authInfo = this.getSession()
         }
 
-        if (authInfo == undefined) {
-          return callback('Not authenticated')
-        }
+        // if (authInfo == undefined) {
+        //   return callback('Not authenticated')
+        // }
 
-        // fetch user info
-        this.fetchUserInfo(authInfo.accessToken)
-          // .then(user => this.prepareRestfulService(authInfo) || user)
-          // .then(user => this.fetchCustomer(user))
-          .then(user => this.toUser(authInfo, user))
-          .then((user: User) => this.setSession(user.authInfo) || user)
-          .then((user: User) => callback(undefined, user) || user)
-          .then(resolve, error => {
-            reject(error)
-            callback(error)
-          })
+        // // fetch user info
+        // this.fetchUserInfo(authInfo.accessToken)
+        //   // .then(user => this.prepareRestfulService(authInfo) || user)
+        //   // .then(user => this.fetchCustomer(user))
+        //   .then(user => this.toUser(authInfo, user))
+        //   .then((user: User) => this.setSession(user.authInfo) || user)
+        //   .then((user: User) => callback(undefined, user) || user)
+        //   .then(resolve, error => {
+        //     reject(error)
+        //     callback(error)
+        //   })
       })
     })
   }
 
-  public fetchUserInfo(accessToken: string) {
-    return new Promise((resolve, reject) => {
-      this.auth0.client.userInfo(accessToken, (err, user) => {
-        if (err) { return reject(err) }
-        resolve(user)
-      })
-    })
+  public fetchUserInfo(userId: string, authToken: string) {
+    api.post('/user', { userId }, { authToken }).then(response => console.log(response))
   }
 
   // public fetchCustomer(user: User): Promise<User> {
