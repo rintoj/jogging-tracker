@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import { Button } from '../../component/button'
-import { TextInput } from '../../component/text-input'
+import { Button } from '../../component'
+import { IconText } from '../../component'
+import { TextInput } from '../../component'
 
 // import { Link } from 'react-router-dom'
 
@@ -16,7 +17,7 @@ interface State {
   }
 }
 
-export class RegisterPage extends React.Component<Props, State> {
+export class SignUpPage extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
@@ -32,7 +33,11 @@ export class RegisterPage extends React.Component<Props, State> {
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />
           <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
-        <Button className="w-100" color="ternary">Sign up with Google</Button>
+        <Button className="w-100" color="ternary">
+          <div className="w-100 flex justify-center">
+            <IconText icon="google">Sign up with Google</IconText>
+          </div>
+        </Button>
         <div className="w-100 tc mt3">or</div>
         <form className="w-100">
           <TextInput type="text"

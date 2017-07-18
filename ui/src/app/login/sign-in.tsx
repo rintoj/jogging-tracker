@@ -19,7 +19,7 @@ interface State {
   }
 }
 
-export class LoginPage extends React.Component<Props, State> {
+export class SignInPage extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
@@ -35,6 +35,7 @@ export class LoginPage extends React.Component<Props, State> {
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />
           <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
+        <div className="tc"> Sign in with your account with Jog Tracker Account </div>
         <form>
           <TextInput type="text"
             id="userId"
@@ -51,7 +52,7 @@ export class LoginPage extends React.Component<Props, State> {
           ></TextInput>
           <div className="flex mt4">
             <Button submit={true} className="flex-auto mr2" onClick={event => this.signIn(event)}>Sign In</Button>
-            <Link to="/register" className="flex-auto flex" >
+            <Link to="/signup" className="flex-auto flex" >
               <Button className="ml2 flex-auto" color="secondary">Sign Up</Button>
             </Link>
           </div>

@@ -2,7 +2,10 @@ import * as React from 'react'
 
 import { Accordion, IconText, Profile } from '../../component'
 
-interface Props { }
+interface Props {
+  history?: string[]
+}
+
 interface State {
   open?: boolean
 }
@@ -20,7 +23,8 @@ export class MenuComponent extends React.Component<Props, State> {
     return <div className="primary flex flex-column vh-100" style={{ width: (this.state.open ? '280' : '0') + 'px' }}>
       <div className="flex flex-column justify-start bb divider-l-br w-100 ph3 secondary">
         <div className="white-text f4 nowrap ttu ph2 pv3 mv1">Jog Tracker</div>
-        <Profile name="Rinto Jose" role="Administrator" showButton={true}></Profile>
+        <Profile name="Rinto Jose" role="Administrator" showButton={true}
+          onButtonClick={event => this.signOut(event)}></Profile>
       </div>
       <div className="ph3 pv1 flex-auto">
         <Accordion title="Navigation" icon="navicon" className="pt3" open={true}>
@@ -34,5 +38,9 @@ export class MenuComponent extends React.Component<Props, State> {
         <IconText icon="cogs" className="ttu pt3 pointer">Settings</IconText>
       </div>
     </div>
+  }
+
+  signOut(event) {
+    this.props.history.push('/signin')
   }
 }

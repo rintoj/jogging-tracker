@@ -30,6 +30,7 @@
     "sw-precache": "^5.2.0"
   },
   "dependencies": {
+    "auth0-js": "^8.8.0",
     "font-awesome": "^4.7.0",
     "react": "^15.5.3",
     "react-dom": "^15.5.3",

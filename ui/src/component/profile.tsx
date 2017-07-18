@@ -5,6 +5,7 @@ interface Props {
   role?: string
   profilePic?: string
   showButton?: boolean
+  onButtonClick?: Function
 }
 interface State { }
 
@@ -21,7 +22,14 @@ export class Profile extends React.Component<Props, State> {
           <div className="f6 pt1 o-60">{this.props.role}</div>
         </div>
       </div>
-      {this.props.showButton && <div className="accent-text ttu pointer pa2 accent--hover br1">Sign Out</div>}
+      {this.props.showButton && <div className="accent-text ttu pointer pa2 accent--hover br1"
+        onClick={event => this.onButtonClick(event)}>Sign Out</div>}
     </div >
+  }
+
+  onButtonClick(event) {
+    if (typeof this.props.onButtonClick === 'function') {
+      this.props.onButtonClick(event)
+    }
   }
 }
