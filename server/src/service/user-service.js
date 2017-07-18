@@ -4,7 +4,7 @@ const resolvable = require('resolvable')
 
 const router = express.Router()
 
-router.post('/user', (request, response) => {
+router.post('/register', (request, response) => {
 
   const User = mongoose.models.User
 
@@ -12,11 +12,9 @@ router.post('/user', (request, response) => {
     return send('User service is not properly configured!', 500)
   }
 
-  console.log(request.user)
-
   const userInfo = {
     userId: request.user.email,
-    name: request.user.name,
+    name: (request.user.name || '').replace(/\@.*$/, ''),
     nickname: request.user.nickname,
     picture: request.user.picture,
     active: true,
@@ -29,10 +27,19 @@ router.post('/user', (request, response) => {
 
   Promise.resolve(userInfo)
     .then(user => findUser(User, user.userId))
-    .then(user => user ? saveUser(Object.assign(user, userInfo)) : saveUser(new User(userInfo)))
+    .then(user => createRecord(user, userInfo, User))
+    .then(user => saveUser(user))
     .then(user => send(response, user))
     .catch(error => handleError(error, response))
 })
+
+function createRecord(user, userInfo, User) {
+  return user ? Object.assign(user, {
+    new: false
+  }, userInfo) : new User(Object.assign({
+    new: true
+  }, userInfo))
+}
 
 function handleError(error, response) {
   console.log(error)
@@ -44,7 +51,6 @@ function findUser(User, userId) {
 }
 
 function saveUser(user) {
-  console.log(user)
   return resolvable(user.save)()
 }
 

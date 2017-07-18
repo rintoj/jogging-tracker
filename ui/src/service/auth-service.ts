@@ -78,7 +78,7 @@ class AuthService {
   }
 
   public fetchUserInfo(userId: string, authToken: string) {
-    return api.post('/user', { userId }, { authToken })
+    return api.post('/user', { userId }, { authToken }).then(response => response.data)
   }
 
   public signOut(): void {

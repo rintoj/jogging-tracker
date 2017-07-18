@@ -33,7 +33,7 @@ export class UserStore {
   }
 
   validateUrl(url: string): string {
-    if (url === '/authorize') {
+    if (url === '/authorize' || url === '/signin') {
       if (services.authService.getSession() == undefined) {
         return '/signin'
       } {

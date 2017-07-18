@@ -3,6 +3,7 @@ import { User } from './user'
 
 export interface AppState {
   authInProgress?: boolean
-  user?: User,
+  user?: User
+  history?: string
   signupPageState?: SignUpPageState
 }
