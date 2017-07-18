@@ -54,14 +54,13 @@ class AuthService {
 
         // authenticate user
         if (authResult && authResult.accessToken && authResult.idToken) {
-          window.location.hash = ''
           authInfo = this.toAuthInfo(authResult)
         } else {
           authInfo = this.getSession()
         }
 
         if (authInfo == undefined) {
-          return callback(undefined, 'Not authenticated')
+          return callback('Not authenticated')
         }
 
         // fetch user info
@@ -89,9 +88,12 @@ class AuthService {
     })
   }
 
-  public isAuthenticated(user: User): boolean {
-    const authInfo: AuthInfo = user && user.authInfo
+  public isAuthenticated(authInfo: AuthInfo): boolean {
     return authInfo && new Date().getTime() < authInfo.expiresAt
+  }
+
+  getSession(): AuthInfo {
+    return JSON.parse(localStorage.getItem(ACCESS_INFO_KEY) || 'null')
   }
 
   private prepareApi(accessToken: string) {
@@ -118,10 +120,6 @@ class AuthService {
         roles: user.roles
       }, authInfo)
     } : undefined
-  }
-
-  private getSession(): AuthInfo {
-    return JSON.parse(localStorage.getItem(ACCESS_INFO_KEY) || 'null')
   }
 
   private setSession(authInfo: AuthInfo): void {

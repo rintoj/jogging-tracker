@@ -13,4 +13,7 @@ export class VerifyAuthCodeAction extends Action {
 export class SetSignupStateAction extends Action {
   constructor(public state: SignUpPageState) { super() }
 }
+export class SetRedirectUrlAction extends Action {
+  constructor(public redirectUrl?: string) { super() }
+}
 export class SignOutAction extends Action { }
