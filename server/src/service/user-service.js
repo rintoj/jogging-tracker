@@ -12,6 +12,8 @@ router.post('/user', (request, response) => {
     return send('User service is not properly configured!', 500)
   }
 
+  console.log(request.user)
+
   const userInfo = {
     userId: request.user.email,
     name: request.user.name,

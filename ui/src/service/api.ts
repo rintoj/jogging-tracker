@@ -58,8 +58,12 @@ export class Api {
   }
 
   request(request: Request): Promise<any> {
+    const header: any = {}
+    if (this.options.authToken != undefined || request.authToken != undefined) {
+      header.Authorization = `Bearer ${this.options.authToken || request.authToken}`
+    }
     return axios(Object.assign({}, this.options, request, {
-      headers: Object.assign({}, this.options.headers, request.headers)
+      headers: Object.assign(header, this.options.headers, request.headers)
     }))
   }
 

@@ -56,57 +56,31 @@ class AuthService {
         if (authResult && authResult.accessToken && authResult.idToken) {
           window.location.hash = ''
           authInfo = this.toAuthInfo(authResult)
-          this.fetchUserInfo(authInfo.email, authInfo.idToken)
         } else {
           authInfo = this.getSession()
         }
 
-        // if (authInfo == undefined) {
-        //   return callback('Not authenticated')
-        // }
+        if (authInfo == undefined) {
+          return callback(undefined, 'Not authenticated')
+        }
 
-        // // fetch user info
-        // this.fetchUserInfo(authInfo.accessToken)
-        //   // .then(user => this.prepareRestfulService(authInfo) || user)
-        //   // .then(user => this.fetchCustomer(user))
-        //   .then(user => this.toUser(authInfo, user))
-        //   .then((user: User) => this.setSession(user.authInfo) || user)
-        //   .then((user: User) => callback(undefined, user) || user)
-        //   .then(resolve, error => {
-        //     reject(error)
-        //     callback(error)
-        //   })
+        // fetch user info
+        this.fetchUserInfo(authInfo.email, authInfo.accessToken)
+          .then(user => this.prepareApi(authInfo.accessToken) || user)
+          .then(user => this.toUser(authInfo, user))
+          .then((user: User) => this.setSession(user.authInfo) || user)
+          .then((user: User) => callback(undefined, user) || user)
+          .then(resolve, error => {
+            reject(error)
+            callback(error)
+          })
       })
     })
   }
 
   public fetchUserInfo(userId: string, authToken: string) {
-    api.post('/user', { userId }, { authToken }).then(response => console.log(response))
+    return api.post('/user', { userId }, { authToken })
   }
-
-  // public fetchCustomer(user: User): Promise<User> {
-  //   return this.api.get(this.url).then(
-  //     customers => Object.assign({ authorized: true }, user, customers[0]),
-  //     error => Object.assign({ authorized: false }, user)
-  //   )
-  // }
-
-  // public updateCustomer(user: User): Promise<User> {
-  //   const userInfo = {
-  //     customerID: user.id,
-  //     nmi: user.nmi,
-  //     firstName: user.firstName,
-  //     lastName: user.lastName,
-  //     email: user.email,
-  //     mobile: user.mobile,
-  //     addressLine1: user.address1,
-  //     addressLine2: user.address2,
-  //     postCode: user.postCode,
-  //     state: user.state,
-  //     role: 'user'
-  //   }
-  //   // return this.restService.put(this.urlCustomerSubmit, userInfo)
-  // }
 
   public signOut(): void {
     this.clearSession()
@@ -116,41 +90,32 @@ class AuthService {
   }
 
   public isAuthenticated(user: User): boolean {
-    // const authInfo: AuthInfo = this.getSession()
     const authInfo: AuthInfo = user && user.authInfo
     return authInfo && new Date().getTime() < authInfo.expiresAt
   }
 
-  // private prepareRestfulService(authInfo: AuthInfo) {
-  //   this.restService.setHeaders({
-  //     'Authorization': authInfo != null ? `${authInfo.tokenType} ${authInfo.idToken}` : undefined
-  //   })
-  // }
+  private prepareApi(accessToken: string) {
+    api.configure({
+      authToken: accessToken
+    })
+  }
 
-  private toAuthInfo(authResult) {
+  private toAuthInfo(authResult): AuthInfo {
     return authResult ? {
-      accessToken: authResult.accessToken,
+      accessToken: authResult.idToken,
       expiresAt: (authResult.expiresIn * 1000) + new Date().getTime(),
-      idToken: authResult.idToken,
-      refreshToken: authResult.refreshToken,
-      tokenType: authResult.tokenType
+      refreshToken: authResult.refreshToken
     } : undefined
   }
 
   private toUser(authInfo: AuthInfo, user): User {
     return user ? {
-      id: user.customerID,
+      id: user.userId,
       email: user.email_verified ? user.email : undefined,
-      name: (user.firstName && user.lastName) ? `${user.firstName} ${user.lastName}` : user.nickname || user.name,
+      name: user.name,
       picture: user.picture,
-      nmi: user.nmi,
-      address1: user.addressLine1,
-      address2: user.addressLine2,
-      state: user.state,
-      postCode: user.postCode,
-      mobile: user.mobile,
       authInfo: Object.assign({
-        role: user.role
+        roles: user.roles
       }, authInfo)
     } : undefined
   }
