@@ -1,6 +1,8 @@
-import { Filter, Todo } from './todo'
+import { SignUpPageState } from './page-state'
+import { User } from './user'
 
 export interface AppState {
-  todos?: Todo[]
-  filter?: Filter
+  authInProgress?: boolean
+  user?: User,
+  signupPageState?: SignUpPageState
 }

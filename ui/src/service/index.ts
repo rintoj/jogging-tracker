@@ -1,5 +1,5 @@
-import { todoService } from './todo-service'
+import { authService } from './auth-service'
 
 export const services = {
-  todoService
+  authService
 }

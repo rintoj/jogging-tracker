@@ -4,12 +4,10 @@ import * as React from 'react'
 
 import { Redirect, Route, Switch } from 'react-router-dom'
 
-import { AuthCodePage } from './login/auth-code'
-import { AuthorizePage } from './login/authorize'
+import { AuthorizePage } from './signup/authorize'
 import { HomePage } from './home/home'
-import { PasswordPage } from './login/password'
 import { SignInPage } from './login/sign-in'
-import { SignUpPage } from './login/sign-up'
+import { SignUpPage } from './signup/signup'
 
 export class App extends React.Component<{}, {}> {
 
@@ -30,8 +28,6 @@ export class App extends React.Component<{}, {}> {
       <Route path="/home" render={this.protect(HomePage)} />
       <Route path="/signin" component={SignInPage} />
       <Route path="/signup" component={SignUpPage} />
-      <Route path="/auth-code" component={AuthCodePage} />
-      <Route path="/password" component={PasswordPage} />
       <Route path="/authorize" component={AuthorizePage} />
       <Route path="*" render={() => <Redirect to="/home" />} />
     </Switch>
