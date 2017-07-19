@@ -2,7 +2,41 @@
   "database": {
     "url": "mongodb://toptal_app:welcome123@ds161742.mlab.com:61742/heroku_brz0d43j"
   },
-  "app": {
-    "apiUrl": "//toptal-jogging-tracker.herokuapp.com/api"
+  "api": {
+    "oauth2": {
+      "enable": true,
+      "rules": [
+        "None        *               OPTIONS             /api/**",
+        "None        *               PUT                 /api/profile",
+        "None        *               GET                 /api/profile/*",
+        "Basic       *               GET                 /api/oauth2/user",
+        "Bearer      ADMIN           *                   /api/oauth2/user",
+        "Bearer      ADMIN           *                   /api/oauth2/client"
+      ]
+    }
+  },
+  "apiUrl": "//toptal-jogging-tracker.herokuapp.com/api",
+  "jwtSecret": {
+    "cache": true,
+    "rateLimit": true,
+    "jwksRequestsPerMinute": 5,
+    "jwksUri": "https://rintoj.auth0.com/.well-known/jwks.json"
+  },
+  "authService": {
+    "issuer": "https://rintoj.auth0.com/",
+    "algorithms": [
+      "RS256"
+    ],
+    "clientId": "7d65d9b6-5cae-4db7-b19d-56cbdd25eaab",
+    "clientSecret": "a0c7b741-b18b-47eb-b6df-48a0bd3cde2e"
+  },
+  "authConfig": {
+    "clientID": "jiLSDWdYOvJucV1ld2tDdVH68mfWhGuC",
+    "domain": "rintoj.auth0.com",
+    "responseType": "id_token token",
+    "audience": "https://rintoj.auth0.com/userinfo",
+    "redirectUri": "//toptal-jogging-tracker.herokuapp.com/authorize",
+    "scope": "openid email profile",
+    "nonce": "6766380992235423"
   }
 }
