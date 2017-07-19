@@ -1,5 +1,5 @@
 const fallback = require('express-history-api-fallback')
-const mongoRestifier = require('mongo-restifier')
+const mongoRestifier = require('../mongo-restifier')
 const profileService = require('./service/profile-service')
 
 const isDev = process.env.NODE_ENV === 'development'
