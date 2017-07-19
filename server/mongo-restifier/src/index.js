@@ -131,6 +131,15 @@ var mongoRestifier = function mongoRestifier(propertyFile, transformer) {
 
     if (typeof configure === 'function') configure(app, properties, mongoose)
 
+    // fallback to index.html to support react router
+    if (properties.static != undefined && properties.static.root != undefined &&
+      properties.static.fallback != false) {
+      const root = process.cwd() + '/' + properties.static.root
+      app.use(fallback(properties.static.fallback, {
+        root
+      }))
+    }
+
     app.use(function(req, res, next) {
       // return '404' error if a requested url is not found
       res.status(404);
@@ -160,15 +169,6 @@ var mongoRestifier = function mongoRestifier(propertyFile, transformer) {
           message: error.message
         });
       });
-    }
-
-    // fallback to index.html to support react router
-    if (properties.static != undefined && properties.static.root != undefined &&
-      properties.static.fallback != false) {
-      const root = process.cwd() + '/' + properties.static.root
-      app.use(fallback(properties.static.fallback, {
-        root
-      }))
     }
 
     // set application port
