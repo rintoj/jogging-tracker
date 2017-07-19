@@ -122,7 +122,7 @@ class AuthService {
 
   private toUser(user, authInfo): User {
     return {
-      id: user.userId,
+      id: user.id,
       name: user.name,
       picture: user.picture,
       authInfo: {
