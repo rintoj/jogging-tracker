@@ -11,7 +11,9 @@
         "None        *               GET                 /api/profile/*",
         "Basic       *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
-        "Bearer      ADMIN           *                   /api/oauth2/client"
+        "Bearer      ADMIN           *                   /api/oauth2/client",
+        "Bearer      *               *                   /api/**",
+        "None        *               *                   /**"
       ]
     }
   },
