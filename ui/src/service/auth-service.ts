@@ -48,8 +48,6 @@ class AuthService {
         if (err) return reject(err)
         if (authResult && authResult.accessToken && authResult.idToken) {
           return Promise.resolve(this.toUser(authResult))
-            .then((user: User) => this.prepareApi(user.authInfo.accessToken) || user)
-            .then((user: User) => this.setSession(user.authInfo) || user)
             .then((user: User) => resolve(user))
             .catch(error => reject(error))
         }
@@ -61,12 +59,25 @@ class AuthService {
     return api.post('/user', { userId }, { authToken }).then(response => response.data)
   }
 
-  public signIn(username: string, password: string) {
-    return api.post('/oauth2/token', 'grant_type=password&username=rintoj%40gmail.com&password=test', {
+  public saveProfile(user: User, password: string) {
+    console.log(user, password)
+    return api.put('/profile', Object.assign({}, user, { password, authInfo: undefined }), {
       headers: {
-        Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
+        Authorization: `Bearer ${user.authInfo.accessToken}`
       }
-    }).then(response => response.data)
+    })
+  }
+
+  public signIn(username: string, password: string) {
+    return api.post('/oauth2/token', {
+      grant_type: 'password',
+      username,
+      password
+    }, {
+        headers: {
+          Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
+        }
+      }).then(response => response.data)
       .then(authInfo => this.prepareApi(authInfo.access_token) || authInfo)
     // .then(authInfo => this.toUser(authInfo, user))
     // .then((user: User) => this.setSession(user.authInfo) || user)
@@ -102,7 +113,6 @@ class AuthService {
     const { idTokenPayload } = result
     return {
       id: idTokenPayload.email,
-      email: idTokenPayload.email_verified ? idTokenPayload.email : undefined,
       name: idTokenPayload.name || idTokenPayload.nickname,
       picture: idTokenPayload.picture,
       authInfo: {
@@ -113,9 +123,9 @@ class AuthService {
     }
   }
 
-  private setSession(authInfo: AuthInfo): void {
-    localStorage.setItem(ACCESS_INFO_KEY, JSON.stringify(authInfo))
-  }
+  // private setSession(authInfo: AuthInfo): void {
+  //   localStorage.setItem(ACCESS_INFO_KEY, JSON.stringify(authInfo))
+  // }
 
   private clearSession(): void {
     localStorage.removeItem(ACCESS_INFO_KEY)

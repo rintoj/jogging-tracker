@@ -1,9 +1,11 @@
 import * as React from 'react'
 
+import { SaveProfileAction, SignInAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
 import { Button } from '../../component/button'
+import { Loader } from '../../component/index'
 import { TextInput } from '../../component/text-input'
 import { User } from '../../state/user'
 
@@ -17,6 +19,8 @@ class Props {
 interface State {
   name?: string
   password?: string
+  loading?: boolean
+  failed?: boolean
   error?: {
     name?: string
     password?: string
@@ -29,6 +33,10 @@ export class ProfilePage extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
+      name: 'Rinto Jose',
+      password: 'Password',
+      loading: true,
+      failed: false,
       error: {}
     }
   }
@@ -38,6 +46,7 @@ export class ProfilePage extends React.Component<Props, State> {
       if (this.props.user == undefined) {
         this.props.history.push('/signup')
       }
+      this.setState({ loading: false })
     }, 100)
   }
 
@@ -46,12 +55,14 @@ export class ProfilePage extends React.Component<Props, State> {
     return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-start login-card">
         <div className="flex flex-column items-center justify-center">
-          <img src={user.picture} alt="" className="w4 h4 br-100" />
-          <div className="mt3 b">{user.email}</div>
+          <img src={user.picture} alt="" className="w4 h4 br-100 divider-l" />
+          <div className="mt3">{user.id}</div>
         </div>
-        <form className="mt2 w-100">
+        {this.state.failed && <div className="error-text ttu mt3 tc">Something went wrong. Try again</div>}
+        {this.state.loading && <Loader className="mt4"></Loader>}
+        {!this.state.loading && <form className="mt2 w-100">
           <TextInput type="text"
-            id="password"
+            id="name"
             autoFocus={true}
             placeholder="Your Full Name"
             error={this.state.error.name}
@@ -64,7 +75,7 @@ export class ProfilePage extends React.Component<Props, State> {
             onChange={event => this.setState({ password: event.target.value })}
           ></TextInput>
           <Button submit={true} className="w-100 mt3" onClick={event => this.create(event)}>Create Account</Button>
-        </form>
+        </form>}
       </div>
     </div>
   }
@@ -85,7 +96,12 @@ export class ProfilePage extends React.Component<Props, State> {
   create(event) {
     event.preventDefault()
     if (this.validate()) {
-      this.props.history.push('/home')
+      const user = Object.assign({}, this.props.user, { name: this.state.name })
+      this.setState({ loading: true, failed: false })
+      new SaveProfileAction(user, this.state.password).dispatch()
+        .then(() => new SignInAction(user.id, this.state.password).dispatch())
+        .then(() => this.setState({ loading: false }))
+        .catch(error => this.setState({ loading: false, failed: true }))
     }
   }
 }

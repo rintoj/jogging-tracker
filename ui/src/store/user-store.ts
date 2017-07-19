@@ -1,3 +1,4 @@
+import { SaveProfileAction, SignOutAction } from '../action/index'
 import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
@@ -8,7 +9,6 @@ import { Observer } from 'rxjs/Observer'
 import { SendAuthCodeAction } from './../action/user-actions'
 import { SetRedirectUrlAction } from '../action/index'
 import { SetSignupStateAction } from '../action/index'
-import { SignOutAction } from '../action/index'
 import { User } from './../state/user'
 import { services } from './../service/index'
 
@@ -34,33 +34,10 @@ export class UserStore {
 
   validateUrl(url: string): string {
     if (url === '/authorize' || url === '/signin') {
-      if (services.authService.getSession() == undefined) {
-        return '/signin'
-      } {
-        return '/home'
-      }
+      return services.authService.getSession() == undefined ? '/signin' : '/home'
     }
     return url
   }
-
-  // @action()
-  // authorize(state: AppState, authorizeAction: AuthorizeAction): Observable<AppState> {
-  //   this.onRedirect = authorizeAction.onRedirect
-  //   return Observable.create((observer: Observer<AppState>) => {
-  //     observer.next({ authInProgress: true })
-  //     services.authService.handleAuthentication((error, user: User) => {
-  //       observer.next({ authInProgress: false })
-  //       if (error) {
-  //         if (this.redirectUrl === '/signin') {
-  //           this.onRedirect(this.redirectUrl, false)
-  //         }
-  //         return observer.next({ user: undefined })
-  //       }
-  //       observer.next({ user })
-  //       this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
-  //     })
-  //   })
-  // }
 
   @action()
   authorize(state: AppState, authorizeAction: AuthorizeAction): Observable<AppState> {
@@ -70,6 +47,11 @@ export class UserStore {
       if (location.pathname === '/authorize') { return this.handleSSOAuth(observer) }
       // this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
     })
+  }
+
+  @action()
+  saveProfile(state: AppState, saveProfileAction: SaveProfileAction): Promise<AppState> {
+    return services.authService.saveProfile(saveProfileAction.user, saveProfileAction.password)
   }
 
   @action()

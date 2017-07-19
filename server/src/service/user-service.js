@@ -4,7 +4,7 @@ const resolvable = require('resolvable')
 
 const router = express.Router()
 
-router.post('/register', (request, response) => {
+router.put('/profile', (request, response) => {
 
   const User = mongoose.models.User
 
@@ -13,13 +13,14 @@ router.post('/register', (request, response) => {
   }
 
   const userInfo = {
-    userId: request.user.email,
-    name: (request.user.name || '').replace(/\@.*$/, ''),
-    nickname: request.user.nickname,
-    picture: request.user.picture,
+    userId: request.body.id,
+    name: request.body.name,
+    picture: request.body.picture,
     active: true,
     roles: ['user']
   }
+
+  console.log(userInfo)
 
   if (request.body.password != undefined) {
     userInfo.password = request.body.password
@@ -52,6 +53,15 @@ function findUser(User, userId) {
 
 function saveUser(user) {
   return resolvable(user.save)()
+    .then(user => {
+      return user.new ? {
+        created: true,
+        id: user.userId
+      } : {
+        updated: true,
+        id: user.userId
+      }
+    })
 }
 
 function send(response, data, status) {

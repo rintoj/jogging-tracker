@@ -11,7 +11,7 @@ import { VerifyAuthCodeAction } from '../../action/user-actions'
 class Props {
   history?: string[]
 
-  @data((state: AppState) => state.user.email)
+  @data((state: AppState) => state.user.id)
   email?: string
 }
 
@@ -67,7 +67,6 @@ export class AuthCodePage extends React.Component<Props, State> {
       Promise.resolve()
         .then(() => new SetSignupStateAction('loading').dispatch())
         .then(() => new VerifyAuthCodeAction(this.props.email, this.state.authCode).dispatch())
-        .then(() => new SetSignupStateAction('password').dispatch())
     }
   }
 }
