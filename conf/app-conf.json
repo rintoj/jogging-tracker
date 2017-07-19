@@ -38,7 +38,7 @@
     "domain": "rintoj.auth0.com",
     "responseType": "id_token token",
     "audience": "https://rintoj.auth0.com/userinfo",
-    "redirectUri": "//toptal-jogging-tracker.herokuapp.com/authorize",
+    "redirectUri": "https://toptal-jogging-tracker.herokuapp.com/authorize",
     "scope": "openid email profile",
     "nonce": "6766380992235423"
   }
