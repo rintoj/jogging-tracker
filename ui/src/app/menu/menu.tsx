@@ -51,7 +51,7 @@ export class MenuComponent extends React.Component<Props, State> {
           onButtonClick={event => this.signOut(event)}
         ></Profile>
       </div>
-      <div className="ph3 pv1 flex-auto">
+      <div className="mh2 ph3 pv1 flex-auto">
         <Accordion title="Navigation" icon="navicon" className="pt3" open={true}>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
