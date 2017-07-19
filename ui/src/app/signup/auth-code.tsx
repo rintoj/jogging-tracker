@@ -42,11 +42,11 @@ export class AuthCodePage extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="flex flex-column flex-auto w-100 items-center justify-around">
-      {this.state.loading && <Loader></Loader>}
+    return <div className="flex flex-column flex-auto w-100 items-center justify-start">
+      {this.state.loading && <Loader className="mt6"></Loader>}
       {!this.state.loading &&
         <div className="w-100">
-          <div className="w-100 tc mb3">An email with the code has been sent to
+          <div className="w-100 tc mv3">An email with the code has been sent to
           <div className="b"> {this.props.email}</div>
           </div>
           <form className="w-100">

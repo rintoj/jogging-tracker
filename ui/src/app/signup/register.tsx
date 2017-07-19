@@ -32,7 +32,7 @@ export class RegisterPage extends React.Component<Props, State> {
 
   render() {
     return <div className="flex flex-column justify-around">
-      <Button className="w-100" color="ternary">
+      <Button className="w-100 mv3" color="ternary">
         <div className="w-100 flex justify-center">
           <IconText icon="google">{this.props.forgot ? 'Verify' : 'Sign up'} with Google</IconText>
         </div>

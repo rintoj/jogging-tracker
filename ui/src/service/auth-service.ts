@@ -127,7 +127,7 @@ class AuthService {
       picture: user.picture,
       authInfo: {
         accessToken: authInfo.access_token,
-        expiresAt: authInfo.expires_in + new Date().getTime(),
+        expiresAt: (authInfo.expires_in * 1000) + new Date().getTime(),
         refreshToken: authInfo.refresh_token,
         roles: user.roles
       }

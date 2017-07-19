@@ -7,6 +7,7 @@ interface Props {
   label?: string
   error?: string
   autoFocus?: boolean
+  disabled?: boolean
   placeholder?: string
   onFocus?: Function
   onBlur?: Function
@@ -22,6 +23,7 @@ export class TextInput extends React.Component<Props, State> {
       <input className={`br1 ba pa3 mv2 ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}
         id={this.props.id}
         autoFocus={this.props.autoFocus}
+        disabled={this.props.disabled}
         placeholder={this.props.placeholder || this.props.label}
         type={this.props.type} value={this.props.value}
         onFocus={(event) => this.onFocus(event)}

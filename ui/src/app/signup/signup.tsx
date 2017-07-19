@@ -9,6 +9,8 @@ import { RegisterPage } from './register'
 import { SignUpPageState } from '../../state/page-state'
 
 class Props {
+  history?: string[]
+
   @data((state: AppState) => state.signupPageState)
   state?: SignUpPageState
 }
@@ -23,7 +25,8 @@ export class SignUpPage extends React.Component<Props, State> {
   render() {
     return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-start login-card">
-        <div className="flex flex-column items-center justify-center">
+        <div className="flex flex-column items-center justify-center pointer "
+          onClick={event => this.goHome()}>
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />
           <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
@@ -34,6 +37,10 @@ export class SignUpPage extends React.Component<Props, State> {
         {this.props.state === 'auth-code' && <AuthCodePage email={this.state.email}></AuthCodePage>}
       </div>
     </div>
+  }
+
+  goHome() {
+    this.props.history.push('/home')
   }
 
 }

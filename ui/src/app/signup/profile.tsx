@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SaveProfileAction, SetRedirectUrlAction, SignInAction } from '../../action/index'
+import { SaveProfileAction, SetRedirectUrlAction, SignInAction, SignOutAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
@@ -46,57 +46,71 @@ export class ProfilePage extends React.Component<Props, State> {
     return this.state.name || this.user.name || ''
   }
 
-  get user() {
+  get user(): User {
     return this.props.draftUser || this.props.user || {}
+  }
+
+  get editable() {
+    return this.props.draftUser != undefined
   }
 
   componentWillMount() {
     setTimeout(() => {
       if (this.props.user == undefined && this.props.draftUser == undefined) {
-        this.props.history.push('/signup')
+        this.props.history.push('/signin')
       }
-      this.setState({ loading: false })
-    }, 100)
+      this.setState({ loading: false, name: this.user.name })
+    }, 1000)
   }
 
   render() {
     return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
-      <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-start login-card">
+      <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-around login-card">
         <div className="flex flex-column items-center justify-center">
           <img src={this.user.picture} alt="" className="w4 h4 br-100 divider-l" />
-          <div className="mt3">{this.user.id}</div>
+          <div className="f3 b tc title-text mt3">{this.user.name}</div>
+          <div className="mt2">{this.user.id}</div>
+          <div className="ttu tc title-text mt2">{(this.user.authInfo ? this.user.authInfo.roles : (this.user as any).roles)}</div>
         </div>
         {this.state.failed && <div className="error-text ttu mt3 tc">Something went wrong. Try again</div>}
-        {this.state.loading && <Loader className="mt4"></Loader>}
-        {!this.state.loading && <form className="mt2 w-100">
+        {this.state.loading && <Loader className="mt5"></Loader>}
+        {!this.state.loading && this.editable && <form className="mt2 w-100">
           <TextInput type="text"
             id="name"
             autoFocus={true}
             placeholder="Your Full Name"
-            value={this.name}
+            value={this.state.name || ''}
+            disabled={!this.editable}
             error={this.state.error.name}
             onChange={event => this.setState({ name: event.target.value })}
           ></TextInput>
           <TextInput type="password"
             id="password"
             placeholder="Enter Password"
+            disabled={!this.editable}
             error={this.state.error.password}
             onChange={event => this.setState({ password: event.target.value })}
           ></TextInput>
-          <div className="flex flex-around w-100">
-            <Button submit={true} className="w-100 mt3 mr2" onClick={event => this.create(event)}>Submit</Button>
-            <Button submit={true} color="secondary" className="w-100 mt3 ml2"
-              onClick={event => this.goHome(event)}>Go Home</Button>
-          </div>
+          <Button submit={true} className="w-100 mt3"
+            onClick={event => this.create(event)}>
+            {this.props.user || (this.props.draftUser && this.props.draftUser.name != undefined)
+              ? 'Update Profile' : 'Create Profile'}
+          </Button>
         </form>}
+        {!this.state.loading && !this.editable && <div className="flex flex-around w-100">
+          <Button submit={true} color="accent" className="w-100 mt4 mr2"
+            onClick={event => this.signOut(event)}>Sign Out</Button>
+          <Button submit={true} color="secondary" className="w-100 mt4 ml2"
+            onClick={event => this.goHome(event)}>Go Home</Button>
+        </div>}
       </div>
     </div>
   }
 
   validate(): boolean {
     const error = {
-      name: this.name == undefined || this.name.trim() === '' ? 'Required' :
-        !/^.+\s+.+$/.test(this.name) ? 'Invalid name' : undefined,
+      name: this.state.name == undefined || this.state.name.trim() === '' ? 'Required' :
+        !/^.+\s+.+$/.test(this.state.name) ? 'Invalid name' : undefined,
       password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' :
         !/^.{6,15}$/.test(this.state.password) ? 'Password must be 6 characters in length' : undefined
     }
@@ -106,6 +120,10 @@ export class ProfilePage extends React.Component<Props, State> {
     return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
+  signOut(event) {
+    event.preventDefault()
+    new SignOutAction().dispatch()
+  }
   goHome(event) {
     event.preventDefault()
     this.props.history.push('/home')
@@ -114,12 +132,15 @@ export class ProfilePage extends React.Component<Props, State> {
   create(event) {
     event.preventDefault()
     if (this.validate()) {
-      const user = Object.assign({}, this.props.draftUser, { name: this.name })
+      const user = Object.assign({}, this.user, { name: this.state.name })
       this.setState({ loading: true, failed: false })
       new SaveProfileAction(user, this.state.password).dispatch()
         .then(() => new SetRedirectUrlAction('/home').dispatch())
         .then(() => new SignInAction(user.id, this.state.password).dispatch())
-        .catch(error => this.setState({ loading: false, failed: true }))
+        .catch(error => {
+          console.error(error)
+          this.setState({ loading: false, failed: true })
+        })
     }
   }
 }

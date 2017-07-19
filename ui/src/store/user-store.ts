@@ -85,7 +85,7 @@ export class UserStore {
   @action()
   signIn(state: AppState, signInAction: SignInAction): Observable<AppState> {
     return Observable.create((observer: Observer<AppState>) => {
-      observer.next({ authInProgress: true })
+      observer.next({ draftUser: undefined, authInProgress: true })
       services.authService.signIn(signInAction.userId, signInAction.password)
         .then(user => {
           observer.next({ user, authInProgress: false })
