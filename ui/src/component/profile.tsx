@@ -5,6 +5,7 @@ interface Props {
   role?: string
   picture?: string
   showButton?: boolean
+  onProfileClick?: Function
   onButtonClick?: Function
 }
 interface State { }
@@ -13,7 +14,8 @@ export class Profile extends React.Component<Props, State> {
 
   render() {
     return <div className="flex items-center justify-around bt divider-l-br w-100 pv2">
-      <div className="flex flex-auto pointer divider-l--hover pa1">
+      <div className="flex flex-auto pointer divider-l--hover pa1"
+        onClick={event => this.onProfileClick(event)}>
         <div>
           {this.props.picture && <img src={this.props.picture} alt="" className="divider-l-br ba br-100 avatar" />}
           {!this.props.picture && <div className="white br-100 avatar flex items-center justify-center">R</div>}
@@ -26,6 +28,12 @@ export class Profile extends React.Component<Props, State> {
       {this.props.showButton && <div className="accent-text ttu pointer pa2 nowrap accent--hover br1"
         onClick={event => this.onButtonClick(event)}>Sign Out</div>}
     </div >
+  }
+
+  onProfileClick(event) {
+    if (typeof this.props.onProfileClick === 'function') {
+      this.props.onProfileClick(event)
+    }
   }
 
   onButtonClick(event) {

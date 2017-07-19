@@ -28,8 +28,9 @@ export class SignUpPage extends React.Component<Props, State> {
           <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
         {this.props.state === 'loading' && <Loader className="mt6"></Loader>}
-        {(this.props.state === 'register' || this.props.state == undefined) &&
-          <RegisterPage onEmailChange={email => this.setState({ email })}></RegisterPage>}
+        {(this.props.state === 'register' || this.props.state === 'forgot' || this.props.state == undefined) &&
+          <RegisterPage forgot={this.props.state === 'forgot'}
+            onEmailChange={email => this.setState({ email })}></RegisterPage>}
         {this.props.state === 'auth-code' && <AuthCodePage email={this.state.email}></AuthCodePage>}
       </div>
     </div>

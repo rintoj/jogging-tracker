@@ -47,7 +47,9 @@ export class MenuComponent extends React.Component<Props, State> {
         <Profile name={this.user.name}
           role={this.role} showButton={true}
           picture={this.user.picture}
-          onButtonClick={event => this.signOut(event)}></Profile>
+          onProfileClick={event => this.showProfile(event)}
+          onButtonClick={event => this.signOut(event)}
+        ></Profile>
       </div>
       <div className="ph3 pv1 flex-auto">
         <Accordion title="Navigation" icon="navicon" className="pt3" open={true}>
@@ -61,6 +63,10 @@ export class MenuComponent extends React.Component<Props, State> {
         <IconText icon="cogs" className="ttu pt3 pointer">Settings</IconText>
       </div>
     </div>
+  }
+
+  showProfile(event) {
+    this.props.history.push('/profile')
   }
 
   signOut(event) {

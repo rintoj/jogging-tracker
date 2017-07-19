@@ -63,6 +63,7 @@ export class SignInPage extends React.Component<Props, State> {
             <Button submit={true} className="flex-auto mr2" onClick={event => this.signIn(event)}>Sign In</Button>
             <Button className="ml2 flex-auto" color="secondary" onClick={event => this.signUp(event)}>Sign Up</Button>
           </div>
+          <div className="mt4 tc pointer glow o-60" onClick={event => this.forgotPassword(event)}>Forgot password?</div>
         </form>}
       </div>
     </div>
@@ -84,6 +85,13 @@ export class SignInPage extends React.Component<Props, State> {
     event.preventDefault()
     Promise.resolve()
       .then(() => new SetSignupStateAction('register').dispatch())
+      .then(() => this.props.history.push(`/signup`))
+  }
+
+  forgotPassword(event) {
+    event.preventDefault()
+    Promise.resolve()
+      .then(() => new SetSignupStateAction('forgot').dispatch())
       .then(() => this.props.history.push(`/signup`))
   }
 

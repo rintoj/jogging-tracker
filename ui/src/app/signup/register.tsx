@@ -9,7 +9,8 @@ import { TextInput } from '../../component'
 // import { Link } from 'react-router-dom'
 
 interface Props {
-  history?: string[],
+  history?: string[]
+  forgot?: boolean
   onEmailChange: Function
 }
 
@@ -33,7 +34,7 @@ export class RegisterPage extends React.Component<Props, State> {
     return <div className="flex flex-column justify-around">
       <Button className="w-100" color="ternary">
         <div className="w-100 flex justify-center">
-          <IconText icon="google">Sign up with Google</IconText>
+          <IconText icon="google">{this.props.forgot ? 'Verify' : 'Sign up'} with Google</IconText>
         </div>
       </Button>
       <div className="w-100 tc mt3">or</div>
@@ -45,7 +46,8 @@ export class RegisterPage extends React.Component<Props, State> {
           error={this.state.error.email}
           onChange={event => this.setState({ email: event.target.value })}
         ></TextInput>
-        <Button submit={true} className="w-100 mt3" onClick={event => this.signUp(event)}>Sign Up</Button>
+        <Button submit={true} className="w-100 mt3" onClick={event => this.signUp(event)}>
+          {this.props.forgot ? 'Verify' : 'Sign Up'}</Button>
       </form>
     </div>
   }

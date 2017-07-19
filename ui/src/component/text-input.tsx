@@ -17,7 +17,7 @@ interface State { }
 export class TextInput extends React.Component<Props, State> {
 
   render() {
-    return <div className="flex flex-column mt3">
+    return <div className="flex flex-column mt2">
       <label className="title-text ttu f6 b" htmlFor={this.props.id}>{this.props.label}</label>
       <input className={`br1 ba pa3 mv2 ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}
         id={this.props.id}

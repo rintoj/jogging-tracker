@@ -13,6 +13,9 @@ class Props {
   history?: string[]
 
   @data((state: AppState) => state.draftUser)
+  draftUser?: User
+
+  @data((state: AppState) => state.user)
   user?: User
 }
 
@@ -40,12 +43,16 @@ export class ProfilePage extends React.Component<Props, State> {
   }
 
   get name() {
-    return this.state.name || (this.props.user || {}).name || ''
+    return this.state.name || this.user.name || ''
+  }
+
+  get user() {
+    return this.props.draftUser || this.props.user || {}
   }
 
   componentWillMount() {
     setTimeout(() => {
-      if (this.props.user == undefined) {
+      if (this.props.user == undefined && this.props.draftUser == undefined) {
         this.props.history.push('/signup')
       }
       this.setState({ loading: false })
@@ -53,12 +60,11 @@ export class ProfilePage extends React.Component<Props, State> {
   }
 
   render() {
-    const user = this.props.user || {}
     return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-start login-card">
         <div className="flex flex-column items-center justify-center">
-          <img src={user.picture} alt="" className="w4 h4 br-100 divider-l" />
-          <div className="mt3">{user.id}</div>
+          <img src={this.user.picture} alt="" className="w4 h4 br-100 divider-l" />
+          <div className="mt3">{this.user.id}</div>
         </div>
         {this.state.failed && <div className="error-text ttu mt3 tc">Something went wrong. Try again</div>}
         {this.state.loading && <Loader className="mt4"></Loader>}
@@ -77,7 +83,11 @@ export class ProfilePage extends React.Component<Props, State> {
             error={this.state.error.password}
             onChange={event => this.setState({ password: event.target.value })}
           ></TextInput>
-          <Button submit={true} className="w-100 mt3" onClick={event => this.create(event)}>Create Account</Button>
+          <div className="flex flex-around w-100">
+            <Button submit={true} className="w-100 mt3 mr2" onClick={event => this.create(event)}>Submit</Button>
+            <Button submit={true} color="secondary" className="w-100 mt3 ml2"
+              onClick={event => this.goHome(event)}>Go Home</Button>
+          </div>
         </form>}
       </div>
     </div>
@@ -96,10 +106,15 @@ export class ProfilePage extends React.Component<Props, State> {
     return Object.keys(error).filter(i => error[i] != undefined).length === 0
   }
 
+  goHome(event) {
+    event.preventDefault()
+    this.props.history.push('/home')
+  }
+
   create(event) {
     event.preventDefault()
     if (this.validate()) {
-      const user = Object.assign({}, this.props.user, { name: this.name })
+      const user = Object.assign({}, this.props.draftUser, { name: this.name })
       this.setState({ loading: true, failed: false })
       new SaveProfileAction(user, this.state.password).dispatch()
         .then(() => new SetRedirectUrlAction('/home').dispatch())
