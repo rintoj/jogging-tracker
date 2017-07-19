@@ -10,7 +10,6 @@ interface State { }
 export class AuthorizePage extends React.Component<Props, State> {
   render() {
     return <div className="flex flex-column items-center justify-center vh-100">
-      <div className="ttu tc b mb3">Authorizing... Please wait...</div>
       <Loader></Loader>
     </div>
   }

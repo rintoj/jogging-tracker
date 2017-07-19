@@ -93,7 +93,7 @@ export class SignInPage extends React.Component<Props, State> {
       Promise.resolve()
         .then(() => new SignInAction(this.state.userId, this.state.password).dispatch())
         .catch(error => this.setState({
-          error: { password: 'Invalid user id or password' }
+          error: { password: 'Sorry, we could not authorize your email id or password' }
         }))
     }
   }

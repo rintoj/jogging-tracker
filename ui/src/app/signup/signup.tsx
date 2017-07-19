@@ -27,11 +27,10 @@ export class SignUpPage extends React.Component<Props, State> {
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />
           <div className="f3 tc mb4 ttu title-text b">Jog Tracker</div>
         </div>
-
-        {this.props.state === 'loading' && <Loader className="mt5"></Loader>}
-        {this.props.state === 'auth-code' && <AuthCodePage email={this.state.email}></AuthCodePage>}
+        {this.props.state === 'loading' && <Loader className="mt6"></Loader>}
         {(this.props.state === 'register' || this.props.state == undefined) &&
           <RegisterPage onEmailChange={email => this.setState({ email })}></RegisterPage>}
+        {this.props.state === 'auth-code' && <AuthCodePage email={this.state.email}></AuthCodePage>}
       </div>
     </div>
   }
