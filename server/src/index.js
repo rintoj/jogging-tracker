@@ -1,25 +1,36 @@
-var fallback = require('express-history-api-fallback')
-var auth0Service = require('./service/auth0-service')
-var mongoRestifier = require('mongo-restifier')
+const fallback = require('express-history-api-fallback')
+const mongoRestifier = require('mongo-restifier')
+const profileService = require('./service/profile-service')
 
-var isDev = process.env.NODE_ENV === 'development'
-var configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
-var config = require('../../' + configPath)
+const isDev = process.env.NODE_ENV === 'development'
+const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
+const config = require('../../' + configPath)
+
+const auth0Check = require('./service/auth0-service')(config)
 
 // configure the api
 mongoRestifier(configPath, (properties) => {
     properties.api.port = process.env.PORT || 5000
     return properties
   })
+
+  // register models
   .registerModel(require('./model/todo'))
+
+  // startup the app
   .startup((app) => {
 
-    const auth0Check = auth0Service(config)
-    app.use('/api', auth0Check, require('./service/user-service'))
+    // get profile service
+    app.use('/api', profileService.fetchProfileRouter)
 
-    // serve static
+    // save profile service used for register and password reset
+    app.use('/api', auth0Check, profileService.saveProfileRouter)
+
+    // serve static resources
     const root = __dirname + '/../../ui/dist'
     app.use(require('serve-static')(root));
+
+    // fallback to index.html to support react router
     app.use(fallback('index.html', {
       root
     }))

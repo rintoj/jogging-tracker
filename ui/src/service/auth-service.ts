@@ -34,9 +34,7 @@ class AuthService {
         email: emailId,
         verificationCode: authCode
       }, (err, res) => {
-        if (err) {
-          return reject(err)
-        }
+        if (err) return reject(err)
         resolve()
       })
     })
@@ -55,7 +53,7 @@ class AuthService {
     })
   }
 
-  public fetchUserInfo(userId: string, authToken: string) {
+  public fetchProfile(userId: string, authToken: string) {
     return api.post('/user', { userId }, { authToken }).then(response => response.data)
   }
 
@@ -69,15 +67,18 @@ class AuthService {
   }
 
   public signIn(username: string, password: string) {
-    return api.post('/oauth2/token', {
-      grant_type: 'password',
-      username,
-      password
-    }, {
-        headers: {
-          Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
-        }
-      }).then(response => response.data)
+
+    const params = new URLSearchParams()
+    params.append('grant_type', 'password')
+    params.append('username', username)
+    params.append('password', password)
+
+    return api.post('/oauth2/token', params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
+      }
+    }).then(response => response.data)
       .then(authInfo => this.prepareApi(authInfo.access_token) || authInfo)
     // .then(authInfo => this.toUser(authInfo, user))
     // .then((user: User) => this.setSession(user.authInfo) || user)

@@ -9,7 +9,8 @@ import { TextInput } from '../../component'
 // import { Link } from 'react-router-dom'
 
 interface Props {
-  history?: string[]
+  history?: string[],
+  onEmailChange: Function
 }
 
 interface State {
@@ -66,6 +67,7 @@ export class RegisterPage extends React.Component<Props, State> {
       Promise.resolve()
         .then(() => new SetSignupStateAction('loading').dispatch())
         .then(() => new SendAuthCodeAction(this.state.email).dispatch())
+        .then(() => this.props.onEmailChange(this.state.email))
         .then(() => new SetSignupStateAction('auth-code').dispatch())
     }
   }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { SaveProfileAction, SignInAction } from '../../action/index'
+import { SaveProfileAction, SetRedirectUrlAction, SignInAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
@@ -33,8 +33,7 @@ export class ProfilePage extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      name: 'Rinto Jose',
-      password: 'Password',
+      name: (this.props.user || {}).name,
       loading: true,
       failed: false,
       error: {}
@@ -99,6 +98,7 @@ export class ProfilePage extends React.Component<Props, State> {
       const user = Object.assign({}, this.props.user, { name: this.state.name })
       this.setState({ loading: true, failed: false })
       new SaveProfileAction(user, this.state.password).dispatch()
+        .then(() => new SetRedirectUrlAction('/home').dispatch())
         .then(() => new SignInAction(user.id, this.state.password).dispatch())
         .then(() => this.setState({ loading: false }))
         .catch(error => this.setState({ loading: false, failed: true }))

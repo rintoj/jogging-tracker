@@ -7,7 +7,7 @@
       "enable": true,
       "rules": [
         "None        *               OPTIONS             /api/**",
-        "None        *               *                   /api/profile",
+        "None        *               PUT                 /api/profile",
         "Basic       *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/client"

@@ -76,7 +76,7 @@ export class UserStore {
   @action()
   verifyAuthCode(state: AppState, verifyAuthCodeAction: VerifyAuthCodeAction): Promise<AppState> {
     return services.authService.verifyAuthCode(verifyAuthCodeAction.email, verifyAuthCodeAction.code)
-      .then(() => state, error => error)
+      .then(() => state)
   }
 
   @action()
