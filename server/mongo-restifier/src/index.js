@@ -31,7 +31,6 @@ var log4js = require('log4js');
 var logger = require('./util/logger');
 var express = require('express');
 var mongoose = require('mongoose');
-var fallback = require('express-history-api-fallback')
 var bodyParser = require('body-parser');
 var serviceModel = require('./core/service-model');
 var cookieParser = require('cookie-parser');
@@ -93,7 +92,8 @@ var mongoRestifier = function mongoRestifier(propertyFile, transformer) {
   // enable authentication module
   if (properties.api.oauth2 && properties.api.oauth2.enable === true) {
     // create oauth2 server
-    app.oauth2 = new OAuth2Server(app, properties.api.baseUrl + '/oauth2', properties.api.oauth2);
+    app.oauth2 = new OAuth2Server(app, properties.api.baseUrl + '/oauth2', properties.api.oauth2,
+      properties.api.baseUrl);
   }
 
   var registerModel = function(modelConfig) {
@@ -131,16 +131,15 @@ var mongoRestifier = function mongoRestifier(propertyFile, transformer) {
 
     if (typeof configure === 'function') configure(app, properties, mongoose)
 
-    // fallback to index.html to support react router
-    if (properties.static != undefined && properties.static.root != undefined &&
-      properties.static.fallback != false) {
-      const root = process.cwd() + '/' + properties.static.root
-      app.use(fallback(properties.static.fallback, {
-        root
-      }))
-    }
-
     app.use(function(req, res, next) {
+      // fallback mechanism
+      if (properties.static != undefined && properties.static.root != undefined &&
+        properties.static.fallback != false && !new RegExp('^' + properties.api.baseUrl).test(req.url)) {
+        const root = process.cwd() + '/' + properties.static.root + '/' + properties.static.fallback
+        logger.debug(req.url, 'falling back to ', root)
+        return res.sendFile(root)
+      }
+
       // return '404' error if a requested url is not found
       res.status(404);
       res.json({

@@ -124,7 +124,7 @@ var Client = clientSm.context.model;
  * @param app express.js application refrerence
  * @param baseUrl The base url for the api
  */
-var OAuth2Server = function OAuth2Server(app, baseUrl, properties) {
+var OAuth2Server = function OAuth2Server(app, baseUrl, properties, baseUrl) {
 
   var client, user;
   var model = {};
@@ -538,6 +538,10 @@ var OAuth2Server = function OAuth2Server(app, baseUrl, properties) {
 
   // apply auth rules and authorization
   app.use(function(request, response, next) {
+
+    if (!new RegExp('^' + baseUrl).test(request.url)) return next()
+
+    console.log('NEED AUTHENTICATION', request.url)
 
     var headerType = 'None';
     if (request.headers.authorization && request.headers.authorization.indexOf('Basic ') === 0) {
