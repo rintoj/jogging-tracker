@@ -7,6 +7,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { AuthorizeAction } from '../action/index'
 import { AuthorizePage } from './signup/authorize'
 import { HomePage } from './home/home'
+import { ProfilePage } from './signup/profile'
 import { SetRedirectUrlAction } from '../action/user-actions'
 import { SignInPage } from './login/sign-in'
 import { SignUpPage } from './signup/signup'
@@ -45,6 +46,7 @@ export class App extends React.Component<Props, {}> {
       <Route path="/signin" component={SignInPage} />
       <Route path="/signup" component={SignUpPage} />
       <Route path="/authorize" component={AuthorizePage} />
+      <Route path="/profile" component={ProfilePage} />
       <Route path="*" render={() => <Redirect to="/home" />} />
     </Switch>
   }

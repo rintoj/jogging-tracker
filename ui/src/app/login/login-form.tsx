@@ -31,6 +31,7 @@ export class LoginForm extends React.Component<Props, State> {
 
   render() {
     return <form>
+      <div className="tc mb4 ttu title-text b">Sign In with your Jog Tracker account</div>
       <TextInput type="text"
         id="userId"
         placeholder="Enter your email id"

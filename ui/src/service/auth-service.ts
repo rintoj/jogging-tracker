@@ -42,37 +42,17 @@ class AuthService {
     })
   }
 
-  public handleAuthentication(callback: Function): Promise<any> {
+  public handleAuthentication(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash({ nonce: AUTH_CONFIG.nonce }, (err, authResult) => {
-        // return error
-        if (err) {
-          return callback(err)
-        }
-
-        let authInfo
-
-        // authenticate user
+        if (err) return reject(err)
         if (authResult && authResult.accessToken && authResult.idToken) {
-          authInfo = this.toAuthInfo(authResult)
-        } else {
-          authInfo = this.getSession()
+          return Promise.resolve(this.toUser(authResult))
+            .then((user: User) => this.prepareApi(user.authInfo.accessToken) || user)
+            .then((user: User) => this.setSession(user.authInfo) || user)
+            .then((user: User) => resolve(user))
+            .catch(error => reject(error))
         }
-
-        if (authInfo == undefined) {
-          return callback('Not authenticated')
-        }
-
-        // fetch user info
-        this.fetchUserInfo(authInfo.email, authInfo.accessToken)
-          .then(user => this.prepareApi(authInfo.accessToken) || user)
-          .then(user => this.toUser(authInfo, user))
-          .then((user: User) => this.setSession(user.authInfo) || user)
-          .then((user: User) => callback(undefined, user) || user)
-          .then(resolve, error => {
-            reject(error)
-            callback(error)
-          })
       })
     })
   }
@@ -118,24 +98,19 @@ class AuthService {
     })
   }
 
-  private toAuthInfo(authResult): AuthInfo {
-    return authResult ? {
-      accessToken: authResult.idToken,
-      expiresAt: (authResult.expiresIn * 1000) + new Date().getTime(),
-      refreshToken: authResult.refreshToken
-    } : undefined
-  }
-
-  private toUser(authInfo: AuthInfo, user): User {
-    return user ? {
-      id: user.userId,
-      email: user.email_verified ? user.email : undefined,
-      name: user.name,
-      picture: user.picture,
-      authInfo: Object.assign({
-        roles: user.roles
-      }, authInfo)
-    } : undefined
+  private toUser(result: any): User {
+    const { idTokenPayload } = result
+    return {
+      id: idTokenPayload.email,
+      email: idTokenPayload.email_verified ? idTokenPayload.email : undefined,
+      name: idTokenPayload.name || idTokenPayload.nickname,
+      picture: idTokenPayload.picture,
+      authInfo: {
+        accessToken: result.idToken,
+        expiresAt: result.expiresIn + new Date().getTime(),
+        refreshToken: result.refreshToken
+      }
+    }
   }
 
   private setSession(authInfo: AuthInfo): void {

@@ -43,22 +43,32 @@ export class UserStore {
     return url
   }
 
+  // @action()
+  // authorize(state: AppState, authorizeAction: AuthorizeAction): Observable<AppState> {
+  //   this.onRedirect = authorizeAction.onRedirect
+  //   return Observable.create((observer: Observer<AppState>) => {
+  //     observer.next({ authInProgress: true })
+  //     services.authService.handleAuthentication((error, user: User) => {
+  //       observer.next({ authInProgress: false })
+  //       if (error) {
+  //         if (this.redirectUrl === '/signin') {
+  //           this.onRedirect(this.redirectUrl, false)
+  //         }
+  //         return observer.next({ user: undefined })
+  //       }
+  //       observer.next({ user })
+  //       this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
+  //     })
+  //   })
+  // }
+
   @action()
   authorize(state: AppState, authorizeAction: AuthorizeAction): Observable<AppState> {
     this.onRedirect = authorizeAction.onRedirect
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ authInProgress: true })
-      services.authService.handleAuthentication((error, user: User) => {
-        observer.next({ authInProgress: false })
-        if (error) {
-          if (this.redirectUrl === '/signin') {
-            this.onRedirect(this.redirectUrl, false)
-          }
-          return observer.next({ user: undefined })
-        }
-        observer.next({ user })
-        this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
-      })
+      if (location.pathname === '/authorize') { return this.handleSSOAuth(observer) }
+      // this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
     })
   }
 
@@ -100,6 +110,22 @@ export class UserStore {
   signOut(state: AppState, signOutAction: SignOutAction): AppState {
     services.authService.signOut()
     return state
+  }
+
+  private handleSSOAuth(observer) {
+    services.authService.handleAuthentication()
+      .then((user: User) => {
+        observer.next({ authInProgress: false, draftUser: user, user: undefined })
+        this.onRedirect('/profile')
+      })
+      .catch(error => {
+        console.log(error)
+        observer.next({ authInProgress: false })
+        if (this.redirectUrl === '/signin') {
+          this.onRedirect(this.redirectUrl, false)
+        }
+        return observer.next({ user: undefined })
+      })
   }
 
 }
