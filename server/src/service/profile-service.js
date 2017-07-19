@@ -5,7 +5,7 @@ const resolvable = require('resolvable')
 const fetchProfileRouter = express.Router()
 const saveProfileRouter = express.Router()
 
-fetchProfileRouter.get('/profile', (request, response) => {
+function fetchProfile(request, response) {
 
   const User = mongoose.models.User
 
@@ -17,42 +17,15 @@ fetchProfileRouter.get('/profile', (request, response) => {
     return send('Unauthorized', 401)
   }
 
-  Promise.resolve(request.user.userId)
+  Promise.resolve(request.user.userId || request.params.userId)
     .then(userId => findUser(User, userId))
     .then(user => maskUser(user))
     .then(user => send(response, user))
     .catch(error => handleError(error, response))
-})
-
-saveProfileRouter.put('/profile', (request, response) => {
-
-  const User = mongoose.models.User
-
-  if (User == undefined) {
-    return send('User service is not properly configured!', 500)
-  }
-
-  const userInfo = {
-    userId: request.body.id,
-    name: request.body.name,
-    picture: request.body.picture,
-    active: true,
-    roles: ['user']
-  }
-
-  if (request.body.password != undefined) {
-    userInfo.password = request.body.password
-  }
-
-  Promise.resolve(userInfo)
-    .then(user => findUser(User, user.userId))
-    .then(user => createRecord(user, userInfo, User))
-    .then(user => saveUser(user))
-    .then(user => send(response, user))
-    .catch(error => handleError(error, response))
-})
+}
 
 function maskUser(user) {
+  if (user == undefined) return user
   return {
     id: user.userId,
     name: user.name,
@@ -100,6 +73,38 @@ function send(response, data, status) {
     error: data
   } : data)
 }
+
+fetchProfileRouter.get('/profile', fetchProfile)
+
+saveProfileRouter.get('/profile/:userId', fetchProfile)
+
+saveProfileRouter.put('/profile', (request, response) => {
+
+  const User = mongoose.models.User
+
+  if (User == undefined) {
+    return send('User service is not properly configured!', 500)
+  }
+
+  const userInfo = {
+    userId: request.body.id,
+    name: request.body.name,
+    picture: request.body.picture,
+    active: true,
+    roles: ['user']
+  }
+
+  if (request.body.password != undefined) {
+    userInfo.password = request.body.password
+  }
+
+  Promise.resolve(userInfo)
+    .then(user => findUser(User, user.userId))
+    .then(user => createRecord(user, userInfo, User))
+    .then(user => saveUser(user))
+    .then(user => send(response, user))
+    .catch(error => handleError(error, response))
+})
 
 module.exports = {
   fetchProfileRouter,

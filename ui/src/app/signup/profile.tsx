@@ -33,11 +33,14 @@ export class ProfilePage extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      name: (this.props.user || {}).name,
       loading: true,
       failed: false,
       error: {}
     }
+  }
+
+  get name() {
+    return this.state.name || (this.props.user || {}).name || ''
   }
 
   componentWillMount() {
@@ -64,7 +67,7 @@ export class ProfilePage extends React.Component<Props, State> {
             id="name"
             autoFocus={true}
             placeholder="Your Full Name"
-            value={this.state.name || ''}
+            value={this.name}
             error={this.state.error.name}
             onChange={event => this.setState({ name: event.target.value })}
           ></TextInput>
@@ -82,8 +85,8 @@ export class ProfilePage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      name: this.state.name == undefined || this.state.name.trim() === '' ? 'Required' :
-        !/^.+\s+.+$/.test(this.state.name) ? 'Invalid name' : undefined,
+      name: this.name == undefined || this.name.trim() === '' ? 'Required' :
+        !/^.+\s+.+$/.test(this.name) ? 'Invalid name' : undefined,
       password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' :
         !/^.{6,15}$/.test(this.state.password) ? 'Password must be 6 characters in length' : undefined
     }
@@ -96,7 +99,7 @@ export class ProfilePage extends React.Component<Props, State> {
   create(event) {
     event.preventDefault()
     if (this.validate()) {
-      const user = Object.assign({}, this.props.user, { name: this.state.name })
+      const user = Object.assign({}, this.props.user, { name: this.name })
       this.setState({ loading: true, failed: false })
       new SaveProfileAction(user, this.state.password).dispatch()
         .then(() => new SetRedirectUrlAction('/home').dispatch())

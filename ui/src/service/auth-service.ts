@@ -46,7 +46,12 @@ class AuthService {
         if (err) return reject(err)
         if (authResult && authResult.accessToken && authResult.idToken) {
           return Promise.resolve(this.authResultToUser(authResult))
-            .then((user: User) => resolve(user))
+            .then((user: User) => this.fetchProfile(authResult.idToken, user.id)
+              .then(profile => Object.assign({}, user, profile)))
+            .then((user: User) => {
+              console.log(user)
+              resolve(user)
+            })
             .catch(error => reject(error))
         }
         reject(err)
@@ -54,8 +59,9 @@ class AuthService {
     })
   }
 
-  fetchProfile(authToken: string) {
-    return api.get('/profile', undefined, { authToken }).then(response => response.data)
+  fetchProfile(authToken: string, userId?: string) {
+    return api.get(`/profile${userId != undefined ? `/${userId}` : ''}`, undefined, { authToken })
+      .then(response => response.data)
   }
 
   saveProfile(user: User, password: string) {
@@ -132,7 +138,6 @@ class AuthService {
     const { idTokenPayload } = result
     return {
       id: idTokenPayload.email,
-      name: idTokenPayload.name || idTokenPayload.nickname,
       picture: idTokenPayload.picture,
       authInfo: {
         accessToken: result.idToken,
