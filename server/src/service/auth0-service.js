@@ -1,6 +1,7 @@
 const jwt = require('express-jwt')
 const jwksRsa = require('jwks-rsa')
 
+// this service lets you authenticate with auth0 services
 module.exports = function auth0Service(config) {
   return jwt({
     // Dynamically provide a signing key

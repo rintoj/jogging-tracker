@@ -2,9 +2,29 @@ const express = require('express')
 const mongoose = require('mongoose')
 const resolvable = require('resolvable')
 
-const router = express.Router()
+const fetchProfileRouter = express.Router()
+const saveProfileRouter = express.Router()
 
-router.post('/register', (request, response) => {
+fetchProfileRouter.get('/profile', (request, response) => {
+
+  const User = mongoose.models.User
+
+  if (User == undefined) {
+    return send('User service is not properly configured!', 500)
+  }
+
+  if (request.user == undefined) {
+    return send('Unauthorized', 401)
+  }
+
+  Promise.resolve(request.user.userId)
+    .then(userId => findUser(User, userId))
+    .then(user => maskUser(user))
+    .then(user => send(response, user))
+    .catch(error => handleError(error, response))
+})
+
+saveProfileRouter.put('/profile', (request, response) => {
 
   const User = mongoose.models.User
 
@@ -13,10 +33,9 @@ router.post('/register', (request, response) => {
   }
 
   const userInfo = {
-    userId: request.user.email,
-    name: (request.user.name || '').replace(/\@.*$/, ''),
-    nickname: request.user.nickname,
-    picture: request.user.picture,
+    userId: request.body.id,
+    name: request.body.name,
+    picture: request.body.picture,
     active: true,
     roles: ['user']
   }
@@ -33,6 +52,15 @@ router.post('/register', (request, response) => {
     .catch(error => handleError(error, response))
 })
 
+function maskUser(user) {
+  return {
+    id: user.userId,
+    name: user.name,
+    picture: user.picture,
+    roles: user.roles
+  }
+}
+
 function createRecord(user, userInfo, User) {
   return user ? Object.assign(user, {
     new: false
@@ -47,11 +75,22 @@ function handleError(error, response) {
 }
 
 function findUser(User, userId) {
-  return resolvable(User.findOne.bind(User))(userId)
+  return resolvable(User.findOne.bind(User))({
+    userId
+  })
 }
 
 function saveUser(user) {
   return resolvable(user.save)()
+    .then(user => {
+      return user.new ? {
+        created: true,
+        id: user.userId
+      } : {
+        updated: true,
+        id: user.userId
+      }
+    })
 }
 
 function send(response, data, status) {
@@ -62,4 +101,7 @@ function send(response, data, status) {
   } : data)
 }
 
-module.exports = router
+module.exports = {
+  fetchProfileRouter,
+  saveProfileRouter
+}

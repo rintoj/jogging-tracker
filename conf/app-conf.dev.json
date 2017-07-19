@@ -6,10 +6,8 @@
     "oauth2": {
       "enable": true,
       "rules": [
-        "None        *               OPTIONS             /api/oauth2/register",
-        "None        *               OPTIONS             /api/oauth2/client",
-        "None        *               OPTIONS             /api/oauth2/user",
-        "None        *               POST                /api/user",
+        "None        *               OPTIONS             /api/**",
+        "None        *               PUT                 /api/profile",
         "Basic       *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/client"

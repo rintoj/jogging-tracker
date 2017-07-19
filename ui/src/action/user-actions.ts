@@ -1,5 +1,6 @@
 import { Action } from 'statex'
 import { SignUpPageState } from '../state/page-state'
+import { User } from './../state/user'
 
 export class AuthorizeAction extends Action {
   constructor(public onRedirect: Function) { super() }
@@ -18,5 +19,8 @@ export class SetRedirectUrlAction extends Action {
 }
 export class SignInAction extends Action {
   constructor(public userId: string, public password: string) { super() }
+}
+export class SaveProfileAction extends Action {
+  constructor(public user: User, public password: string) { super() }
 }
 export class SignOutAction extends Action { }

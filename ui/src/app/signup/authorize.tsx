@@ -8,23 +8,9 @@ interface Props {
 interface State { }
 
 export class AuthorizePage extends React.Component<Props, State> {
-
-  private timeout
-
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      if (location.pathname === '/authorize') {
-        this.props.history.push('/signin')
-      }
-    }, 2000)
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout)
-  }
-
   render() {
-    return <div className="flex items-center justify-center vh-100">
+    return <div className="flex flex-column items-center justify-center vh-100">
+      <div className="ttu tc b mb3">Authorizing... Please wait...</div>
       <Loader></Loader>
     </div>
   }

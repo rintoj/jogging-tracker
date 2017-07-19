@@ -1,14 +1,15 @@
+import { SaveProfileAction, SignOutAction } from '../action/index'
 import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AppState } from './../state/app-state'
+import { AuthInfo } from './../state/auth-info'
 import { AuthorizeAction } from './../action/user-actions'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { SendAuthCodeAction } from './../action/user-actions'
 import { SetRedirectUrlAction } from '../action/index'
 import { SetSignupStateAction } from '../action/index'
-import { SignOutAction } from '../action/index'
 import { User } from './../state/user'
 import { services } from './../service/index'
 
@@ -34,11 +35,7 @@ export class UserStore {
 
   validateUrl(url: string): string {
     if (url === '/authorize' || url === '/signin') {
-      if (services.authService.getSession() == undefined) {
-        return '/signin'
-      } {
-        return '/home'
-      }
+      return services.authService.getSession() == undefined ? '/signin' : '/home'
     }
     return url
   }
@@ -48,18 +45,16 @@ export class UserStore {
     this.onRedirect = authorizeAction.onRedirect
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ authInProgress: true })
-      services.authService.handleAuthentication((error, user: User) => {
-        observer.next({ authInProgress: false })
-        if (error) {
-          if (this.redirectUrl === '/signin') {
-            this.onRedirect(this.redirectUrl, false)
-          }
-          return observer.next({ user: undefined })
-        }
-        observer.next({ user })
-        this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
-      })
+      if (location.pathname === '/authorize') {
+        return this.handleSSOAuth(observer)
+      }
+      this.validateSession(observer)
     })
+  }
+
+  @action()
+  saveProfile(state: AppState, saveProfileAction: SaveProfileAction): Promise<AppState> {
+    return services.authService.saveProfile(saveProfileAction.user, saveProfileAction.password)
   }
 
   @action()
@@ -84,22 +79,68 @@ export class UserStore {
   @action()
   verifyAuthCode(state: AppState, verifyAuthCodeAction: VerifyAuthCodeAction): Promise<AppState> {
     return services.authService.verifyAuthCode(verifyAuthCodeAction.email, verifyAuthCodeAction.code)
-      .then(() => state, error => error)
+      .then(() => state)
   }
 
   @action()
-  signIn(state: AppState, signInAction: SignInAction): Promise<AppState> {
-    return services.authService.signIn(signInAction.userId, signInAction.password)
-      .then(data => {
-        console.log(data)
-        return state
-      })
+  signIn(state: AppState, signInAction: SignInAction): Observable<AppState> {
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ authInProgress: true })
+      services.authService.signIn(signInAction.userId, signInAction.password)
+        .then(user => {
+          observer.next({ user, authInProgress: false })
+          observer.complete()
+          this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        }, error => {
+          observer.next({ authInProgress: false })
+          observer.error(error)
+          observer.complete()
+        })
+    })
   }
 
   @action()
   signOut(state: AppState, signOutAction: SignOutAction): AppState {
     services.authService.signOut()
     return state
+  }
+
+  private handleSSOAuth(observer) {
+    services.authService.handleAuthentication()
+      .then((user: User) => {
+        observer.next({ authInProgress: false, draftUser: user, user: undefined })
+        this.onRedirect('/profile')
+      })
+      .catch(error => {
+        observer.next({ authInProgress: false, user: undefined })
+        if (this.redirectUrl === '/signin') {
+          this.onRedirect(this.redirectUrl, false)
+        }
+      })
+  }
+
+  private validateSession(observer) {
+    const session: AuthInfo = services.authService.getSession()
+    if (session == undefined || !services.authService.isAuthenticated(session)) {
+      observer.next({ authInProgress: false, user: undefined })
+      observer.complete()
+      return this.onRedirect('/signin', false)
+    }
+
+    services.authService.fetchProfile(session.accessToken)
+      .then((user) => {
+        services.authService.prepareApi(session.accessToken)
+        observer.next({ user })
+        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+      })
+      .catch(error => {
+        services.authService.clearSession()
+        observer.next({ authInProgress: false, user: undefined })
+        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        if (this.redirectUrl === '/signin') {
+          this.onRedirect(this.redirectUrl, false)
+        }
+      })
   }
 
 }

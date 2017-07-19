@@ -1,2 +1,2 @@
 
-export type SignUpPageState = 'register' | 'password' | 'auth-code' | 'loading'
+export type SignUpPageState = 'register' | 'auth-code' | 'loading'

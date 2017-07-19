@@ -5,7 +5,6 @@ import { data, inject } from 'statex/react'
 import { AppState } from '../../state/index'
 import { AuthCodePage } from './auth-code'
 import { Loader } from '../../component/index'
-import { PasswordPage } from './password'
 import { RegisterPage } from './register'
 import { SignUpPageState } from '../../state/page-state'
 
@@ -14,7 +13,9 @@ class Props {
   state?: SignUpPageState
 }
 
-interface State { }
+interface State {
+  email?: string
+}
 
 @inject(Props)
 export class SignUpPage extends React.Component<Props, State> {
@@ -28,10 +29,9 @@ export class SignUpPage extends React.Component<Props, State> {
         </div>
 
         {this.props.state === 'loading' && <Loader className="mt5"></Loader>}
-        {this.props.state === 'password' && <PasswordPage></PasswordPage>}
-        {this.props.state === 'auth-code' && <AuthCodePage></AuthCodePage>}
+        {this.props.state === 'auth-code' && <AuthCodePage email={this.state.email}></AuthCodePage>}
         {(this.props.state === 'register' || this.props.state == undefined) &&
-          <RegisterPage></RegisterPage>}
+          <RegisterPage onEmailChange={email => this.setState({ email })}></RegisterPage>}
       </div>
     </div>
   }
