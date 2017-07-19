@@ -1,3 +1,4 @@
+import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AppState } from './../state/app-state'
@@ -9,7 +10,6 @@ import { SetRedirectUrlAction } from '../action/index'
 import { SetSignupStateAction } from '../action/index'
 import { SignOutAction } from '../action/index'
 import { User } from './../state/user'
-import { VerifyAuthCodeAction } from '../action/index'
 import { services } from './../service/index'
 
 const REDIRECT_URL_KEY = 'redirect_url'
@@ -65,7 +65,6 @@ export class UserStore {
   @action()
   setRedirectUrl(state: AppState, setRedirectUrlAction: SetRedirectUrlAction): AppState {
     this.redirectUrl = setRedirectUrlAction.redirectUrl
-
     return state
   }
 
@@ -86,6 +85,15 @@ export class UserStore {
   verifyAuthCode(state: AppState, verifyAuthCodeAction: VerifyAuthCodeAction): Promise<AppState> {
     return services.authService.verifyAuthCode(verifyAuthCodeAction.email, verifyAuthCodeAction.code)
       .then(() => state, error => error)
+  }
+
+  @action()
+  signIn(state: AppState, signInAction: SignInAction): Promise<AppState> {
+    return services.authService.signIn(signInAction.userId, signInAction.password)
+      .then(data => {
+        console.log(data)
+        return state
+      })
   }
 
   @action()

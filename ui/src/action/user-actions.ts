@@ -16,4 +16,7 @@ export class SetSignupStateAction extends Action {
 export class SetRedirectUrlAction extends Action {
   constructor(public redirectUrl?: string) { super() }
 }
+export class SignInAction extends Action {
+  constructor(public userId: string, public password: string) { super() }
+}
 export class SignOutAction extends Action { }

@@ -1,7 +1,8 @@
 import * as React from 'react'
 
+import { SetSignupStateAction, SignInAction } from '../../action'
+
 import { Button } from '../../component/button'
-import { SetSignupStateAction } from '../../action'
 import { TextInput } from '../../component/text-input'
 
 // import { Link } from 'react-router-dom'
@@ -72,7 +73,7 @@ export class LoginForm extends React.Component<Props, State> {
   signIn(event) {
     event.preventDefault()
     if (this.validate()) {
-      this.props.history.push(`/home`)
+      new SignInAction(this.state.userId, this.state.password).dispatch()
     }
   }
 }

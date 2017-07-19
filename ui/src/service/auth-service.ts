@@ -81,6 +81,22 @@ class AuthService {
     return api.post('/user', { userId }, { authToken }).then(response => response.data)
   }
 
+  public signIn(username: string, password: string) {
+    return api.post('/oauth2/token', 'grant_type=password&username=rintoj%40gmail.com&password=test', {
+      headers: {
+        Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
+      }
+    }).then(response => response.data)
+      .then(authInfo => this.prepareApi(authInfo.access_token) || authInfo)
+    // .then(authInfo => this.toUser(authInfo, user))
+    // .then((user: User) => this.setSession(user.authInfo) || user)
+    // .then((user: User) => callback(undefined, user) || user)
+    // .then(resolve, error => {
+    //   reject(error)
+    //   callback(error)
+    // })
+  }
+
   public signOut(): void {
     this.clearSession()
     this.auth0.logout({
