@@ -41,5 +41,8 @@
     "redirectUri": "http://localhost:3000/authorize",
     "scope": "openid email profile",
     "nonce": "6766380992235423"
+  },
+  "logger": {
+    "level": "INFO"
   }
 }
