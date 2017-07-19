@@ -12,7 +12,7 @@ class AuthService {
 
   private auth0 = new auth0.WebAuth(AUTH_CONFIG)
 
-  public requestAuthCode(emailId: string): Promise<any> {
+  requestAuthCode(emailId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth0.passwordlessStart({
         connection: 'email',
@@ -27,7 +27,7 @@ class AuthService {
     })
   }
 
-  public verifyAuthCode(emailId: string, authCode: string): Promise<any> {
+  verifyAuthCode(emailId: string, authCode: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth0.passwordlessVerify({
         connection: 'email',
@@ -40,25 +40,25 @@ class AuthService {
     })
   }
 
-  public handleAuthentication(): Promise<any> {
+  handleAuthentication(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash({ nonce: AUTH_CONFIG.nonce }, (err, authResult) => {
         if (err) return reject(err)
         if (authResult && authResult.accessToken && authResult.idToken) {
-          return Promise.resolve(this.toUser(authResult))
+          return Promise.resolve(this.authResultToUser(authResult))
             .then((user: User) => resolve(user))
             .catch(error => reject(error))
         }
+        reject(err)
       })
     })
   }
 
-  public fetchProfile(userId: string, authToken: string) {
-    return api.post('/user', { userId }, { authToken }).then(response => response.data)
+  fetchProfile(authToken: string) {
+    return api.get('/profile', undefined, { authToken }).then(response => response.data)
   }
 
-  public saveProfile(user: User, password: string) {
-    console.log(user, password)
+  saveProfile(user: User, password: string) {
     return api.put('/profile', Object.assign({}, user, { password, authInfo: undefined }), {
       headers: {
         Authorization: `Bearer ${user.authInfo.accessToken}`
@@ -66,8 +66,7 @@ class AuthService {
     })
   }
 
-  public signIn(username: string, password: string) {
-
+  signIn(username: string, password: string) {
     const params = new URLSearchParams()
     params.append('grant_type', 'password')
     params.append('username', username)
@@ -79,24 +78,21 @@ class AuthService {
         Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
       }
     }).then(response => response.data)
-      .then(authInfo => this.prepareApi(authInfo.access_token) || authInfo)
-    // .then(authInfo => this.toUser(authInfo, user))
-    // .then((user: User) => this.setSession(user.authInfo) || user)
-    // .then((user: User) => callback(undefined, user) || user)
-    // .then(resolve, error => {
-    //   reject(error)
-    //   callback(error)
-    // })
+      .then(authInfo => this.fetchProfile(authInfo.access_token).then(user => ({ user, authInfo })))
+      .then(data => this.toUser(data.user, data.authInfo))
+      .then((user: User) => this.prepareApi(user.authInfo.accessToken) || user)
+      .then((user: User) => this.setSession(user.authInfo) || user)
   }
 
-  public signOut(): void {
-    this.clearSession()
-    this.auth0.logout({
-      returnTo: AUTH_CONFIG.redirectUri
-    })
+  signOut(): Promise<any> {
+    return api.post('/oauth2/revoke')
+      .then(() => this.clearSession())
+      .then(() => this.auth0.logout({
+        returnTo: AUTH_CONFIG.redirectUri
+      }))
   }
 
-  public isAuthenticated(authInfo: AuthInfo): boolean {
+  isAuthenticated(authInfo: AuthInfo): boolean {
     return authInfo && new Date().getTime() < authInfo.expiresAt
   }
 
@@ -104,13 +100,35 @@ class AuthService {
     return JSON.parse(localStorage.getItem(ACCESS_INFO_KEY) || 'null')
   }
 
-  private prepareApi(accessToken: string) {
+  setSession(authInfo: AuthInfo): void {
+    localStorage.setItem(ACCESS_INFO_KEY, JSON.stringify(authInfo))
+  }
+
+  clearSession(): void {
+    localStorage.removeItem(ACCESS_INFO_KEY)
+  }
+
+  prepareApi(accessToken: string) {
     api.configure({
       authToken: accessToken
     })
   }
 
-  private toUser(result: any): User {
+  private toUser(user, authInfo): User {
+    return {
+      id: user.userId,
+      name: user.name,
+      picture: user.picture,
+      authInfo: {
+        accessToken: authInfo.access_token,
+        expiresAt: authInfo.expires_in + new Date().getTime(),
+        refreshToken: authInfo.refresh_token,
+        roles: user.roles
+      }
+    }
+  }
+
+  private authResultToUser(result: any): User {
     const { idTokenPayload } = result
     return {
       id: idTokenPayload.email,
@@ -122,14 +140,6 @@ class AuthService {
         refreshToken: result.refreshToken
       }
     }
-  }
-
-  // private setSession(authInfo: AuthInfo): void {
-  //   localStorage.setItem(ACCESS_INFO_KEY, JSON.stringify(authInfo))
-  // }
-
-  private clearSession(): void {
-    localStorage.removeItem(ACCESS_INFO_KEY)
   }
 
 }

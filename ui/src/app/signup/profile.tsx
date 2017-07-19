@@ -64,6 +64,7 @@ export class ProfilePage extends React.Component<Props, State> {
             id="name"
             autoFocus={true}
             placeholder="Your Full Name"
+            value={this.state.name || ''}
             error={this.state.error.name}
             onChange={event => this.setState({ name: event.target.value })}
           ></TextInput>
@@ -100,7 +101,6 @@ export class ProfilePage extends React.Component<Props, State> {
       new SaveProfileAction(user, this.state.password).dispatch()
         .then(() => new SetRedirectUrlAction('/home').dispatch())
         .then(() => new SignInAction(user.id, this.state.password).dispatch())
-        .then(() => this.setState({ loading: false }))
         .catch(error => this.setState({ loading: false, failed: true }))
     }
   }

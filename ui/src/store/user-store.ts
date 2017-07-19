@@ -3,6 +3,7 @@ import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AppState } from './../state/app-state'
+import { AuthInfo } from './../state/auth-info'
 import { AuthorizeAction } from './../action/user-actions'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
@@ -44,8 +45,10 @@ export class UserStore {
     this.onRedirect = authorizeAction.onRedirect
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ authInProgress: true })
-      if (location.pathname === '/authorize') { return this.handleSSOAuth(observer) }
-      // this.onRedirect(this.redirectUrl, services.authService.isAuthenticated(user && user.authInfo))
+      if (location.pathname === '/authorize') {
+        return this.handleSSOAuth(observer)
+      }
+      this.validateSession(observer)
     })
   }
 
@@ -80,12 +83,20 @@ export class UserStore {
   }
 
   @action()
-  signIn(state: AppState, signInAction: SignInAction): Promise<AppState> {
-    return services.authService.signIn(signInAction.userId, signInAction.password)
-      .then(data => {
-        console.log(data)
-        return state
-      })
+  signIn(state: AppState, signInAction: SignInAction): Observable<AppState> {
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ authInProgress: true })
+      services.authService.signIn(signInAction.userId, signInAction.password)
+        .then(user => {
+          observer.next({ user, authInProgress: false })
+          observer.complete()
+          this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        }, error => {
+          observer.next({ authInProgress: false })
+          observer.error(error)
+          observer.complete()
+        })
+    })
   }
 
   @action()
@@ -101,12 +112,34 @@ export class UserStore {
         this.onRedirect('/profile')
       })
       .catch(error => {
-        console.log(error)
-        observer.next({ authInProgress: false })
+        observer.next({ authInProgress: false, user: undefined })
         if (this.redirectUrl === '/signin') {
           this.onRedirect(this.redirectUrl, false)
         }
-        return observer.next({ user: undefined })
+      })
+  }
+
+  private validateSession(observer) {
+    const session: AuthInfo = services.authService.getSession()
+    if (session == undefined || !services.authService.isAuthenticated(session)) {
+      observer.next({ authInProgress: false, user: undefined })
+      observer.complete()
+      return this.onRedirect('/signin', false)
+    }
+
+    services.authService.fetchProfile(session.accessToken)
+      .then((user) => {
+        services.authService.prepareApi(session.accessToken)
+        observer.next({ user })
+        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+      })
+      .catch(error => {
+        services.authService.clearSession()
+        observer.next({ authInProgress: false, user: undefined })
+        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        if (this.redirectUrl === '/signin') {
+          this.onRedirect(this.redirectUrl, false)
+        }
       })
   }
 

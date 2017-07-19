@@ -9,7 +9,7 @@ import { AuthorizePage } from './signup/authorize'
 import { HomePage } from './home/home'
 import { ProfilePage } from './signup/profile'
 import { SetRedirectUrlAction } from '../action/user-actions'
-import { SignInPage } from './login/sign-in'
+import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
 
 interface Props {
@@ -21,13 +21,14 @@ export class App extends React.Component<Props, {}> {
   private authenticated: boolean
 
   componentDidMount() {
-    new SetRedirectUrlAction(location.pathname).dispatch()
-    new AuthorizeAction((redirectUrl, authenticated) => {
-      this.authenticated = authenticated
-      if (location.pathname !== redirectUrl) {
-        this.props.history.push(redirectUrl)
-      }
-    }).dispatch()
+    Promise.resolve()
+      .then(() => new SetRedirectUrlAction(location.pathname).dispatch())
+      .then(() => new AuthorizeAction((redirectUrl, authenticated) => {
+        this.authenticated = authenticated
+        if (location.pathname !== redirectUrl) {
+          this.props.history.push(redirectUrl)
+        }
+      }).dispatch())
   }
 
   protect(targetPage, roles?: string[]) {

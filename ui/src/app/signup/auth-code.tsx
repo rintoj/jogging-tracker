@@ -4,7 +4,7 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
 import { Button } from '../../component/button'
-import { Loader } from "../../component/index";
+import { Loader } from '../../component/index'
 import { SetSignupStateAction } from '../../action/index'
 import { TextInput } from '../../component/text-input'
 import { VerifyAuthCodeAction } from '../../action/user-actions'
