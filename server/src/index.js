@@ -26,12 +26,4 @@ mongoRestifier(configPath, (properties) => {
     // save profile service used for register and password reset
     app.use('/api', auth0Check, profileService.saveProfileRouter)
 
-    // serve static resources
-    const root = __dirname + '/../../ui/dist'
-    app.use(require('serve-static')(root));
-
-    // fallback to index.html to support react router
-    app.use(fallback('index.html', {
-      root
-    }))
   });

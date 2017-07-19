@@ -11,11 +11,12 @@
         "None        *               GET                 /api/profile/*",
         "Basic       *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
-        "Bearer      ADMIN           *                   /api/oauth2/client",
-        "Bearer      *               *                   /api/**",
-        "None        *               *                   /**"
+        "Bearer      ADMIN           *                   /api/oauth2/client"
       ]
     }
+  },
+  "static": {
+    "root": "ui/dist"
   },
   "apiUrl": "//localhost:5000/api",
   "jwtSecret": {

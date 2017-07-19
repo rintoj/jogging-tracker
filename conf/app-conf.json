@@ -15,6 +15,9 @@
       ]
     }
   },
+  "static": {
+    "root": "ui/dist"
+  },
   "apiUrl": "//toptal-jogging-tracker.herokuapp.com/api",
   "jwtSecret": {
     "cache": true,
