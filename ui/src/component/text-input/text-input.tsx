@@ -2,30 +2,41 @@ import * as React from 'react'
 
 interface Props {
   id?: string
-  type?: 'text' | 'number' | 'password' | 'color'
+  type?: 'text' | 'number' | 'password' | 'color' | 'date' | 'time'
   value?: string
   label?: string
   error?: string
   autoFocus?: boolean
+  min?: string
+  max?: string
+  step?: string
   disabled?: boolean
+  required?: boolean
   placeholder?: string
   onFocus?: Function
   onBlur?: Function
   onChange?: Function
+  className?: string
 }
 interface State { }
 
 export class TextInput extends React.Component<Props, State> {
 
   render() {
-    return <div className="flex flex-column mt2">
-      <label className="title-text ttu f6 b" htmlFor={this.props.id}>{this.props.label}</label>
+    return <div className={`${this.props.className} flex flex-column mt2`} >
+      <label className="title-text ttu f6 b nowrap" htmlFor={this.props.id}>{this.props.label}</label>
       <input className={`br1 ba pa3 mv2 ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}
         id={this.props.id}
+        name="time"
         autoFocus={this.props.autoFocus}
         disabled={this.props.disabled}
-        placeholder={this.props.placeholder || this.props.label}
+        min={this.props.min}
+        max={this.props.max}
+        step={this.props.step}
+        required={this.props.required}
+        style={{ height: '48px' }}
         type={this.props.type} value={this.props.value}
+        placeholder={this.props.placeholder || this.props.label}
         onFocus={(event) => this.onFocus(event)}
         onBlur={(event) => this.onBlur(event)}
         onChange={(event) => this.onChange(event)}

@@ -30,3 +30,10 @@ body,
   width: 40px;
   height: 40px;
 }
+
+input::-webkit-datetime-edit-ampm-field {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}

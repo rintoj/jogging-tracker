@@ -43,7 +43,6 @@ export class SignInPage extends React.Component<Props, State> {
         </div>
         {this.props.authInProgress && <Loader className="mt5"></Loader>}
         {!this.props.authInProgress && <form>
-          <div className="tc mb4 ttu title-text b">Sign In with your Jog Tracker account</div>
           <TextInput type="text"
             id="userId"
             placeholder="Enter your email id"

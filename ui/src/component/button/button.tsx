@@ -11,8 +11,9 @@ interface State { }
 export class Button extends React.Component<Props, State> {
 
   render() {
-    return <button className={`${this.props.className} ${this.props.color || 'accent'} divider-br ba br1 pa3 ttu f6`}
+    return <button className={`${this.props.className} ${this.props.color || 'accent'} nowrap divider-br ba br1 pa3 mv2 ttu f6`}
       type={this.props.submit ? 'submit' : 'button'}
+      style={{ height: '48px' }}
       onClick={event => this.onClick(event)}>
       {this.props.children}
     </button>
