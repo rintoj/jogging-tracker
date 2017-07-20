@@ -41,5 +41,8 @@
     "redirectUri": "https://jog-tracker-tt.herokuapp.com/authorize",
     "scope": "openid email profile",
     "nonce": "6766380992235423"
+  },
+  "logger": {
+    "level": "INFO"
   }
 }
