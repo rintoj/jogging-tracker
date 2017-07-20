@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { IconText } from '.'
+import { IconText } from '..'
 
 interface Props {
   title: string

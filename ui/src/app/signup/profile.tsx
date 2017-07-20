@@ -4,9 +4,9 @@ import { SaveProfileAction, SetRedirectUrlAction, SignInAction, SignOutAction } 
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
-import { Button } from '../../component/button'
-import { Loader } from '../../component/index'
-import { TextInput } from '../../component/text-input'
+import { Button } from '../../component'
+import { Loader } from '../../component'
+import { TextInput } from '../../component'
 import { User } from '../../state/user'
 
 class Props {

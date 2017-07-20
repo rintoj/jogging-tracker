@@ -4,7 +4,7 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
 import { AuthCodePage } from './auth-code'
-import { Loader } from '../../component/index'
+import { Loader } from '../../component'
 import { RegisterPage } from './register'
 import { SignUpPageState } from '../../state/page-state'
 

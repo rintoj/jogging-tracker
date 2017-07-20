@@ -4,9 +4,9 @@ import { SetSignupStateAction, SignInAction } from '../../action'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
-import { Button } from '../../component/button'
-import { Loader } from '../../component/index'
-import { TextInput } from '../../component/text-input'
+import { Button } from '../../component'
+import { Loader } from '../../component'
+import { TextInput } from '../../component'
 
 class Props {
   history?: string[]

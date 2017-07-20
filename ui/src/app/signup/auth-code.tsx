@@ -3,10 +3,10 @@ import * as React from 'react'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
-import { Button } from '../../component/button'
-import { Loader } from '../../component/index'
+import { Button } from '../../component'
+import { Loader } from '../../component'
 import { SetSignupStateAction } from '../../action/index'
-import { TextInput } from '../../component/text-input'
+import { TextInput } from '../../component'
 import { VerifyAuthCodeAction } from '../../action/user-actions'
 
 class Props {

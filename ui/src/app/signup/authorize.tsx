@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Loader } from '../../component/index'
+import { Loader } from '../../component'
 
 interface Props {
   history?: string[]
