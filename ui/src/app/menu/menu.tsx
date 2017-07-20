@@ -1,9 +1,10 @@
 import * as React from 'react'
 
-import { Accordion, IconText, Profile } from '../../component'
+import { Accordion, Button, IconText, Profile } from '../../component'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
+import { ShowFormAction } from '../../action/ui-actions'
 import { SignOutAction } from '../../action'
 import { User } from '../../state/user'
 
@@ -51,16 +52,20 @@ export class MenuComponent extends React.Component<Props, State> {
           onButtonClick={event => this.signOut(event)}
         ></Profile>
       </div>
-      <div className="mh2 ph3 pv1 flex-auto">
-        <Accordion title="Navigation" icon="navicon" className="pt3" open={true}>
+      <Button className="ma3" onClick={event => this.makeAnEntry()}>
+        <div className="flex items-center justify-center">
+          <div className="fa fa-add"></div>
+          <div className="ml2">Make an entry</div>
+        </div>
+      </Button>
+      <div className="mh2 ph2 pv1 flex-auto">
+        <IconText icon="pie-chart" className="pa2 pointer accent--hover br1 ttu">Statistics</IconText>
+        <IconText icon="address-card" className="pa2 pointer accent--hover br1 ttu">Log Entries</IconText>
+        <Accordion title="Manage Users" icon="user-circle" className="pa2" open={true}>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
         </Accordion>
-        <Accordion title="Manage Users" icon="user-circle" className="pt3" open={true}>
-          <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-          <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-        </Accordion>
-        <IconText icon="cogs" className="ttu pt3 pointer">Settings</IconText>
+        <IconText icon="cogs" className="ttu pa2 pointer">Settings</IconText>
       </div>
     </div>
   }
@@ -71,5 +76,9 @@ export class MenuComponent extends React.Component<Props, State> {
 
   signOut(event) {
     new SignOutAction().dispatch()
+  }
+
+  makeAnEntry() {
+    new ShowFormAction().dispatch()
   }
 }

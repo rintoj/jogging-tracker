@@ -77,7 +77,7 @@ export class Table extends React.Component<Props, State> {
       <tr key={index} className="striped--near-white">
         {this.props.showIndex && <td className={`tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}
         {row.map((value, colIndex) => <td key={`${index}${colIndex}`}
-          className={`tr pv4 ph4-l ph3-m ph2 nowrap`}>{
+          className={`tr pv4 ph4-l ph3-m ph2 nowrap ${this.props.columns[colIndex].className}`}>{
             typeof this.props.columns[colIndex].formatter === 'function' ?
               this.props.columns[colIndex].formatter(value, row, index, this.props.columns) : value
           }</td>)}

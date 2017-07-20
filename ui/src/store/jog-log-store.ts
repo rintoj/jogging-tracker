@@ -2,6 +2,7 @@ import { action, store } from 'statex/react'
 
 import { AddJogLogAction } from './../action/jog-log-actions'
 import { AppState } from './../state/app-state'
+import { RemoveJogLogAction } from '../action/index'
 import { services } from './../service/index'
 
 @store()
@@ -17,16 +18,22 @@ export class JogLogStore {
     }
   }
 
+  @action()
+  removeJogLog(state: AppState, removeJogLogAction: RemoveJogLogAction): AppState {
+    return {
+      jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
+    }
+  }
+
   toMinutes(time: [number, number]): number {
-    return (time || [0, 0])
+    return [].concat(time || [0, 0])
       .reverse()
       .reduce((a, v, i) => a + v * i * 60)
   }
 
   averageSpeed(distance: number, time: [number, number]) {
     let minutes = this.toMinutes(time)
-    console.log(minutes, distance, minutes / distance, minutes / distance / 60)
-    return minutes === 0 ? 0 : parseFloat(parseFloat(`${minutes / distance / 60}`).toFixed(2))
+    return minutes === 0 ? 0 : parseFloat(parseFloat(`${distance / minutes * 60}`).toFixed(2))
   }
 
 }

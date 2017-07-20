@@ -4,6 +4,7 @@ import { User } from './user'
 
 export interface AppState {
   jogLogs?: JogLog[]
+  showForm?: boolean
   authInProgress?: boolean
   user?: User
   draftUser?: User

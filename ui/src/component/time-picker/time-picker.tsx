@@ -19,29 +19,20 @@ interface Props {
   className?: string
 }
 interface State {
-  hour?: number
-  minute?: number
+  value?: [number, number]
 }
 
 export class TimePicker extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
-
-    const value = (this.props.value || [0, 0])
-    this.state = {
-      hour: value[0],
-      minute: value[1]
-    }
+    this.state = {}
   }
 
   componentWillReceiveProps(props) {
     this.props = props
-    const value = (this.props.value || [0, 0])
-    this.setState({
-      hour: value[0],
-      minute: value[1]
-    })
+    const value = this.props.value
+    this.setState({ value })
   }
 
   render() {
@@ -59,7 +50,7 @@ export class TimePicker extends React.Component<Props, State> {
           required={this.props.required}
           style={{ width: '48px', height: '48px' }}
           type="number"
-          value={`${this.state.hour}`}
+          value={`${this.state.value && this.state.value[0]}`}
           placeholder={'HH'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
@@ -74,7 +65,7 @@ export class TimePicker extends React.Component<Props, State> {
           required={this.props.required}
           style={{ width: '48px', height: '48px' }}
           type="number"
-          value={`${this.state.minute}`}
+          value={`${this.state.value && this.state.value[1]}`}
           placeholder={'MM'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
@@ -86,13 +77,13 @@ export class TimePicker extends React.Component<Props, State> {
   }
 
   onChange(event, type) {
+    const value: [number, number] = this.state.value || [0, 0]
+    value[type === 'hour' ? 0 : 1] = event.target.value.trim() === '' ? 0 : parseInt(event.target.value, undefined)
+    this.setState({ value })
 
-    const value = Object.assign({}, this.state)
-    value[type] = event.target.value.trim() === '' ? 0 : parseInt(event.target.value, undefined)
-    this.setState(value)
-
+    console.log(value)
     if (typeof this.props.onChange === 'function') {
-      this.props.onChange(event, [value.hour, value.minute])
+      this.props.onChange(event, value)
     }
   }
 
