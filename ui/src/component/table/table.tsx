@@ -25,7 +25,6 @@ export class Table extends React.Component<Props, State> {
   constructor(props) {
     super(props)
 
-    // prepare sort
     let sorts = {}
     for (let i = 0; i < this.props.columns.length; i++) {
       if (this.props.columns[i].sort != undefined) {
@@ -36,8 +35,16 @@ export class Table extends React.Component<Props, State> {
 
     // set initial state
     this.state = {
-      rows: this.props.rows,
       sorts
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    this.props = props
+    this.setState({ rows: props.rows })
+    let sortIndex = Object.keys(this.state.sorts)[0]
+    if (sortIndex != undefined) {
+      this.sort(sortIndex)
     }
   }
 
@@ -59,13 +66,20 @@ export class Table extends React.Component<Props, State> {
   }
 
   renderRecords() {
+    if (this.state.rows == undefined || this.state.rows.length === 0) {
+      return <tr className="striped--near-white">
+        <td className={`tc pv4 ph4-l ph3-m ph2 ttu nowrap`}
+          colSpan={this.props.columns.length + (this.props.showIndex ? 1 : 0)}>No Records!</td >
+      </tr>
+    }
+
     return (this.state.rows || []).map((row, index) =>
       <tr key={index} className="striped--near-white">
         {this.props.showIndex && <td className={`tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}
         {row.map((value, colIndex) => <td key={`${index}${colIndex}`}
-          className={`tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>{
-            typeof this.props.columns[index].formatter === 'function' ?
-              this.props.columns[index].formatter(value, row, index, this.props.columns) : value
+          className={`tr pv4 ph4-l ph3-m ph2 nowrap`}>{
+            typeof this.props.columns[colIndex].formatter === 'function' ?
+              this.props.columns[colIndex].formatter(value, row, index, this.props.columns) : value
           }</td>)}
       </tr>
     )

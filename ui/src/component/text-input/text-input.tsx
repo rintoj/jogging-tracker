@@ -25,9 +25,8 @@ export class TextInput extends React.Component<Props, State> {
   render() {
     return <div className={`${this.props.className} flex flex-column mt2`} >
       <label className="title-text ttu f6 b nowrap" htmlFor={this.props.id}>{this.props.label}</label>
-      <input className={`br1 ba pa3 mv2 ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}
-        id={this.props.id}
-        name="time"
+      <input id={this.props.id}
+        className={`br1 ba pa3 mv2 ${this.props.disabled ? 'divider' : 'white'} ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}
         autoFocus={this.props.autoFocus}
         disabled={this.props.disabled}
         min={this.props.min}

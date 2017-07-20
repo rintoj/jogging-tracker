@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface Props {
-  value?: string
+  value?: [number, number]
   label?: string
   error?: string
   autoFocus?: boolean
@@ -19,8 +19,8 @@ interface Props {
   className?: string
 }
 interface State {
-  hour?: string
-  minute?: string
+  hour?: number
+  minute?: number
 }
 
 export class TimePicker extends React.Component<Props, State> {
@@ -28,19 +28,29 @@ export class TimePicker extends React.Component<Props, State> {
   constructor(props) {
     super(props)
 
-    let value = (this.props.value || '0:0').split(':')
+    const value = (this.props.value || [0, 0])
     this.state = {
       hour: value[0],
       minute: value[1]
     }
   }
 
-  render() {
+  componentWillReceiveProps(props) {
+    this.props = props
+    const value = (this.props.value || [0, 0])
+    this.setState({
+      hour: value[0],
+      minute: value[1]
+    })
+  }
 
+  render() {
+    const color = this.props.disabled ? 'divider' : 'white'
     return <div className={`${this.props.className} flex flex-column mt2`} >
       <label className="title-text ttu f6 b nowrap">{this.props.label}</label>
-      <div className={`flex items-center white ba br1 mv2 ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}>
-        <input className="bn pl2 tr outline-0"
+      <div
+        className={`flex items-center ba br1 mv2 ${color} ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}>
+        <input className="bn pl2 tr outline-0 transparent"
           autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
           min={Math.max(0, this.props.hourMin || 0)}
@@ -48,22 +58,24 @@ export class TimePicker extends React.Component<Props, State> {
           step={this.props.step}
           required={this.props.required}
           style={{ width: '48px', height: '48px' }}
-          type="number" value={this.props.value}
-          placeholder={'00'}
+          type="number"
+          value={`${this.state.hour}`}
+          placeholder={'HH'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
           onChange={(event) => this.onChange(event, 'hour')}
         />
-        <div className="white pv3">:</div>
-        <input className="bn ph2 tc outline-0"
+        <div className="pv3">:</div>
+        <input className="bn pl2 tr outline-0 transparent"
           disabled={this.props.disabled}
           min={Math.max(0, this.props.minuteMin || 0)}
           max={Math.min(59, this.props.minuteMax || 59)}
           step={this.props.step}
           required={this.props.required}
           style={{ width: '48px', height: '48px' }}
-          type="number" value={this.props.value}
-          placeholder={'00'}
+          type="number"
+          value={`${this.state.minute}`}
+          placeholder={'MM'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
           onChange={(event) => this.onChange(event, 'minute')}
@@ -76,11 +88,11 @@ export class TimePicker extends React.Component<Props, State> {
   onChange(event, type) {
 
     const value = Object.assign({}, this.state)
-    value[type] = event.target.value.trim() === '' ? '0' : event.target.value
+    value[type] = event.target.value.trim() === '' ? 0 : parseInt(event.target.value, undefined)
     this.setState(value)
 
     if (typeof this.props.onChange === 'function') {
-      this.props.onChange(event, `${value.hour}:${value.minute}`)
+      this.props.onChange(event, [value.hour, value.minute])
     }
   }
 

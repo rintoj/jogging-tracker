@@ -10,7 +10,7 @@ import { INITIAL_STATE } from './state'
 import { initialize } from 'statex'
 
 initialize(INITIAL_STATE, {
-  hotLoad: false, // process.env.NODE_ENV !== 'production',
+  hotLoad: process.env.NODE_ENV !== 'production',
   domain: 'jogging-tracker'
 })
 
