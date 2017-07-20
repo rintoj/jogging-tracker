@@ -81,7 +81,6 @@ export class TimePicker extends React.Component<Props, State> {
     value[type === 'hour' ? 0 : 1] = event.target.value.trim() === '' ? 0 : parseInt(event.target.value, undefined)
     this.setState({ value })
 
-    console.log(value)
     if (typeof this.props.onChange === 'function') {
       this.props.onChange(event, value)
     }

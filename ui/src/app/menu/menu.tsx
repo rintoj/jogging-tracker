@@ -52,20 +52,28 @@ export class MenuComponent extends React.Component<Props, State> {
           onButtonClick={event => this.signOut(event)}
         ></Profile>
       </div>
-      <Button className="ma3" onClick={event => this.makeAnEntry()}>
-        <div className="flex items-center justify-center">
-          <div className="fa fa-add"></div>
-          <div className="ml2">Make an entry</div>
-        </div>
-      </Button>
-      <div className="mh2 ph2 pv1 flex-auto">
-        <IconText icon="pie-chart" className="pa2 pointer accent--hover br1 ttu">Statistics</IconText>
-        <IconText icon="address-card" className="pa2 pointer accent--hover br1 ttu">Log Entries</IconText>
-        <Accordion title="Manage Users" icon="user-circle" className="pa2" open={true}>
+      <div className="mh3 mt3 ph2">
+        <Button className="w-100" onClick={event => this.makeAnEntry()}>
+          <div className="flex items-center justify-center">
+            <div className="fa fa-add"></div>
+            <div className="ml2">Make an entry</div>
+          </div>
+        </Button>
+      </div>
+      <div className="mh2 ph2 flex-auto flex flex-column">
+        <div className="ttu pa2 o-60 mt4 divider-l-br bb">Navigation</div>
+        <IconText icon="pie-chart" className="pa2 mt2 pointer accent--hover br1 ttu"
+          onClick={event => this.goToStatisticsPage()}>Statistics</IconText>
+        <IconText icon="address-card" className="pa2 mt2 pointer accent--hover br1 ttu"
+          onClick={event => this.goHome()}>Log Entries</IconText>
+
+        <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
+        <Accordion title="Manage Users" icon="user-circle" className="pa2 mt2" open={false}>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
           <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
         </Accordion>
-        <IconText icon="cogs" className="ttu pa2 pointer">Settings</IconText>
+        <div className="flex-auto"></div>
+        <IconText icon="cogs" className="pa2 mb3 pointer accent--hover br1 ttu">Settings</IconText>
       </div>
     </div>
   }
@@ -80,5 +88,13 @@ export class MenuComponent extends React.Component<Props, State> {
 
   makeAnEntry() {
     new ShowFormAction().dispatch()
+  }
+
+  goToStatisticsPage() {
+    this.props.history.push('/statistics')
+  }
+
+  goHome() {
+    this.props.history.push('/home')
   }
 }

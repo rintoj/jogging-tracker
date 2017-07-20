@@ -4,7 +4,6 @@ import * as numeral from 'numeral'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
-import { JogForm } from './jog-form'
 import { JogLog } from '../../state/jog-log'
 import { MenuComponent } from '../menu/menu'
 import { RemoveJogLogAction } from '../../action/index'
@@ -15,9 +14,6 @@ class Props {
 
   @data((state: AppState) => state.jogLogs)
   jogLogs?: JogLog[]
-
-  @data((state: AppState) => state.showForm)
-  showForm?: boolean
 }
 interface State { }
 
@@ -27,11 +23,11 @@ const columns = [
     className: 'dn'
   }, {
     name: 'Date',
+    sort: true,
     sortable: true
   }, {
     name: 'Distance',
     sortable: true,
-    sort: false,
     formatter: (value) => parseFloat(value).toFixed(2) + ' km'
   }, {
     name: 'Time',
@@ -71,9 +67,8 @@ export class HomePage extends React.Component<Props, State> {
     const rows = (this.props.jogLogs || []).map(jogLog => this.toRow(jogLog))
     return <div className="flex">
       <MenuComponent history={this.props.history} />
-      <div className="flex flex-column pa4 w-100">
+      <div className="flex flex-column pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
-        {this.props.showForm && <JogForm></JogForm>}
         <Table columns={columns} rows={rows} showIndex={true}></Table>
       </div>
     </div>

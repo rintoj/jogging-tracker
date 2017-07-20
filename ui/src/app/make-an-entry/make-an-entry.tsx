@@ -5,7 +5,9 @@ import { Button, Loader, TextInput, TimePicker } from '../../component'
 import { AddJogLogAction } from '../../action/index'
 import { HideFormAction } from '../../action/ui-actions'
 
-interface Props { }
+interface Props {
+  history?: string[]
+}
 
 interface State {
   date?: string
@@ -19,7 +21,7 @@ interface State {
   }
 }
 
-export class JogForm extends React.Component<Props, State> {
+export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
@@ -91,19 +93,19 @@ export class JogForm extends React.Component<Props, State> {
   }
 
   close() {
-    new HideFormAction().dispatch()
+    return new HideFormAction().dispatch()
   }
 
   add(event) {
     event.preventDefault()
     if (this.validate()) {
       this.setState({ loading: true })
+      this.props.history.push('/home')
       new AddJogLogAction({
         date: this.state.date,
         time: this.state.time,
         distance: this.state.distance
       }).dispatch()
-        .then(() => this.setState({ loading: false, time: undefined, distance: undefined, date: undefined }))
         .then(() => this.close())
         .catch(() => this.setState({ loading: false, time: undefined, distance: undefined, date: undefined }))
     }

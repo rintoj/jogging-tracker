@@ -74,7 +74,7 @@ export class Table extends React.Component<Props, State> {
     }
 
     return (this.state.rows || []).map((row, index) =>
-      <tr key={index} className="striped--near-white">
+      <tr key={index} className="striped--near-white accent--hover">
         {this.props.showIndex && <td className={`tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}
         {row.map((value, colIndex) => <td key={`${index}${colIndex}`}
           className={`tr pv4 ph4-l ph3-m ph2 nowrap ${this.props.columns[colIndex].className}`}>{
