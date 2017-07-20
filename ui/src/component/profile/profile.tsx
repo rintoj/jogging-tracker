@@ -16,7 +16,7 @@ export class Profile extends React.Component<Props, State> {
     return <div className="flex items-center justify-around bt divider-l-br w-100 pv2">
       <div className="flex flex-auto pointer divider-l--hover pa1"
         onClick={event => this.onProfileClick(event)}>
-        <div>
+        <div className="avatar">
           {this.props.picture && <img src={this.props.picture} alt="" className="divider-l-br ba br-100 avatar" />}
           {!this.props.picture && <div className="white br-100 avatar flex items-center justify-center">R</div>}
         </div>
