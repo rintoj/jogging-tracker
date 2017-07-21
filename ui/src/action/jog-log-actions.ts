@@ -7,3 +7,4 @@ export class AddJogLogAction extends Action {
 export class RemoveJogLogAction extends Action {
   constructor(public id: string) { super() }
 }
+export class FetchJogLogsAction extends Action { }

@@ -15,5 +15,5 @@
   @include addColor(success, #29D185, #fff);
   @include addColor(warning, #ffae27, #424242);
   @include addColor(divider, rgba(0, 0, 0, 0.1));
-  @include addColor(divider-l, rgba(255, 255, 255, 0.4));
+  @include addColor(divider-l, rgba(255, 255, 255, 0.2));
 }

@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Loader } from '../index';
+
 export interface Column {
   name?: string
   sort?: boolean
@@ -13,6 +15,7 @@ interface Props {
   rows?: any[][]
   className?: string
   showIndex?: boolean
+  loading?: boolean
 }
 
 interface State {
@@ -85,11 +88,21 @@ export class Table extends React.Component<Props, State> {
     )
   }
 
+  renderLoading() {
+    return <tr className="striped--near-white">
+      <td className={`tc pv4 ph4-l ph3-m ph2 ttu nowrap`}
+        colSpan={this.props.columns.length + (this.props.showIndex ? 1 : 0)}>
+        <Loader></Loader>
+      </td >
+    </tr>
+  }
+
   render() {
     return <table className={`${this.props.className} card collapse f5 tl w-100 shadow-1 br1`}>
       <tbody>
         {this.renderHeader()}
-        {this.renderRecords()}
+        {!this.props.loading && this.renderRecords()}
+        {this.props.loading && this.renderLoading()}
       </tbody>
     </table>
   }

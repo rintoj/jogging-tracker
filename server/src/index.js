@@ -15,7 +15,7 @@ mongoRestifier(configPath, (properties) => {
   })
 
   // register models
-  .registerModel(require('./model/todo'))
+  .registerModel(require('./model/jog-log'))
 
   // startup the app
   .startup((app) => {

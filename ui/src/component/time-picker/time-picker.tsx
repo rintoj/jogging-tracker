@@ -51,7 +51,7 @@ export class TimePicker extends React.Component<Props, State> {
           style={{ width: '48px', height: '48px' }}
           type="number"
           value={`${this.state.value && this.state.value[0]}`}
-          placeholder={'HH'}
+          placeholder={'hh'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
           onChange={(event) => this.onChange(event, 'hour')}
@@ -66,7 +66,7 @@ export class TimePicker extends React.Component<Props, State> {
           style={{ width: '48px', height: '48px' }}
           type="number"
           value={`${this.state.value && this.state.value[1]}`}
-          placeholder={'MM'}
+          placeholder={'mm'}
           onFocus={(event) => this.onFocus(event)}
           onBlur={(event) => this.onBlur(event)}
           onChange={(event) => this.onChange(event, 'minute')}

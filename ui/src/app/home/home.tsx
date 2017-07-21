@@ -1,16 +1,19 @@
 import * as React from 'react'
 import * as numeral from 'numeral'
 
+import { FetchJogLogsAction, RemoveJogLogAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
 import { JogLog } from '../../state/jog-log'
 import { MenuComponent } from '../menu/menu'
-import { RemoveJogLogAction } from '../../action/index'
 import { Table } from '../../component/index'
 
 class Props {
   history?: string[]
+
+  @data((state: AppState) => state.requestInProgress)
+  requestInProgress?: boolean
 
   @data((state: AppState) => state.jogLogs)
   jogLogs?: JogLog[]
@@ -52,6 +55,10 @@ const columns = [
 @inject(Props)
 export class HomePage extends React.Component<Props, State> {
 
+  componentDidMount() {
+    new FetchJogLogsAction().dispatch()
+  }
+
   toRow(jogLog: JogLog): any[] {
     return [
       jogLog.id,
@@ -69,7 +76,7 @@ export class HomePage extends React.Component<Props, State> {
       <MenuComponent history={this.props.history} />
       <div className="flex flex-column pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
-        <Table columns={columns} rows={rows} showIndex={true}></Table>
+        <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}></Table>
       </div>
     </div>
   }

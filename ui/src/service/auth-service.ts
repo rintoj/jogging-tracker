@@ -91,7 +91,7 @@ class AuthService {
   }
 
   signOut(): Promise<any> {
-    return api.post('/oauth2/revoke')
+    return api.post('/oauth2/revoke', undefined)
       .then(() => this.clearSession())
       .then(() => this.auth0.logout({
         returnTo: AUTH_CONFIG.redirectUri

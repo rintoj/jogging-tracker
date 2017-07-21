@@ -33,7 +33,7 @@ export class Api {
     }))
   }
 
-  post(url: string, data?: Object, options?: Request) {
+  post(url: string, data: Object, options?: Request) {
     return this.request(Object.assign({}, options, {
       url,
       data,
@@ -41,7 +41,7 @@ export class Api {
     }))
   }
 
-  put(url: string, data?: Object, options?: Request) {
+  put(url: string, data: Object, options?: Request) {
     return this.request(Object.assign({}, options, {
       url,
       data,

@@ -36,7 +36,11 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
       <div className="flex flex-column justify-center mv4 white shadow-1 pa4 br1 z-1">
         <div className="f2 pb2 mb4 bb divider-br">Make an entry</div>
         <form className="flex flex-column justify-center item-start w-100">
-          <div className="flex justify-center items-center">
+          <div className="mb4 tc">
+            <div>Log your jog time. Enter date, distance (in KM) and time (in HH:MM).</div>
+            <div>Distance can be up to 100kms and time up to 100hrs.</div>
+          </div>
+          <div className="flex justify-center">
             <TextInput type="date"
               label="Date"
               min="0" max="100" step="0.01"
@@ -45,7 +49,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
               onChange={event => this.setState({ date: event.target.value })}></TextInput>
             <TextInput type="number"
               label="Distance"
-              placeholder="KM"
+              placeholder="km"
               className="ml4"
               min="0" max="100" step="0.01"
               value={this.state.distance + ''}
@@ -84,8 +88,12 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
   validate() {
     const errors = {
       date: this.state.date == undefined ? 'Required!' : undefined,
-      time: this.state.time == undefined ? 'Required!' : undefined,
-      distance: this.state.distance == undefined ? 'Required!' : undefined
+      time: this.state.time == undefined ? 'Required!' :
+        this.state.time.length !== 2 || this.state.time[0] < 0 || this.state.time[0] > 100 ||
+          this.state.time[1] < 0 || this.state.time[1] > 59 ?
+          'Invalid time' : undefined,
+      distance: this.state.distance == undefined ? 'Required!' :
+        this.state.distance < 0 || this.state.distance > 100 ? 'Invalid distance' : undefined
     }
 
     this.setState({ errors })
@@ -98,16 +106,18 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   add(event) {
     event.preventDefault()
-    if (this.validate()) {
-      this.setState({ loading: true })
-      this.props.history.push('/home')
-      new AddJogLogAction({
-        date: this.state.date,
-        time: this.state.time,
-        distance: this.state.distance
-      }).dispatch()
-        .then(() => this.close())
-        .catch(() => this.setState({ loading: false, time: undefined, distance: undefined, date: undefined }))
-    }
+    if (!this.validate()) return
+
+    this.setState({ loading: true })
+    this.props.history.push('/home')
+    new AddJogLogAction({
+      date: this.state.date,
+      time: this.state.time,
+      distance: this.state.distance
+    }).dispatch()
+      .then(() => this.setState({ loading: false }))
+      .then(() => this.close())
+      .catch(() => this.setState({ loading: false }))
+
   }
 }

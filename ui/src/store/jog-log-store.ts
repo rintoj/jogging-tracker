@@ -1,28 +1,73 @@
+import { FetchJogLogsAction, RemoveJogLogAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AddJogLogAction } from './../action/jog-log-actions'
 import { AppState } from './../state/app-state'
-import { RemoveJogLogAction } from '../action/index'
+import { JogLog } from './../state/jog-log'
+import { Observable } from 'rxjs/Observable'
+import { Observer } from 'rxjs/Observer'
 import { services } from './../service/index'
 
 @store()
 export class JogLogStore {
 
   @action()
-  addJogLog(state: AppState, addJogLogAction: AddJogLogAction): AppState {
-    return {
-      jogLogs: (state.jogLogs || []).concat(Object.assign({}, addJogLogAction.jogLog, {
-        id: services.utilService.generateId(),
-        averageSpeed: this.averageSpeed(addJogLogAction.jogLog.distance, addJogLogAction.jogLog.time)
-      }))
-    }
+  fetchJogLogs(state: AppState, fetchJogLogsAction: FetchJogLogsAction): Observable<AppState> {
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ requestInProgress: true })
+      services.jogLogService.fetch().then((jogLogs: JogLog[]) => {
+        console.log(jogLogs)
+        observer.next({ requestInProgress: false, jogLogs })
+        observer.complete()
+      }, () => {
+        observer.next({ requestInProgress: false })
+        observer.complete()
+      })
+    })
   }
 
   @action()
-  removeJogLog(state: AppState, removeJogLogAction: RemoveJogLogAction): AppState {
-    return {
-      jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
-    }
+  addJogLog(state: AppState, addJogLogAction: AddJogLogAction): Observable<AppState> {
+
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ requestInProgress: true })
+
+      // this logic must be moved to server side
+      let updatedJogLog = Object.assign({}, addJogLogAction.jogLog, {
+        id: services.utilService.generateId(),
+        averageSpeed: this.averageSpeed(addJogLogAction.jogLog.distance, addJogLogAction.jogLog.time)
+      })
+
+      services.jogLogService.add(updatedJogLog)
+        .then((jogLog: JogLog) => {
+          observer.next({
+            requestInProgress: false,
+            jogLogs: (state.jogLogs || []).concat(jogLog)
+          })
+          observer.complete()
+        }, () => {
+          observer.next({ requestInProgress: false })
+          observer.complete()
+        })
+    })
+  }
+
+  @action()
+  removeJogLog(state: AppState, removeJogLogAction: RemoveJogLogAction): Observable<AppState> {
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ requestInProgress: true })
+      services.jogLogService.remove(removeJogLogAction.id)
+        .then(() => {
+          observer.next({
+            requestInProgress: false,
+            jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
+          })
+          observer.complete()
+        }, () => {
+          observer.next({ requestInProgress: false })
+          observer.complete()
+        })
+    })
   }
 
   toMinutes(time: [number, number]): number {
