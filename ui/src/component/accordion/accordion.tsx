@@ -7,7 +7,10 @@ interface Props {
   icon?: string
   open?: boolean
   className?: string
+  badge?: string
+  onBadgeClick?: Function
 }
+
 interface State {
   open?: boolean
 }
@@ -27,16 +30,25 @@ export class Accordion extends React.Component<Props, State> {
 
   render() {
     return <div className={`${this.props.className}`}>
-      <div className="flex">
+      <div className="flex items-center pointer"
+        onClick={this.onClick.bind(this)}>
         <IconText icon={this.props.icon}
-          className="pointer ttu flex-auto"
-          onClick={this.onClick.bind(this)}>{this.props.title}</IconText>
+          className="pointer ttu mr3">{this.props.title}</IconText>
         <div className={`fa fa-caret-${this.state.open ? 'up' : 'down'}`}></div>
+        {this.props.badge && !this.state.open && <div className="accent-text ml3 br3 ttu f5"
+          onClick={event => this.onBadgeClick(event)}>{this.props.badge}</div>}
       </div>
       {this.state.open && <div className="pv3">
         {this.props.children}
       </div>
       }
     </div>
+  }
+
+  onBadgeClick(event) {
+    event.stopPropagation()
+    if (typeof this.props.onBadgeClick === 'function') {
+      this.props.onBadgeClick(event)
+    }
   }
 }

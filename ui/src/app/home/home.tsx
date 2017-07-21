@@ -1,10 +1,12 @@
 import * as React from 'react'
+import * as moment from 'moment'
 import * as numeral from 'numeral'
 
 import { FetchJogLogsAction, RemoveJogLogAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
+import { FilterForm } from './filter-form'
 import { JogLog } from '../../state/jog-log'
 import { MenuComponent } from '../menu/menu'
 import { Table } from '../../component/index'
@@ -27,7 +29,8 @@ const columns = [
   }, {
     name: 'Date',
     sort: true,
-    sortable: true
+    sortable: true,
+    formatter: (value) => moment(value).format('MMMM DD, YYYY')
   }, {
     name: 'Distance',
     sortable: true,
@@ -43,7 +46,7 @@ const columns = [
     formatter: (value) => parseFloat(value).toFixed(2) + ' km/h'
   }, {
     name: '',
-    className: 'tc',
+    className: 'tc w2',
     formatter: (value, rows) => <div className="w-100 ">
       <div className="fa f2 o-60 glow error-text fa-times-circle pointer" onClick={() => {
         new RemoveJogLogAction(rows[0]).dispatch()
@@ -76,6 +79,9 @@ export class HomePage extends React.Component<Props, State> {
       <MenuComponent history={this.props.history} />
       <div className="flex flex-column pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
+        <div className="flex mb4">
+          <FilterForm></FilterForm>
+        </div>
         <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}></Table>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Loader } from '../index';
+import { Loader } from '../index'
 
 export interface Column {
   name?: string

@@ -1,4 +1,4 @@
-import { FetchJogLogsAction, RemoveJogLogAction } from '../action/index'
+import { FetchJogLogsAction, RemoveJogLogAction, SetFiltersAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AddJogLogAction } from './../action/jog-log-actions'
@@ -15,8 +15,7 @@ export class JogLogStore {
   fetchJogLogs(state: AppState, fetchJogLogsAction: FetchJogLogsAction): Observable<AppState> {
     return Observable.create((observer: Observer<AppState>) => {
       observer.next({ requestInProgress: true })
-      services.jogLogService.fetch().then((jogLogs: JogLog[]) => {
-        console.log(jogLogs)
+      services.jogLogService.fetch(state.filters).then((jogLogs: JogLog[]) => {
         observer.next({ requestInProgress: false, jogLogs })
         observer.complete()
       }, () => {
@@ -67,6 +66,20 @@ export class JogLogStore {
           observer.next({ requestInProgress: false })
           observer.complete()
         })
+    })
+  }
+
+  @action()
+  setFilters(state: AppState, setFiltersAction: SetFiltersAction): Observable<AppState> {
+    return Observable.create((observer: Observer<AppState>) => {
+      observer.next({ requestInProgress: true, filters: setFiltersAction.filters })
+      services.jogLogService.fetch(setFiltersAction.filters).then((jogLogs: JogLog[]) => {
+        observer.next({ requestInProgress: false, jogLogs })
+        observer.complete()
+      }, () => {
+        observer.next({ requestInProgress: false })
+        observer.complete()
+      })
     })
   }
 

@@ -9,7 +9,8 @@ module.exports = {
       idField: true
     },
     date: {
-      type: String,
+      type: Date,
+      default: Date.now,
       required: true
     },
     distance: {
