@@ -93,6 +93,7 @@ class AuthService {
   signOut(): Promise<any> {
     return api.post('/oauth2/revoke', undefined)
       .then(() => this.clearSession())
+      .then(() => this.prepareApi(undefined))
   }
 
   isAuthenticated(authInfo: AuthInfo): boolean {

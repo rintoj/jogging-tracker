@@ -35,7 +35,7 @@ export class App extends React.Component<Props, {}> {
       .then(() => new AuthorizeAction((redirectUrl, authenticated) => {
         this.authenticated = authenticated
         if (location.pathname !== redirectUrl) {
-          this.props.history.push(redirectUrl)
+          this.props.history.replace(redirectUrl)
         }
       }).dispatch())
   }
