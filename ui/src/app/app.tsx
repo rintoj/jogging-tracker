@@ -9,7 +9,7 @@ import { AppState } from '../state/index'
 import { AuthorizeAction } from '../action/index'
 import { AuthorizePage } from './signup/authorize'
 import { BrowserHistory } from 'react-router-dom'
-import { HomePage } from './home/home'
+import { LogPage } from './log/log'
 import { MakeAnEntryDialog } from './make-an-entry/make-an-entry'
 import { ProfilePage } from './signup/profile'
 import { SetRedirectUrlAction } from '../action/user-actions'
@@ -58,7 +58,7 @@ export class App extends React.Component<Props, {}> {
   render() {
     return <div className="w-100 h-100">
       <Switch>
-        <Route path="/home" render={this.protect(HomePage)} />
+        <Route path="/logs" render={this.protect(LogPage)} />
         <Route path="/statistics" render={this.protect(StatisticsPage)} />
         <Route path="/users" render={this.protect(UsersPage)} />
         <Route path="/signin" component={SignInPage} />

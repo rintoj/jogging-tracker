@@ -63,7 +63,7 @@ const columns = [
 ]
 
 @inject(Props)
-export class HomePage extends React.Component<Props, State> {
+export class LogPage extends React.Component<Props, State> {
 
   componentDidMount() {
     new FetchJogLogsAction().dispatch()

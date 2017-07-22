@@ -47,7 +47,7 @@ export class StatisticsPage extends React.Component<Props, State> {
     return <Page history={this.props.history}>
       <div className="flex-auto w-100 vh-100 overflow-hidden overflow-y-auto">
         {this.props.statistics !== undefined && <div>
-          <div className="pa5 flex items-center justify-around flex-wrap">
+          <div className="pa4 flex items-center justify-around flex-wrap">
             <div className="flex flex-column items-center justify-center ma4">
               <div className="f2 mt2 nowrap">{this.moonDistance(overall)} <span className="f5">%</span></div>
               <div className="tc f5 ttu mt2 nowrap">of distance to moon</div>

@@ -136,7 +136,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
     if (!this.validate()) return
 
     this.setState({ loading: true })
-    this.props.history.push('/home')
+    this.props.history.push('/logs')
     new SaveJogLogAction({
       id: this.state.id,
       date: this.state.date,
