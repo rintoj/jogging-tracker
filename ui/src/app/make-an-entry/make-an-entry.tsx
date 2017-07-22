@@ -3,10 +3,11 @@ import * as React from 'react'
 import { Button, Loader, TextInput, TimePicker } from '../../component'
 
 import { AddJogLogAction } from '../../action/index'
+import { BrowserHistory } from 'react-router-dom'
 import { HideFormAction } from '../../action/ui-actions'
 
 interface Props {
-  history?: string[]
+  history?: BrowserHistory
 }
 
 interface State {

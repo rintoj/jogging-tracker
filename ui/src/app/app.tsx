@@ -8,6 +8,7 @@ import { data, inject } from 'statex/react'
 import { AppState } from '../state/index'
 import { AuthorizeAction } from '../action/index'
 import { AuthorizePage } from './signup/authorize'
+import { BrowserHistory } from 'react-router-dom'
 import { HomePage } from './home/home'
 import { MakeAnEntryDialog } from './make-an-entry/make-an-entry'
 import { ProfilePage } from './signup/profile'
@@ -17,7 +18,7 @@ import { SignUpPage } from './signup/signup'
 import { StatisticsPage } from './statistics/statistics'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.showForm)
   showForm?: boolean

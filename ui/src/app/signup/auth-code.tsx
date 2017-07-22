@@ -3,6 +3,7 @@ import * as React from 'react'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
+import { BrowserHistory } from 'react-router-dom'
 import { Button } from '../../component'
 import { Loader } from '../../component'
 import { SetSignupStateAction } from '../../action/index'
@@ -10,7 +11,7 @@ import { TextInput } from '../../component'
 import { VerifyAuthCodeAction } from '../../action/user-actions'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.user.id)
   email?: string

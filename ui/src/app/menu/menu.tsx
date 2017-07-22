@@ -4,12 +4,13 @@ import { Accordion, Button, IconText, Profile } from '../../component'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
+import { BrowserHistory } from 'react-router-dom'
 import { ShowFormAction } from '../../action/ui-actions'
 import { SignOutAction } from '../../action'
 import { User } from '../../state/user'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.user)
   user?: User
@@ -84,6 +85,7 @@ export class MenuComponent extends React.Component<Props, State> {
 
   signOut(event) {
     new SignOutAction().dispatch()
+      .then(() => this.props.history.replace('/signin'))
   }
 
   makeAnEntry() {

@@ -3,10 +3,11 @@ import * as React from 'react'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state'
+import { BrowserHistory } from 'react-router-dom'
 import { MenuComponent } from '../menu/menu'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.jogLogs.length)
   total: number

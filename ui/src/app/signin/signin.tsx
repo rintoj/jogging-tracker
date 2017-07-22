@@ -4,12 +4,13 @@ import { SetSignupStateAction, SignInAction } from '../../action'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
+import { BrowserHistory } from 'react-router-dom'
 import { Button } from '../../component'
 import { Loader } from '../../component'
 import { TextInput } from '../../component'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.authInProgress)
   authInProgress?: boolean = true

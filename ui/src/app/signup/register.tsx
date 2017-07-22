@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { SendAuthCodeAction, SetSignupStateAction } from '../../action'
 
+import { BrowserHistory } from 'react-router-dom'
 import { Button } from '../../component'
 import { IconText } from '../../component'
 import { TextInput } from '../../component'
@@ -9,7 +10,7 @@ import { TextInput } from '../../component'
 // import { Link } from 'react-router-dom'
 
 interface Props {
-  history?: string[]
+  history?: BrowserHistory
   forgot?: boolean
   onEmailChange: Function
 }

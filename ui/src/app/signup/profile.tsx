@@ -4,13 +4,14 @@ import { SaveProfileAction, SetRedirectUrlAction, SignInAction, SignOutAction } 
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
+import { BrowserHistory } from 'react-router-dom'
 import { Button } from '../../component'
 import { Loader } from '../../component'
 import { TextInput } from '../../component'
 import { User } from '../../state/user'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.draftUser)
   draftUser?: User

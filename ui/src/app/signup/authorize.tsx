@@ -1,9 +1,10 @@
 import * as React from 'react'
 
+import { BrowserHistory } from 'react-router-dom'
 import { Loader } from '../../component'
 
 interface Props {
-  history?: string[]
+  history?: BrowserHistory
 }
 interface State { }
 

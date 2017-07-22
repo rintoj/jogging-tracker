@@ -6,13 +6,14 @@ import { FetchJogLogsAction, RemoveJogLogAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
+import { BrowserHistory } from 'react-router-dom'
 import { FilterForm } from './filter-form'
 import { JogLog } from '../../state/jog-log'
 import { MenuComponent } from '../menu/menu'
 import { Table } from '../../component/index'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.requestInProgress)
   requestInProgress?: boolean

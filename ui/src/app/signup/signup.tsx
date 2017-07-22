@@ -4,12 +4,13 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
 import { AuthCodePage } from './auth-code'
+import { BrowserHistory } from 'react-router-dom'
 import { Loader } from '../../component'
 import { RegisterPage } from './register'
 import { SignUpPageState } from '../../state/page-state'
 
 class Props {
-  history?: string[]
+  history?: BrowserHistory
 
   @data((state: AppState) => state.signupPageState)
   state?: SignUpPageState
