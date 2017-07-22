@@ -21,10 +21,14 @@ export class StatisticsCard extends React.Component<Props, State> {
     }
   }
 
+  round(value: number) {
+    return parseFloat(`${value}`).toFixed(2)
+  }
+
   render() {
     if (this.props.entries == undefined || this.props.entries.length === 0) return <div />
     const { type, entries } = this.props
-    return <div className="card br1 shadow-1 ma3 divider-br ba" style={{ width: '250px' }}>
+    return <div className="card br1 shadow-1 ma3 divider-br ba" style={{ width: '300px' }}>
       <div className="w-100 accent" style={{ height: '3px' }}></div>
       <div className="ph2 flex items-center">
         <div className="pv2">
@@ -73,7 +77,7 @@ export class StatisticsCard extends React.Component<Props, State> {
         <span className="f4 b">{value}</span>
         <span className="f6 o-60"> {unit}</span>
       </div>
-      <div className="f5 o-60 mt2">{text}</div>
+      <div className="f5 o-60 mt2 nowrap">{text}</div>
     </div>
   }
 
@@ -86,8 +90,9 @@ export class StatisticsCard extends React.Component<Props, State> {
           <div className="br bb divider-br flex-auto"></div>
         </div>
         <div className="flex justify-around w-90">
-          {this.renderValue('Fastest', entry.fastest, 'km/h')}
-          {this.renderValue('Slowest', entry.slowest, 'km/h')}
+          {this.renderValue('Fastest', this.round(entry.fastestSpeed), 'km/h')}
+          {this.renderValue('Slowest', this.round(entry.slowestSpeed), 'km/h')}
+          {this.renderValue('Average', this.round(entry.averageSpeed), 'km/h')}
         </div>
       </div>
       <div className="flex flex-column justify-center items-center">
@@ -97,8 +102,9 @@ export class StatisticsCard extends React.Component<Props, State> {
           <div className="br bb divider-br flex-auto"></div>
         </div>
         <div className="flex justify-around w-90">
-          {this.renderValue('Longest', entry.longestDistance, 'km')}
-          {this.renderValue('Shortest', entry.shortestDistance, 'km')}
+          {this.renderValue('Longest', this.round(entry.longestDistance), 'km')}
+          {this.renderValue('Shortest', this.round(entry.shortestDistance), 'km')}
+          {this.renderValue('Average', this.round(entry.averageDistance), 'km')}
         </div>
       </div>
       <div className="flex flex-column justify-center items-center">
@@ -108,7 +114,7 @@ export class StatisticsCard extends React.Component<Props, State> {
           <div className="br bb divider-br flex-auto"></div>
         </div>
         <div className="flex justify-around w-90">
-          {this.renderValue('Distance', parseFloat(entry.distance + '').toFixed(2), 'km')}
+          {this.renderValue('Distance', this.round(entry.distance), 'km')}
           {this.renderValue('Time', entry.time.join(':'), 'hrs')}
         </div>
       </div>

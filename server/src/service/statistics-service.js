@@ -17,7 +17,7 @@ function startup() {
   started = true
 }
 
-function getStatistics(user) {
+function getJogLog(user) {
   if (!started) startup()
   return Promise.resolve(user)
     .then(user => findAll({
@@ -41,7 +41,7 @@ function toMinutes(time) {
 }
 
 function toTime(minutes) {
-  return [Math.floor(minutes / 60), minutes % 60]
+  return [Math.floor(minutes / 60), Math.round(minutes % 60)]
 }
 
 function measure(statistics, id, value, entry, data) {
@@ -49,23 +49,51 @@ function measure(statistics, id, value, entry, data) {
   statistics[type] = Object.assign({}, statistics[type], data)
   const s = statistics[type]
   s.type = id
-  if (s.slowest == undefined || s.slowest > entry.averageSpeed) s.slowest = entry.averageSpeed
-  if (s.fastest == undefined || s.fastest < entry.averageSpeed) s.fastest = entry.averageSpeed
+  if (s.slowestSpeed == undefined || s.slowestSpeed > entry.averageSpeed) s.slowestSpeed = entry.averageSpeed
+  if (s.fastestSpeed == undefined || s.fastestSpeed < entry.averageSpeed) s.fastestSpeed = entry.averageSpeed
   if (s.shortestDistance == undefined || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
   if (s.longestDistance == undefined || s.longestDistance < entry.distance) s.longestDistance = entry.distance
   s.distance = (s.distance == undefined ? 0 : s.distance) + entry.distance
+  s.speed = (s.speed == undefined ? 0 : s.speed) + entry.averageSpeed
   s.time = toTime((toMinutes(s.time) || 0) + toMinutes(entry.time))
-  // if (id === 'year' || id === 'overall') {
-  //   CONSOLE.LOG(TYPE, S.TIME, TOMINUTES(ENTRY.TIME))
-  // }
+  s.entries = (s.entries || 0) + 1
+}
+
+function measureAverage(statistics, id, value, data) {
+  const type = `${id}.${value}`
+  statistics[type] = Object.assign({}, statistics[type], data)
+  const s = statistics[type]
+
+  s.averageDistance = s.distance / s.entries
+  s.averageTime = toTime(toMinutes(s.time) / s.entries)
+  s.averageSpeed = s.speed / s.entries
 }
 
 router.get('/statistics', function(request, response) {
-  getStatistics(request.user.userId).then(data => {
+  getJogLog(request.user.userId).then(data => {
     const statistics = {}
     let fastest, slowest, month, year, week
     data.forEach((entry, index) => {
       const date = new Date(entry.date)
+
+      if (year != undefined && year != date.getFullYear()) {
+        measureAverage(statistics, 'year', year, {
+          year
+        })
+      }
+      if (month != undefined && month != date.getMonth()) {
+        measureAverage(statistics, 'month', month, {
+          year,
+          month
+        })
+      }
+      if (week != undefined && week != getWeek(date)) {
+        measureAverage(statistics, 'week', week, {
+          year,
+          month,
+          week
+        })
+      }
 
       year = date.getFullYear()
       month = date.getMonth()
@@ -84,6 +112,20 @@ router.get('/statistics', function(request, response) {
         month,
         week
       })
+    })
+
+    measureAverage(statistics, 'overall', 'overall')
+    measureAverage(statistics, 'year', year, {
+      year
+    })
+    measureAverage(statistics, 'month', month, {
+      year,
+      month
+    })
+    measureAverage(statistics, 'week', week, {
+      year,
+      month,
+      week
     })
 
     const output = Object.keys(statistics).reduce((a, i) => {

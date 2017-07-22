@@ -2,12 +2,15 @@ import { Time } from './time'
 
 export interface StatisticsEntry {
   type?: string
-  slowest?: number
-  fastest?: number
+  slowestSpeed?: number
+  fastestSpeed?: number
+  averageSpeed?: number
   shortestDistance?: number
   longestDistance?: number
+  averageDistance?: number
   distance?: number
   time?: Time
+  averageTime?: Time
 }
 
 export interface YearlyStatisticsEntry extends StatisticsEntry {
