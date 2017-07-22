@@ -74,7 +74,7 @@ router.get('/statistics', function(request, response) {
       measure(statistics, 'year', year, entry)
       measure(statistics, 'month', month, entry)
       measure(statistics, 'week', week, entry)
-      measure(statistics, 'overall', 'all', entry)
+      measure(statistics, 'overall', 'overall', entry)
     })
 
     const output = Object.keys(statistics).reduce((a, i) => {

@@ -1,6 +1,6 @@
 import { Time } from './time'
 
-export interface StatisticEntry {
+export interface StatisticsEntry {
   type?: string
   value?: number
   slowest?: number
@@ -12,8 +12,8 @@ export interface StatisticEntry {
 }
 
 export interface Statistics {
-  overall?: StatisticEntry[]
-  yearly?: StatisticEntry[]
-  monthly?: StatisticEntry[]
-  weekly?: StatisticEntry[]
+  overall?: StatisticsEntry[]
+  yearly?: StatisticsEntry[]
+  monthly?: StatisticsEntry[]
+  weekly?: StatisticsEntry[]
 }

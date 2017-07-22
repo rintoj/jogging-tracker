@@ -34,8 +34,8 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   render() {
     return <div className="absolute absolute--fill flex items-center justify-center">
-      <div className="title o-50 absolute absolute--fill"></div>
-      <div className="flex flex-column justify-center mv4 white shadow-1 pa4 br1 z-1">
+      <div className="title o-50 absolute absolute--fill" onClick={event => this.close()}></div>
+      <div className="flex flex-column justify-center mv4 white shadow-2 pa4 br1 z-1">
         <div className="f2 pb2 mb4 bb divider-br">Make an entry</div>
         <form className="flex flex-column justify-center item-start w-100">
           <div className="mb4 tc">

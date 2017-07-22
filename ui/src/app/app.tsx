@@ -59,7 +59,7 @@ export class App extends React.Component<Props, {}> {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/authorize" component={AuthorizePage} />
         <Route path="/profile" component={ProfilePage} />
-        <Route path="*" render={() => <Redirect to="/home" />} />
+        <Route path="*" render={() => <Redirect to="/statistics" />} />
       </Switch>
       {this.props.showForm && <MakeAnEntryDialog history={this.props.history}></MakeAnEntryDialog>}
     </div>
