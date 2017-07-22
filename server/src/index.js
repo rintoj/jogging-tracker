@@ -1,4 +1,5 @@
 const fallback = require('express-history-api-fallback')
+const dedupService = require('./service/dedup-service')
 const mongoRestifier = require('mongo-restifier')
 const profileService = require('./service/profile-service')
 const statisticsService = require('./service/statistics-service')
@@ -24,6 +25,7 @@ mongoRestifier(configPath, (properties) => {
     // get profile service
     app.use('/api', profileService.fetchProfileRouter)
     app.use('/api', statisticsService)
+    app.use('/api', dedupService)
 
     // save profile service used for register and password reset
     app.use('/api', auth0Check, profileService.saveProfileRouter)
