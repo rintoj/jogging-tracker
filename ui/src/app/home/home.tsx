@@ -78,7 +78,7 @@ export class HomePage extends React.Component<Props, State> {
     const rows = (this.props.jogLogs || []).map(jogLog => this.toRow(jogLog))
     return <div className="flex">
       <MenuComponent history={this.props.history} />
-      <div className="flex flex-column pa4 w-100 vh-100 overflow-y-auto">
+      <div className="pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
         <div className="flex mb4">
           <FilterForm></FilterForm>

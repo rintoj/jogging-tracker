@@ -15,6 +15,7 @@ class Props {
 interface State {
   filters?: Filters
   errors?: {
+    fromDate?: string
     toDate?: string
   }
 }
@@ -47,10 +48,13 @@ export class FilterForm extends React.Component<Props, State> {
         onBadgeClick={event => this.clearFilters()}>
         <form className="flex">
           <TextInput className="ml3" type="date" label="From Date"
+            style={{ width: '200px' }}
+            error={this.state.errors.fromDate}
             value={this.state.filters && this.state.filters.fromDate || ''}
             onChange={event => this.setFilter(event, 'fromDate')}
           ></TextInput>
           <TextInput className="ml3" type="date" label="To Date"
+            style={{ width: '200px' }}
             error={this.state.errors.toDate}
             value={this.state.filters && this.state.filters.toDate || ''}
             onChange={event => this.setFilter(event, 'toDate')}
@@ -60,21 +64,20 @@ export class FilterForm extends React.Component<Props, State> {
     </div >
   }
 
-  validate(filters) {
-    this.setState({
-      errors: {
-        toDate: filters.fromDate > filters.toDate ? 'To date must be greater than from date' : undefined
-      }
-    })
-
-    return Object.keys(this.state.errors).filter(i => this.state.errors[i] != undefined).length === 0
+  validate(filters, type) {
+    const errors = {}
+    errors[type] = filters.fromDate > filters.toDate ? 'To date must be greater than from date' : undefined
+    this.setState({ errors })
+    return Object.keys(errors).filter(i => errors[i] != undefined).length === 0
   }
 
   setFilter(event, type) {
     const filters = Object.assign({}, this.state.filters)
     filters[type] = event.target.value === '' ? undefined : event.target.value
-    this.setState({ filters })
-    new SetFiltersAction(filters).dispatch()
+    if (this.validate(filters, type)) {
+      this.setState({ filters })
+      new SetFiltersAction(filters).dispatch()
+    }
   }
 
   clearFilters() {
