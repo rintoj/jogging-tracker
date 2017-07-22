@@ -6,7 +6,7 @@ import { data, inject } from 'statex/react'
 import { AppState } from '../../state'
 import { BrowserHistory } from 'react-router-dom'
 import { FetchStatisticsAction } from '../../action/statistics-actions'
-import { MenuComponent } from '../menu/menu'
+import { Page } from '../page/page'
 import { StatisticsCard } from './statistics-card'
 
 class Props {
@@ -30,10 +30,9 @@ export class StatisticsPage extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="flex">
-      <MenuComponent history={this.props.history} />
-      <div className="pa4 w-100 vh-100 overflow-hidden overflow-y-auto">
-        <div className="f2 mb4">Statistics</div>
+    return <Page history={this.props.history}>
+      <div className="w-100 vh-100 overflow-hidden overflow-y-auto">
+        <div className="f2 mb4 ph4 pt4">Statistics</div>
         <div className="overflow-hidden overflow-x-auto nowrap w-100 divider">
           {this.props.statistics != undefined && this.props.statistics.overall != undefined &&
             this.props.statistics.yearly == undefined && this.props.statistics.yearly.length > 1 &&
@@ -49,6 +48,6 @@ export class StatisticsPage extends React.Component<Props, State> {
           <div>No log entries. Click on <span className="b">Make an Entry</span> to get started </div>
         }
       </div>
-    </div>
+    </Page>
   }
 }

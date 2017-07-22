@@ -9,7 +9,7 @@ import { AppState } from '../../state/app-state'
 import { BrowserHistory } from 'react-router-dom'
 import { FilterForm } from './filter-form'
 import { JogLog } from '../../state/jog-log'
-import { MenuComponent } from '../menu/menu'
+import { Page } from '../page/page'
 import { ShowFormAction } from '../../action/ui-actions'
 import { Table } from '../../component/index'
 
@@ -88,8 +88,7 @@ export class HomePage extends React.Component<Props, State> {
 
   render() {
     const rows = (this.props.jogLogs || []).map(jogLog => this.toRow(jogLog))
-    return <div className="flex">
-      <MenuComponent history={this.props.history} />
+    return <Page history={this.props.history}>
       <div className="pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
         <div className="flex mb4">
@@ -98,7 +97,7 @@ export class HomePage extends React.Component<Props, State> {
         <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}
           onClickRow={row => this.editRow(row)}></Table>
       </div>
-    </div>
+    </Page>
   }
 
   editRow(row: any[]) {
