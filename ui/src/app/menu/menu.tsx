@@ -8,7 +8,7 @@ import { BrowserHistory } from 'react-router-dom'
 import { ShowFormAction } from '../../action/ui-actions'
 import { SignOutAction } from '../../action'
 import { User } from '../../state/user'
-import { UserSelector } from "../user-selector/user-selector";
+import { UserSelector } from '../user-selector/user-selector'
 
 class Props {
   history?: BrowserHistory

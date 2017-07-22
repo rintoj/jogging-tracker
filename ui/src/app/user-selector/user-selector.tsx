@@ -5,7 +5,7 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state'
 import { Dialog } from '../../component/dialog/dialog'
-import { SelectUserAction } from '../../action/index';
+import { SelectUserAction } from '../../action/index'
 import { User } from '../../state/user'
 
 class Props {
@@ -41,7 +41,8 @@ export class UserSelector extends React.Component<Props, State> {
         <div className="f3 w-100 pt4 ph4 pb3">Select a user</div>
         <div className="divider-l-br bb w-100"></div>
         <div className="flex flex-wrap overflow-hidden overflow-y-auto ph4 mt2" style={{ width: '300px', maxHeight: '200px' }}>
-          {this.props.users.map(user => <Profile name={user.name}
+          {this.props.users.map(user => <Profile key={user.id}
+            name={user.name}
             picture={user.picture}
             roles={user.authInfo.roles}
             onProfileClick={event => this.selectUser(user)}

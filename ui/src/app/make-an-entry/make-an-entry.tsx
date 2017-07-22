@@ -6,7 +6,7 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
 import { BrowserHistory } from 'react-router-dom'
-import { Dialog } from '../../component/dialog/dialog';
+import { Dialog } from '../../component/dialog/dialog'
 import { HideFormAction } from '../../action/ui-actions'
 import { JogLog } from '../../state/jog-log'
 import { SaveJogLogAction } from '../../action/index'

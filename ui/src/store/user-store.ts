@@ -89,8 +89,11 @@ export class UserStore {
       services.authService.signIn(signInAction.userId, signInAction.password)
         .then(user => {
           observer.next({ user, authInProgress: false })
+          if (user.authInfo.roles.indexOf('admin') >= 0) {
+            return this.fetchUsers(user, observer)
+          }
           observer.complete()
-          this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+          return this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
         }, error => {
           observer.next({ authInProgress: false })
           observer.error(error)
@@ -100,9 +103,18 @@ export class UserStore {
   }
 
   @action()
-  signOut(state: AppState, signOutAction: SignOutAction): AppState {
-    services.authService.signOut()
-    return state
+  signOut(state: AppState, signOutAction: SignOutAction): Promise<AppState> {
+    const resetState: AppState = {
+      user: undefined,
+      selectedUser: undefined,
+      authInProgress: false
+    }
+
+    return new Promise((resolve, reject) => {
+      services.authService.signOut()
+        .then(() => resolve(resetState))
+        .catch(() => resolve(resetState))
+    })
   }
 
   @action()
@@ -124,6 +136,14 @@ export class UserStore {
       })
   }
 
+  private fetchUsers(user: User, observer: Observer<AppState>): Promise<any> {
+    return services.authService.fetchUsers().then(users => {
+      const selectedUser = users.find(item => item.id === user.id)
+      observer.next({ users, selectedUser })
+      this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+    })
+  }
+
   private validateSession(observer) {
     const session: AuthInfo = services.authService.getSession()
     if (session == undefined || !services.authService.isAuthenticated(session)) {
@@ -138,15 +158,10 @@ export class UserStore {
         services.authService.prepareApi(session.accessToken)
         observer.next({ user })
         if (user.authInfo.roles.indexOf('admin') >= 0) {
-          services.authService.fetchUsers().then(users => {
-            const selectedUser = users.find(item => item.id === user.id)
-            console.log(users, selectedUser)
-            observer.next({ users, selectedUser })
-            this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
-          })
-        } else {
-          this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+          return this.fetchUsers(user, observer)
         }
+        observer.complete()
+        return this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
       })
       .catch(error => {
         console.log(error)
