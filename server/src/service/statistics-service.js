@@ -72,9 +72,8 @@ function measure(statistics, id, value, entry, data) {
 
 function measureAverage(statistics, id, value, data) {
   const type = `${id}.${value}`
-  statistics[type] = Object.assign({}, statistics[type], data)
   const s = statistics[type]
-
+  if (s == undefined) return
   s.averageDistance = s.distance / s.entries
   s.averageTime = toTime(toMinutes(s.time) / s.entries)
   s.averageSpeed = s.speed / s.entries

@@ -115,7 +115,7 @@ export class StatisticsCard extends React.Component<Props, State> {
         </div>
         <div className="flex justify-around w-90">
           {this.renderValue('Distance', this.round(entry.distance), 'km')}
-          {this.renderValue('Time', entry.time.join(':'), 'hrs')}
+          {this.renderValue('Time', (entry.time || []).join(':'), 'hrs')}
         </div>
       </div>
     </div>
