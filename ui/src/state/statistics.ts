@@ -8,9 +8,10 @@ export interface StatisticsEntry {
   shortestDistance?: number
   longestDistance?: number
   averageDistance?: number
+  longestDistDate?: Date
   distance?: number
   time?: Time
-  averageTime?: Time
+  averageTime?: Time,
 }
 
 export interface YearlyStatisticsEntry extends StatisticsEntry {
@@ -23,6 +24,8 @@ export interface MonthlyStatisticsEntry extends YearlyStatisticsEntry {
 
 export interface WeeklyStatisticsEntry extends MonthlyStatisticsEntry {
   week?: number
+  startOfWeek?: Date
+  endOfWeek?: Date
 }
 
 export interface Statistics {

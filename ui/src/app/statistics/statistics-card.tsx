@@ -51,11 +51,6 @@ export class StatisticsCard extends React.Component<Props, State> {
     return new Date(2000, month, 1).toLocaleString('en-us', { month: 'long' })
   }
 
-  weekRange(week: number) {
-    const range = `${moment(new Date()).week(week).add(1, 'day').format('MMM DD')} - ${moment(new Date()).week(week + 1).format('DD')}`
-    return range
-  }
-
   toTitle(entry: StatisticsEntry) {
     if (entry.type === 'year') {
       const yearlyEntry: YearlyStatisticsEntry = entry as YearlyStatisticsEntry
@@ -65,7 +60,7 @@ export class StatisticsCard extends React.Component<Props, State> {
       return `${monthlyEntry.year} ${this.toMonthName(monthlyEntry.month)} `
     } else if (entry.type === 'week') {
       const weeklyEntry: WeeklyStatisticsEntry = entry as WeeklyStatisticsEntry
-      return `${weeklyEntry.year}: ${this.weekRange(weeklyEntry.week)} `
+      return `${moment(weeklyEntry.startOfWeek).format('YYYY MMM DD')} - ${moment(weeklyEntry.endOfWeek).format('DD')}`
     }
     return 'Overall'
   }
@@ -84,6 +79,11 @@ export class StatisticsCard extends React.Component<Props, State> {
   renderStatisticsEntry(entry: StatisticsEntry) {
     return <div className="flex flex-column ph3 pb3">
       <div className="flex flex-column justify-center items-center">
+        <div className="flex flex-column items-center justify-center mv4">
+          <div className="f4 mt2 b">{moment(entry.longestDistDate).format('YYYY MMM DD')}</div>
+          <div className="tc f5 ttu mt2">longest distance on</div>
+          {entry.type !== 'overall' && <div className="tc o-60 mt1">(in the selected period)</div>}
+        </div>
         <div className="tc mt3 ttu flex items-center justify-center w-100">
           <div className="br bb divider-br flex-auto"></div>
           <div className="ph3">Speed</div>

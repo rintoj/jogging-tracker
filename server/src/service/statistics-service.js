@@ -1,3 +1,4 @@
+const moment = require('moment')
 const express = require('express')
 const mongoose = require('mongoose')
 const resolvable = require('resolvable')
@@ -31,8 +32,7 @@ function getJogLog(user) {
 }
 
 function getWeek(date) {
-  var janFirst = new Date(date.getFullYear(), 0, 1);
-  return Math.ceil((((date - janFirst) / 86400000) + janFirst.getDay()) / 7);
+  return moment(date).week()
 }
 
 function toMinutes(time) {
@@ -52,7 +52,18 @@ function measure(statistics, id, value, entry, data) {
   if (s.slowestSpeed == undefined || s.slowestSpeed > entry.averageSpeed) s.slowestSpeed = entry.averageSpeed
   if (s.fastestSpeed == undefined || s.fastestSpeed < entry.averageSpeed) s.fastestSpeed = entry.averageSpeed
   if (s.shortestDistance == undefined || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
-  if (s.longestDistance == undefined || s.longestDistance < entry.distance) s.longestDistance = entry.distance
+  if (s.longestDistance == undefined || s.longestDistance < entry.distance) {
+    s.longestDistance = entry.distance
+    s.longestDistDate = entry.date
+  }
+
+  if (id === 'week') {
+    s.startOfWeek = moment(entry.date).startOf('week')
+    s.endOfWeek = moment(entry.date).endOf('week')
+  }
+
+  s.date = entry.date
+
   s.distance = (s.distance == undefined ? 0 : s.distance) + entry.distance
   s.speed = (s.speed == undefined ? 0 : s.speed) + entry.averageSpeed
   s.time = toTime((toMinutes(s.time) || 0) + toMinutes(entry.time))
