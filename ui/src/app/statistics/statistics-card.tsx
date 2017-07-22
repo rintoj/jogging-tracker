@@ -25,10 +25,10 @@ export class StatisticsCard extends React.Component<Props, State> {
     if (this.props.entries == undefined || this.props.entries.length === 0) return <div />
     const { type, entries } = this.props
     return <div className="card br1 shadow-1 ma3 divider-br ba" style={{ width: '250px' }}>
-      <div className="w-100 accent" style={{ height: '2px' }}></div>
+      <div className="w-100 accent" style={{ height: '3px' }}></div>
       <div className="ph2 flex items-center">
         <div className="pv2">
-          <div className="dib ttu b mt2 mb2 banner pv2 ph3 nl3 nowrap w4">{type}</div>
+          <div className="dib ttu mt2 mb2 banner pv2 ph3 nl3 nowrap w4">{type}</div>
         </div>
         <div className="flex-auto w-100 flex justify-end pa2">
           {type !== 'Overall' && <select name="" id="" className="bn transparent outline-0 f6 h2 tr"
