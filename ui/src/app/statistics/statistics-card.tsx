@@ -28,7 +28,7 @@ export class StatisticsCard extends React.Component<Props, State> {
   render() {
     if (this.props.entries == undefined || this.props.entries.length === 0) return <div />
     const { type, entries } = this.props
-    return <div className="card br1 shadow-1 ma3 divider-br ba" style={{ width: '300px' }}>
+    return <div className="dib vat card br1 shadow-1 ma4 divider-br ba" style={{ width: '300px' }}>
       <div className="w-100 accent" style={{ height: '3px' }}></div>
       <div className="ph2 flex items-center">
         <div className="pv2">
@@ -82,7 +82,7 @@ export class StatisticsCard extends React.Component<Props, State> {
         <div className="flex flex-column items-center justify-center mv4">
           <div className="f4 mt2 b">{moment(entry.longestDistDate).format('YYYY MMM DD')}</div>
           <div className="tc f5 ttu mt2">longest distance on</div>
-          {entry.type !== 'overall' && <div className="tc o-60 mt1">(in the selected period)</div>}
+          <div className="tc o-60 mt1">({entry.type === 'overall' ? 'Overall' : 'in the selected period'})</div>
         </div>
         <div className="tc mt3 ttu flex items-center justify-center w-100">
           <div className="br bb divider-br flex-auto"></div>

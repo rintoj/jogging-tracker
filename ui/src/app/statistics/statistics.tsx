@@ -34,7 +34,7 @@ export class StatisticsPage extends React.Component<Props, State> {
       <MenuComponent history={this.props.history} />
       <div className="pa4 w-100 vh-100 overflow-hidden overflow-y-auto">
         <div className="f2 mb4">Statistics</div>
-        <div className="flex justify-start flex-wrap">
+        <div className="overflow-hidden overflow-x-auto nowrap w-100 divider">
           {this.props.statistics != undefined && this.props.statistics.yearly.length > 1 &&
             this.renderStatistics('Overall', this.props.statistics.overall)}
           {this.props.statistics != undefined &&
