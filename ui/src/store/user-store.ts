@@ -129,11 +129,13 @@ export class UserStore {
 
     services.authService.fetchProfile(session.accessToken)
       .then((user) => {
+        user.authInfo = session
         services.authService.prepareApi(session.accessToken)
         observer.next({ user })
         this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
       })
       .catch(error => {
+        console.log(error)
         services.authService.clearSession()
         observer.next({ authInProgress: false, user: undefined })
         this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)

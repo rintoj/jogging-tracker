@@ -31,7 +31,7 @@ export class StatisticsPage extends React.Component<Props, State> {
 
   render() {
     return <Page history={this.props.history}>
-      <div className="w-100 vh-100 overflow-hidden overflow-y-auto">
+      <div className="flex-auto w-100 overflow-hidden overflow-y-auto">
         <div className="f2 mb4 ph4 pt4">Statistics</div>
         <div className="overflow-hidden overflow-x-auto nowrap w-100 divider">
           {this.props.statistics != undefined && this.props.statistics.overall != undefined &&

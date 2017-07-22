@@ -4,6 +4,7 @@ import { Accordion, Button, IconText, Profile } from '../../component'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
+import { Banner } from '../home/banner'
 import { BrowserHistory } from 'react-router-dom'
 import { ShowFormAction } from '../../action/ui-actions'
 import { SignOutAction } from '../../action'
@@ -43,7 +44,7 @@ export class MenuComponent extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="primary flex flex-column vh-100" style={{ width: (this.state.open ? '280' : '0') + 'px' }}>
+    return <div className="primary flex flex-column vh-100" style={{ minWidth: (this.state.open ? '280' : '0') + 'px' }}>
       <div className="flex flex-column justify-start bb divider-l-br w-100 ph3 secondary">
         <div className="white-text f4 nowrap ttu ph2 pv3 mv1">Jog Tracker</div>
         <Profile name={this.user.name}
@@ -61,20 +62,24 @@ export class MenuComponent extends React.Component<Props, State> {
           </div>
         </Button>
       </div>
-      <div className="mh2 ph2 flex-auto flex flex-column">
-        <div className="ttu pa2 o-60 mt4 divider-l-br bb">Navigation</div>
-        <IconText icon="pie-chart" className="pa2 mt2 pointer accent--hover br1 ttu"
-          onClick={event => this.goToStatisticsPage()}>Statistics</IconText>
-        <IconText icon="address-card" className="pa2 mt2 pointer accent--hover br1 ttu"
-          onClick={event => this.goHome()}>Log Entries</IconText>
+      <div className="flex flex-column flex-auto">
+        <div className="ph3">
+          <div className="ttu pa2 o-60 mt4 divider-l-br bb">Navigation</div>
+          <IconText icon="pie-chart" className="pa2 mt2 pointer accent--hover br1 ttu"
+            onClick={event => this.goToStatisticsPage()}>Statistics</IconText>
+          <IconText icon="address-card" className="pa2 mt2 pointer accent--hover br1 ttu"
+            onClick={event => this.goHome()}>Log Entries</IconText>
 
-        <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
-        <Accordion title="Manage Users" icon="user-circle" className="pa2 mt2" open={false}>
-          <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-          <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-        </Accordion>
+          <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
+          <Accordion title="Manage Users" icon="user-circle" className="pa2 mt2" open={false}>
+            <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
+            <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
+          </Accordion>
+        </div>
         <div className="flex-auto"></div>
-        <IconText icon="cogs" className="pa2 mb3 pointer accent--hover br1 ttu">Settings</IconText>
+        {this.props.user && this.props.user.authInfo &&
+          (this.props.user.authInfo.roles || []).indexOf('admin') >= 0 &&
+          <Banner></Banner>}
       </div>
     </div>
   }
