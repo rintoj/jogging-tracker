@@ -1,7 +1,9 @@
 import * as React from 'react'
 
+import { Time } from '../../state/time'
+
 interface Props {
-  value?: [number, number]
+  value?: Time
   label?: string
   error?: string
   autoFocus?: boolean
@@ -19,7 +21,7 @@ interface Props {
   className?: string
 }
 interface State {
-  value?: [number, number]
+  value?: Time
 }
 
 export class TimePicker extends React.Component<Props, State> {
@@ -77,7 +79,7 @@ export class TimePicker extends React.Component<Props, State> {
   }
 
   onChange(event, type) {
-    const value: [number, number] = this.state.value || [0, 0]
+    const value: Time = this.state.value || [0, 0]
     value[type === 'hour' ? 0 : 1] = event.target.value.trim() === '' ? 0 : parseInt(event.target.value, undefined)
     this.setState({ value })
 

@@ -1,7 +1,9 @@
+import { Time } from './time'
+
 export interface JogLog {
   id?: string
   date?: string
   distance?: number
-  time?: [number, number]
+  time?: Time
   averageSpeed?: number
 }

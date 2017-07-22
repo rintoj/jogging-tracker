@@ -5,6 +5,7 @@ import { Button, Loader, TextInput, TimePicker } from '../../component'
 import { AddJogLogAction } from '../../action/index'
 import { BrowserHistory } from 'react-router-dom'
 import { HideFormAction } from '../../action/ui-actions'
+import { Time } from '../../state/time'
 
 interface Props {
   history?: BrowserHistory
@@ -13,7 +14,7 @@ interface Props {
 interface State {
   date?: string
   distance?: number
-  time?: [number, number]
+  time?: Time
   loading?: boolean
   errors?: {
     date?: string
