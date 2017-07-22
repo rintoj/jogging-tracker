@@ -24,3 +24,6 @@ export class SaveProfileAction extends Action {
   constructor(public user: User, public password: string) { super() }
 }
 export class SignOutAction extends Action { }
+export class SelectUserAction extends Action {
+  constructor(public user: User) { super() }
+}

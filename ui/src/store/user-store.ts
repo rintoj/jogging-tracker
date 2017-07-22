@@ -1,4 +1,5 @@
 import { SaveProfileAction, SignOutAction } from '../action/index'
+import { SelectUserAction, SetSignupStateAction } from '../action/index'
 import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
@@ -9,7 +10,6 @@ import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { SendAuthCodeAction } from './../action/user-actions'
 import { SetRedirectUrlAction } from '../action/index'
-import { SetSignupStateAction } from '../action/index'
 import { User } from './../state/user'
 import { services } from './../service/index'
 
@@ -105,6 +105,11 @@ export class UserStore {
     return state
   }
 
+  @action()
+  selectUser(state: AppState, selectUserAction: SelectUserAction): AppState {
+    return { selectedUser: selectUserAction.user }
+  }
+
   private handleSSOAuth(observer) {
     services.authService.handleAuthentication()
       .then((user: User) => {
@@ -134,8 +139,9 @@ export class UserStore {
         observer.next({ user })
         if (user.authInfo.roles.indexOf('admin') >= 0) {
           services.authService.fetchUsers().then(users => {
-            console.log(users)
-            observer.next({ users })
+            const selectedUser = users.find(item => item.id === user.id)
+            console.log(users, selectedUser)
+            observer.next({ users, selectedUser })
             this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
           })
         } else {

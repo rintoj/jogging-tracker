@@ -13,6 +13,8 @@ export interface AppState {
   authInProgress?: boolean
   requestInProgress?: boolean
   user?: User
+  users?: User[]
+  selectedUser?: User
   draftUser?: User
   history?: string
   signupPageState?: SignUpPageState
