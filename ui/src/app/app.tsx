@@ -16,6 +16,7 @@ import { SetRedirectUrlAction } from '../action/user-actions'
 import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
 import { StatisticsPage } from './statistics/statistics'
+import { UsersPage } from './users/users'
 
 class Props {
   history?: BrowserHistory
@@ -55,6 +56,7 @@ export class App extends React.Component<Props, {}> {
       <Switch>
         <Route path="/home" render={this.protect(HomePage)} />
         <Route path="/statistics" render={this.protect(StatisticsPage)} />
+        <Route path="/users" render={this.protect(UsersPage)} />
         <Route path="/signin" component={SignInPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/authorize" component={AuthorizePage} />

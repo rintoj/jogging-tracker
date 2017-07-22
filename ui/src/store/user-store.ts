@@ -1,6 +1,7 @@
+import { RemoveProfileAction, SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { SaveProfileAction, SignOutAction } from '../action/index'
+import { SaveUserAction, SetRedirectUrlAction } from '../action/index'
 import { SelectUserAction, SetSignupStateAction } from '../action/index'
-import { SignInAction, VerifyAuthCodeAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AppState } from './../state/app-state'
@@ -9,7 +10,6 @@ import { AuthorizeAction } from './../action/user-actions'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { SendAuthCodeAction } from './../action/user-actions'
-import { SetRedirectUrlAction } from '../action/index'
 import { User } from './../state/user'
 import { services } from './../service/index'
 
@@ -80,6 +80,21 @@ export class UserStore {
   verifyAuthCode(state: AppState, verifyAuthCodeAction: VerifyAuthCodeAction): Promise<AppState> {
     return services.authService.verifyAuthCode(verifyAuthCodeAction.email, verifyAuthCodeAction.code)
       .then(() => state)
+  }
+
+  @action()
+  saveUser(state: AppState, saveUserAction: SaveUserAction): Promise<AppState> {
+    return services.authService.saveUser(saveUserAction.user, saveUserAction.password)
+      .then(() => services.authService.fetchUsers())
+      .then(users => ({ users }))
+  }
+
+  @action()
+  removeProfile(state: AppState, removeProfileAction: RemoveProfileAction): Promise<AppState> {
+    return services.authService.removeProfile(removeProfileAction.id)
+      .then(() => ({
+        users: (state.users || []).filter(user => user.id !== removeProfileAction.id)
+      }))
   }
 
   @action()

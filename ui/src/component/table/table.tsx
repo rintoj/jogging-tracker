@@ -8,6 +8,7 @@ export interface Column {
   sortable?: boolean
   className?: string
   formatter?: Function
+  alignRight?: boolean
 }
 
 interface Props {
@@ -54,15 +55,17 @@ export class Table extends React.Component<Props, State> {
     return this.props.columns &&
       <tr className="primary">
         {this.props.showIndex && <th className={`tr primary pv4 ph4-l ph3-m ph2 ttu nowrap`}>#</th>}
-        {this.props.columns.map((column, index) =>
-          <th key={`h${index}`}
-            onClick={() => column.sortable && this.sort(index, this.state.sorts)}
-            className={`${column.className} ${column.sortable ? 'pointer' : ''} primary tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>
+        {this.props.columns.map((column, index) => {
+          const alignment = column.alignRight ? 'tr' : 'tl'
+          return < th key={`h${index}`}
+            onClick={() => column.sortable && this.toggleSort(index)}
+            className={`${column.className} ${column.sortable ? 'pointer' : ''} primary ${alignment} pv4 ph4-l ph3-m ph2 ttu nowrap`}>
             {column.name}
             {column.sortable && this.state.sorts[index] === true && <div className="ml2 fa fa-arrow-circle-down accent-text"></div>}
             {column.sortable && this.state.sorts[index] === false && <div className="ml2 fa fa-arrow-circle-up accent-text"></div>}
             {column.sortable && this.state.sorts[index] == undefined && <div className="ml2 fa fa-arrow-circle-down o-60"></div>}
-          </th>)
+          </th>
+        })
         }
       </tr>
   }
@@ -70,7 +73,7 @@ export class Table extends React.Component<Props, State> {
   renderRecords() {
     if (this.state.rows == undefined || this.state.rows.length === 0) {
       return <tr className="striped--near-white">
-        <td className={`tc pv4 ph4-l ph3-m ph2 ttu nowrap`}
+        <td className={`tc pv3 ph4-l ph3-m ph2 ttu nowrap`}
           colSpan={this.props.columns.length + (this.props.showIndex ? 1 : 0)}>No Records!</td >
       </tr>
     }
@@ -78,12 +81,15 @@ export class Table extends React.Component<Props, State> {
     return (this.state.rows || []).map((row, index) =>
       <tr key={index} className="striped--near-white accent--hover pointer"
         onClick={event => this.onClickRow(row)}>
-        {this.props.showIndex && <td className={`tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}
-        {row.map((value, colIndex) => <td key={`${index}${colIndex}`}
-          className={`tr pv4 ph4-l ph3-m ph2 nowrap ${this.props.columns[colIndex].className}`}>{
-            typeof this.props.columns[colIndex].formatter === 'function' ?
-              this.props.columns[colIndex].formatter(value, row, index, this.props.columns) : value
-          }</td>)}
+        {this.props.showIndex && <td className={`tc pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}
+        {row.map((value, colIndex) => {
+          const alignment = this.props.columns[colIndex].alignRight ? 'tr' : 'tl'
+          return <td key={`${index}${colIndex}`}
+            className={`${alignment} pv3 ph4-l ph3-m ph2 nowrap ${this.props.columns[colIndex].className}`}>{
+              typeof this.props.columns[colIndex].formatter === 'function' ?
+                this.props.columns[colIndex].formatter(value, row, index, this.props.columns) : value
+            }</td>
+        })}
       </tr>
     )
   }

@@ -72,6 +72,15 @@ class AuthService {
     })
   }
 
+  saveUser(user: User, password: string) {
+    return api.put('/oauth2/user', Object.assign({}, user, { password, authInfo: undefined }))
+  }
+
+  removeProfile(id: string): Promise<any> {
+    return api.delete(`/oauth2/user/${id}`)
+      .then(response => response.data)
+  }
+
   signIn(username: string, password: string) {
     const params = new URLSearchParams()
     params.append('grant_type', 'password')

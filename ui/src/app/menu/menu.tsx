@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Accordion, Button, IconText, Profile } from '../../component'
+import { Button, IconText, Profile } from '../../component'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
@@ -62,11 +62,13 @@ export class MenuComponent extends React.Component<Props, State> {
           <IconText icon="address-card" className="pa2 mt2 pointer accent--hover br1 ttu"
             onClick={event => this.goHome()}>Log Entries</IconText>
 
-          <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
-          <Accordion title="Manage Users" icon="user-circle" className="pa2 mt2" open={false}>
-            <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-            <IconText icon="home" className="pa2 pointer accent--hover br1">Home</IconText>
-          </Accordion>
+          {this.props.user && this.props.user.authInfo && this.props.user.authInfo.roles.indexOf('admin') >= 0 &&
+            <div>
+              <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
+              <IconText icon="user-circle" className="pa2 mt2 pointer accent--hover br1 ttu"
+                onClick={event => this.manageUsers()}>Manage Users</IconText>
+            </div>
+          }
         </div>
         <div className="flex-auto"></div>
         {this.props.user && this.props.user.authInfo &&
@@ -91,6 +93,10 @@ export class MenuComponent extends React.Component<Props, State> {
 
   goToStatisticsPage() {
     this.props.history.push('/statistics')
+  }
+
+  manageUsers() {
+    this.props.history.push('/users')
   }
 
   goHome() {

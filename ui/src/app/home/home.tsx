@@ -32,19 +32,23 @@ const columns = [
     name: 'Date',
     sort: false,
     sortable: true,
+    alignRight: true,
     formatter: (value) => moment(value).format('MMMM DD, YYYY')
   }, {
     name: 'Distance',
     sortable: true,
+    alignRight: true,
     formatter: (value) => parseFloat(value).toFixed(2) + ' km'
   }, {
     name: 'Time',
     sortable: true,
+    alignRight: true,
     formatter: (value) => value == undefined ? '00:00' :
       `${numeral(value[0]).format('00')}:${numeral(value[1]).format('00')}`
   }, {
     name: 'Average Speed',
     sortable: true,
+    alignRight: true,
     formatter: (value) => parseFloat(value).toFixed(2) + ' km/h'
   }, {
     name: '',
