@@ -1,6 +1,6 @@
 {
   "database": {
-    "url": "mongodb://localhost/jogging-tracker"
+    "url": "mongodb://toptal_app:welcome123@ds161742.mlab.com:61742/heroku_brz0d43j"
   },
   "api": {
     "oauth2": {
@@ -29,7 +29,7 @@
   "static": {
     "root": "ui/dist"
   },
-  "apiUrl": "//localhost:5000/api",
+  "apiUrl": "https://jog-tracker-tt.herokuapp.com/api",
   "jwtSecret": {
     "cache": true,
     "rateLimit": true,
@@ -49,7 +49,7 @@
     "domain": "rintoj.auth0.com",
     "responseType": "id_token token",
     "audience": "https://rintoj.auth0.com/userinfo",
-    "redirectUri": "http://localhost:3000/authorize",
+    "redirectUri": "https://jog-tracker-tt.herokuapp.com/authorize",
     "scope": "openid email profile",
     "nonce": "6766380992235423"
   },
