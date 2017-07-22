@@ -7,79 +7,59 @@ import { JogLog } from './../state/jog-log'
 import { Observable } from 'rxjs/Observable'
 import { Observer } from 'rxjs/Observer'
 import { services } from './../service/index'
+import { task } from './task'
 
 @store()
 export class JogLogStore {
 
   @action()
   fetchJogLogs(state: AppState, fetchJogLogsAction: FetchJogLogsAction): Observable<AppState> {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({ requestInProgress: true })
+    return task((observer: Observer<AppState>, done) => {
       services.jogLogService.fetch(state.filters).then((jogLogs: JogLog[]) => {
-        observer.next({ requestInProgress: false, jogLogs })
-        observer.complete()
-      }, () => {
-        observer.next({ requestInProgress: false })
-        observer.complete()
-      })
+        observer.next({ jogLogs })
+        done()
+      }, done)
     })
   }
 
   @action()
   addJogLog(state: AppState, addJogLogAction: AddJogLogAction): Observable<AppState> {
-
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({ requestInProgress: true })
-
-      // this logic must be moved to server side
+    return task((observer: Observer<AppState>, done) => {
+      // TODO: this logic must be moved to server side
       let updatedJogLog = Object.assign({}, addJogLogAction.jogLog, {
         id: services.utilService.generateId(),
         averageSpeed: this.averageSpeed(addJogLogAction.jogLog.distance, addJogLogAction.jogLog.time)
       })
 
-      services.jogLogService.add(updatedJogLog)
-        .then((jogLog: JogLog) => {
-          observer.next({
-            requestInProgress: false,
-            jogLogs: (state.jogLogs || []).concat(jogLog)
-          })
-          observer.complete()
-        }, () => {
-          observer.next({ requestInProgress: false })
-          observer.complete()
+      services.jogLogService.add(updatedJogLog).then((jogLog: JogLog) => {
+        observer.next({
+          jogLogs: (state.jogLogs || []).concat(jogLog)
         })
+        done()
+      }, done)
     })
   }
 
   @action()
   removeJogLog(state: AppState, removeJogLogAction: RemoveJogLogAction): Observable<AppState> {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({ requestInProgress: true })
-      services.jogLogService.remove(removeJogLogAction.id)
-        .then(() => {
-          observer.next({
-            requestInProgress: false,
-            jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
-          })
-          observer.complete()
-        }, () => {
-          observer.next({ requestInProgress: false })
-          observer.complete()
+    return task((observer: Observer<AppState>, done) => {
+      services.jogLogService.remove(removeJogLogAction.id).then(() => {
+        observer.next({
+          jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
         })
+        done()
+      }, done)
     })
   }
 
   @action()
   setFilters(state: AppState, setFiltersAction: SetFiltersAction): Observable<AppState> {
-    return Observable.create((observer: Observer<AppState>) => {
-      observer.next({ requestInProgress: true, filters: setFiltersAction.filters })
+    return task((observer: Observer<AppState>, done) => {
+      observer.next({ filters: setFiltersAction.filters })
       services.jogLogService.fetch(setFiltersAction.filters).then((jogLogs: JogLog[]) => {
-        observer.next({ requestInProgress: false, jogLogs })
-        observer.complete()
-      }, () => {
-        observer.next({ requestInProgress: false })
-        observer.complete()
-      })
+        observer.next({ jogLogs })
+        done()
+      }, done)
     })
   }
 
