@@ -12,7 +12,7 @@ class Props {
 interface State { }
 
 @inject(Props)
-export class Banner extends React.Component<Props, State> {
+export class UserSelector extends React.Component<Props, State> {
 
   render() {
     return <div className="flex items-center secondary justify-center pv3 ph4">

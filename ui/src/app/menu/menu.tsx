@@ -4,11 +4,11 @@ import { Accordion, Button, IconText, Profile } from '../../component'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/index'
-import { Banner } from '../home/banner'
 import { BrowserHistory } from 'react-router-dom'
 import { ShowFormAction } from '../../action/ui-actions'
 import { SignOutAction } from '../../action'
 import { User } from '../../state/user'
+import { UserSelector } from "../user-selector/user-selector";
 
 class Props {
   history?: BrowserHistory
@@ -79,7 +79,7 @@ export class MenuComponent extends React.Component<Props, State> {
         <div className="flex-auto"></div>
         {this.props.user && this.props.user.authInfo &&
           (this.props.user.authInfo.roles || []).indexOf('admin') >= 0 &&
-          <Banner></Banner>}
+          <UserSelector></UserSelector>}
       </div>
     </div>
   }
