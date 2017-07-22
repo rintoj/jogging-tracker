@@ -11,7 +11,7 @@ export class JogLogService {
 
   readonly url = '/joglog'
 
-  fetch(filters: Filters): Promise<JogLog[]> {
+  fetch(filters: Filters, user: string): Promise<JogLog[]> {
     let body
     if (filters != undefined && (filters.fromDate != undefined || filters.toDate != undefined)) {
       body = { date: {} }
@@ -19,17 +19,17 @@ export class JogLogService {
       if (filters.toDate != undefined) body.date.$lte = new Date(filters.toDate)
     }
 
-    return api.post(this.url, body)
+    return api.post(this.url, Object.assign({}, body, { user }))
       .then(response => response.data)
   }
 
-  save(jogLog: JogLog): Promise<SaveResponse> {
-    return api.put(this.url, jogLog)
+  save(jogLog: JogLog, user: string): Promise<SaveResponse> {
+    return api.put(this.url, Object.assign({}, jogLog, { user }))
       .then(response => response.data)
   }
 
-  remove(id: string): Promise<any> {
-    return api.delete(`${this.url}/${id}`)
+  remove(id: string, user): Promise<any> {
+    return api.delete(`${this.url}/${id}`, { user })
       .then(response => response.data)
   }
 

@@ -32,10 +32,11 @@ module.exports = {
   },
 
   userSpace: {
-    field: 'user'
+    field: 'user',
+    ignore: ['manager', 'admin']
   },
 
-  beforeSave: function(item) {
+  beforeSave: function(item, request) {
     const items = item instanceof Array ? item : [item]
     return items.map(calculateAvgSpeed)
   }

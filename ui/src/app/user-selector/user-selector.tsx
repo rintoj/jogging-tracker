@@ -1,11 +1,12 @@
 import * as React from 'react'
 
+import { FetchJogLogsAction, SelectUserAction } from '../../action/index'
 import { IconText, Profile } from '../../component/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state'
 import { Dialog } from '../../component/dialog/dialog'
-import { SelectUserAction } from '../../action/index'
+import { FetchStatisticsAction } from '../../action/statistics-actions';
 import { User } from '../../state/user'
 
 class Props {
@@ -64,6 +65,8 @@ export class UserSelector extends React.Component<Props, State> {
 
   selectUser(user) {
     new SelectUserAction(user).dispatch()
+      .then(() => new FetchJogLogsAction().dispatch())
+      .then(() => new FetchStatisticsAction().dispatch())
     this.close()
   }
 }

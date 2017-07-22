@@ -16,7 +16,8 @@ export class JogLogStore {
   fetchJogLogs(state: AppState, fetchJogLogsAction: FetchJogLogsAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
       observer.next({ filters: fetchJogLogsAction.filters })
-      services.jogLogService.fetch(fetchJogLogsAction.filters || state.filters)
+      services.jogLogService.fetch(fetchJogLogsAction.filters || state.filters,
+        state.selectedUser.id)
         .then((jogLogs: JogLog[]) => {
           observer.next({ jogLogs })
           done()
@@ -28,8 +29,10 @@ export class JogLogStore {
   saveJogLog(state: AppState, saveJogLogAction: SaveJogLogAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
       Promise.resolve()
-        .then(() => services.jogLogService.save(saveJogLogAction.jogLog))
-        .then(() => services.jogLogService.fetch(state.filters))
+        .then(() => services.jogLogService.save(saveJogLogAction.jogLog,
+          state.selectedUser.id))
+        .then(() => services.jogLogService.fetch(state.filters,
+          state.selectedUser.id))
         .then((jogLogs) => {
           observer.next({ jogLogs })
           done()
@@ -40,12 +43,13 @@ export class JogLogStore {
   @action()
   removeJogLog(state: AppState, removeJogLogAction: RemoveJogLogAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
-      services.jogLogService.remove(removeJogLogAction.id).then(() => {
-        observer.next({
-          jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
-        })
-        done()
-      }, done)
+      services.jogLogService.remove(removeJogLogAction.id,
+        state.selectedUser.id).then(() => {
+          observer.next({
+            jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
+          })
+          done()
+        }, done)
     })
   }
 
