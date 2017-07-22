@@ -27,7 +27,13 @@ export class Table extends React.Component<Props, State> {
 
   constructor(props) {
     super(props)
+    this.state = {
+      sorts: {}
+    }
+  }
 
+  componentWillReceiveProps(props) {
+    this.props = props
     let sorts = {}
     for (let i = 0; i < this.props.columns.length; i++) {
       if (this.props.columns[i].sort != undefined) {
@@ -35,19 +41,11 @@ export class Table extends React.Component<Props, State> {
         break
       }
     }
+    this.setState({ rows: props.rows, sorts })
 
-    // set initial state
-    this.state = {
-      sorts
-    }
-  }
-
-  componentWillReceiveProps(props) {
-    this.props = props
-    this.setState({ rows: props.rows })
-    let sortIndex = Object.keys(this.state.sorts)[0]
+    let sortIndex = Object.keys(sorts)[0]
     if (sortIndex != undefined) {
-      this.sort(sortIndex)
+      this.sort(sortIndex, sorts)
     }
   }
 
@@ -57,7 +55,7 @@ export class Table extends React.Component<Props, State> {
         {this.props.showIndex && <th className={`tr primary pv4 ph4-l ph3-m ph2 ttu nowrap`}>#</th>}
         {this.props.columns.map((column, index) =>
           <th key={`h${index}`}
-            onClick={() => column.sortable && this.sort(index)}
+            onClick={() => column.sortable && this.sort(index, this.state.sorts)}
             className={`${column.className} ${column.sortable ? 'pointer' : ''} primary tr pv4 ph4-l ph3-m ph2 ttu nowrap`}>
             {column.name}
             {column.sortable && this.state.sorts[index] === true && <div className="ml2 fa fa-arrow-circle-down accent-text"></div>}
@@ -107,11 +105,14 @@ export class Table extends React.Component<Props, State> {
     </table>
   }
 
-  sort(index) {
+  toggleSort(index) {
     const sorts = {}
     const sort = this.state.sorts[index]
     sorts[index] = sort === true ? false : sort === false ? undefined : true
+    this.sort(index, sorts)
+  }
 
+  sort(index, sorts) {
     const rows = [].concat(this.props.rows)
     if (sorts[index] != undefined) {
       rows.sort((r1, r2) => {

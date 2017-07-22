@@ -29,7 +29,7 @@ const columns = [
     className: 'dn'
   }, {
     name: 'Date',
-    sort: true,
+    sort: false,
     sortable: true,
     formatter: (value) => moment(value).format('MMMM DD, YYYY')
   }, {
