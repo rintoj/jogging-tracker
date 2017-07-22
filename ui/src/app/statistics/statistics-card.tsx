@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as moment from 'moment'
 
-import { StatisticsEntry } from '../../state/statistics'
+import { MonthlyStatisticsEntry, StatisticsEntry, WeeklyStatisticsEntry, YearlyStatisticsEntry } from '../../state/statistics'
 
 interface Props {
   type?: string
@@ -31,7 +31,7 @@ export class StatisticsCard extends React.Component<Props, State> {
           <div className="dib ttu mt2 mb2 banner pv2 ph3 nl3 nowrap w4">{type}</div>
         </div>
         <div className="flex-auto w-100 flex justify-end pa2">
-          {type !== 'Overall' && <select name="" id="" className="bn transparent outline-0 f6 h2 tr"
+          {type !== 'Overall' && <select className="bn transparent outline-0 f6 h2"
             onChange={event => this.onSelect(event)}>
             {entries.map((entry, index) => <option key={index} value={index}>
               {this.toTitle(entry)}
@@ -54,11 +54,14 @@ export class StatisticsCard extends React.Component<Props, State> {
 
   toTitle(entry: StatisticsEntry) {
     if (entry.type === 'year') {
-      return `${entry.value}`
+      const yearlyEntry: YearlyStatisticsEntry = entry as YearlyStatisticsEntry
+      return `${yearlyEntry.year}`
     } else if (entry.type === 'month') {
-      return `${this.toMonthName(entry.value)} `
+      const monthlyEntry: MonthlyStatisticsEntry = entry as MonthlyStatisticsEntry
+      return `${monthlyEntry.year} ${this.toMonthName(monthlyEntry.month)} `
     } else if (entry.type === 'week') {
-      return `${entry.value}: ${this.weekRange(entry.value)} `
+      const weeklyEntry: WeeklyStatisticsEntry = entry as WeeklyStatisticsEntry
+      return `${weeklyEntry.year}: ${this.weekRange(weeklyEntry.week)} `
     }
     return 'Overall'
   }

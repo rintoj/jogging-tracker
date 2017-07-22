@@ -44,11 +44,11 @@ function toTime(minutes) {
   return [Math.floor(minutes / 60), minutes % 60]
 }
 
-function measure(statistics, id, value, entry) {
+function measure(statistics, id, value, entry, data) {
   const type = `${id}.${value}`
-  const s = (statistics[type] = statistics[type] || {})
+  statistics[type] = Object.assign({}, statistics[type], data)
+  const s = statistics[type]
   s.type = id
-  s.value = value
   if (s.slowest == undefined || s.slowest > entry.averageSpeed) s.slowest = entry.averageSpeed
   if (s.fastest == undefined || s.fastest < entry.averageSpeed) s.fastest = entry.averageSpeed
   if (s.shortestDistance == undefined || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
@@ -71,10 +71,19 @@ router.get('/statistics', function(request, response) {
       month = date.getMonth()
       week = getWeek(date)
 
-      measure(statistics, 'year', year, entry)
-      measure(statistics, 'month', month, entry)
-      measure(statistics, 'week', week, entry)
       measure(statistics, 'overall', 'overall', entry)
+      measure(statistics, 'year', year, entry, {
+        year
+      })
+      measure(statistics, 'month', month, entry, {
+        year,
+        month
+      })
+      measure(statistics, 'week', week, entry, {
+        year,
+        month,
+        week
+      })
     })
 
     const output = Object.keys(statistics).reduce((a, i) => {
