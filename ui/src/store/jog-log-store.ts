@@ -25,13 +25,7 @@ export class JogLogStore {
   @action()
   addJogLog(state: AppState, addJogLogAction: AddJogLogAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
-      // TODO: this logic must be moved to server side
-      let updatedJogLog = Object.assign({}, addJogLogAction.jogLog, {
-        id: services.utilService.generateId(),
-        averageSpeed: this.averageSpeed(addJogLogAction.jogLog.distance, addJogLogAction.jogLog.time)
-      })
-
-      services.jogLogService.add(updatedJogLog).then((jogLog: JogLog) => {
+      services.jogLogService.add(addJogLogAction.jogLog).then((jogLog: JogLog) => {
         observer.next({
           jogLogs: (state.jogLogs || []).concat(jogLog)
         })
@@ -61,17 +55,6 @@ export class JogLogStore {
         done()
       }, done)
     })
-  }
-
-  toMinutes(time: [number, number]): number {
-    return [].concat(time || [0, 0])
-      .reverse()
-      .reduce((a, v, i) => a + v * i * 60)
-  }
-
-  averageSpeed(distance: number, time: [number, number]) {
-    let minutes = this.toMinutes(time)
-    return minutes === 0 ? 0 : parseFloat(parseFloat(`${distance / minutes * 60}`).toFixed(2))
   }
 
 }
