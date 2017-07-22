@@ -6,7 +6,7 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state'
 import { Dialog } from '../../component/dialog/dialog'
-import { FetchStatisticsAction } from '../../action/statistics-actions';
+import { FetchStatisticsAction } from '../../action/statistics-actions'
 import { User } from '../../state/user'
 
 class Props {

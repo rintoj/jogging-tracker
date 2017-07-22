@@ -4,8 +4,8 @@ export class StatisticsService {
 
   readonly url = '/statistics'
 
-  fetch() {
-    return api.get(this.url)
+  fetch(user: string) {
+    return api.get(`${this.url}?user=${user}`)
       .then(response => response.data)
   }
 }

@@ -77,6 +77,7 @@ export class StatisticsCard extends React.Component<Props, State> {
   }
 
   renderStatisticsEntry(entry: StatisticsEntry) {
+    if (entry == undefined) return undefined
     return <div className="flex flex-column ph3 pb3">
       <div className="flex flex-column justify-center items-center">
         <div className="flex flex-column items-center justify-center mv4">

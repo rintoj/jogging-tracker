@@ -13,8 +13,8 @@ export class StatisticsStore {
   @action()
   fetchStatistics(state: AppState, fetchStatisticsAction: FetchStatisticsAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
-      services.statisticsService.fetch().then(statistics => {
-        observer.next({ statistics })
+      services.statisticsService.fetch(state.selectedUser && state.selectedUser.id).then(statistics => {
+        observer.next({ statistics: Object.keys(statistics).length === 0 ? undefined : statistics })
         done()
       }, done)
     })

@@ -1,7 +1,9 @@
+const _ = require('lodash')
 const moment = require('moment')
 const express = require('express')
 const mongoose = require('mongoose')
 const resolvable = require('resolvable')
+const jogLogModel = require('../model/jog-log')
 
 const router = express.Router()
 
@@ -80,7 +82,13 @@ function measureAverage(statistics, id, value, data) {
 }
 
 router.get('/statistics', function(request, response) {
-  getJogLog(request.user.userId).then(data => {
+
+  let userId = request.user.userId
+  if (jogLogModel.userSpace.ignore != undefined && (_.intersection(jogLogModel.userSpace.ignore || [], request.user.roles || []).length !== 0)) {
+    userId = request.body[jogLogModel.userSpace.field] || request.query[jogLogModel.userSpace.field]
+  }
+
+  getJogLog(userId).then(data => {
     const statistics = {}
     let fastest, slowest, month, year, week
     data.forEach((entry, index) => {
