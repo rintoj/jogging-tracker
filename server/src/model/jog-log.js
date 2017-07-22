@@ -24,6 +24,8 @@ module.exports = {
     averageSpeed: Number
   },
 
-  userSpace: true
+  userSpace: {
+    field: 'user'
+  }
 
 }

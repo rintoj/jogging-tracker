@@ -5,6 +5,11 @@ const resolvable = require('resolvable')
 const fetchProfileRouter = express.Router()
 const saveProfileRouter = express.Router()
 
+const {
+  handleError,
+  send
+} = require('../util')
+
 function fetchProfile(request, response) {
 
   const User = mongoose.models.User
@@ -42,11 +47,6 @@ function createRecord(user, userInfo, User) {
   }, userInfo))
 }
 
-function handleError(error, response) {
-  console.log(error)
-  send(response, error, 500)
-}
-
 function findUser(User, userId) {
   return resolvable(User.findOne.bind(User))({
     userId
@@ -64,14 +64,6 @@ function saveUser(user) {
         id: user.userId
       }
     })
-}
-
-function send(response, data, status) {
-  response.status(status || 200)
-  response.json(status ? {
-    status,
-    error: data
-  } : data)
 }
 
 fetchProfileRouter.get('/profile', fetchProfile)

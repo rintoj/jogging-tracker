@@ -1,6 +1,7 @@
 const fallback = require('express-history-api-fallback')
 const mongoRestifier = require('mongo-restifier')
 const profileService = require('./service/profile-service')
+const statisticsService = require('./service/statistics-service')
 
 const isDev = process.env.NODE_ENV === 'development'
 const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
@@ -22,6 +23,7 @@ mongoRestifier(configPath, (properties) => {
 
     // get profile service
     app.use('/api', profileService.fetchProfileRouter)
+    app.use('/api', statisticsService)
 
     // save profile service used for register and password reset
     app.use('/api', auth0Check, profileService.saveProfileRouter)
