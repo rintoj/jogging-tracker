@@ -1,4 +1,4 @@
-import { FetchJogLogsAction, RemoveJogLogAction, SetFiltersAction } from '../action/index'
+import { FetchJogLogsAction, RemoveJogLogAction } from '../action/index'
 import { action, store } from 'statex/react'
 
 import { AddJogLogAction } from './../action/jog-log-actions'
@@ -15,10 +15,12 @@ export class JogLogStore {
   @action()
   fetchJogLogs(state: AppState, fetchJogLogsAction: FetchJogLogsAction): Observable<AppState> {
     return task((observer: Observer<AppState>, done) => {
-      services.jogLogService.fetch(state.filters).then((jogLogs: JogLog[]) => {
-        observer.next({ jogLogs })
-        done()
-      }, done)
+      observer.next({ filters: fetchJogLogsAction.filters })
+      services.jogLogService.fetch(fetchJogLogsAction.filters || state.filters)
+        .then((jogLogs: JogLog[]) => {
+          observer.next({ jogLogs })
+          done()
+        }, done)
     })
   }
 
@@ -41,17 +43,6 @@ export class JogLogStore {
         observer.next({
           jogLogs: (state.jogLogs || []).filter(item => item.id !== removeJogLogAction.id)
         })
-        done()
-      }, done)
-    })
-  }
-
-  @action()
-  setFilters(state: AppState, setFiltersAction: SetFiltersAction): Observable<AppState> {
-    return task((observer: Observer<AppState>, done) => {
-      observer.next({ filters: setFiltersAction.filters })
-      services.jogLogService.fetch(setFiltersAction.filters).then((jogLogs: JogLog[]) => {
-        observer.next({ jogLogs })
         done()
       }, done)
     })

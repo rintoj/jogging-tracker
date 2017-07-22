@@ -8,7 +8,6 @@ export class AddJogLogAction extends Action {
 export class RemoveJogLogAction extends Action {
   constructor(public id: string) { super() }
 }
-export class FetchJogLogsAction extends Action { }
-export class SetFiltersAction extends Action {
-  constructor(public filters: Filters) { super() }
+export class FetchJogLogsAction extends Action {
+  constructor(public filters?: Filters) { super() }
 }

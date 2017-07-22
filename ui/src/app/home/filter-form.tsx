@@ -4,8 +4,8 @@ import { Accordion, TextInput } from '../../component/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state'
+import { FetchJogLogsAction } from '../../action/index'
 import { Filters } from '../../state/filters'
-import { SetFiltersAction } from '../../action/index'
 
 class Props {
   @data((state: AppState) => state.filters)
@@ -76,14 +76,14 @@ export class FilterForm extends React.Component<Props, State> {
     filters[type] = event.target.value === '' ? undefined : event.target.value
     if (this.validate(filters, type)) {
       this.setState({ filters })
-      new SetFiltersAction(filters).dispatch()
+      new FetchJogLogsAction(filters).dispatch()
     }
   }
 
   clearFilters() {
     const filters = { fromDate: undefined, toDate: undefined }
     this.setState({ filters })
-    new SetFiltersAction(filters).dispatch()
+    new FetchJogLogsAction(filters).dispatch()
   }
 
 }
