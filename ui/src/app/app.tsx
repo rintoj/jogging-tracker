@@ -16,6 +16,7 @@ import { SetRedirectUrlAction } from '../action/user-actions'
 import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
 import { StatisticsPage } from './statistics/statistics'
+import { User } from '../state/user';
 import { UsersPage } from './users/users'
 
 class Props {
@@ -23,6 +24,9 @@ class Props {
 
   @data((state: AppState) => state.showForm)
   showForm?: boolean
+
+  @data((state: AppState) => state.user)
+  user?: User
 }
 
 @inject(Props)
@@ -43,7 +47,7 @@ export class App extends React.Component<Props, {}> {
 
   protect(targetPage, roles?: string[]) {
     return props => {
-      if (!this.authenticated) {
+      if (!this.authenticated || this.props.user == undefined) {
         new SetRedirectUrlAction(location.pathname).dispatch()
         return <Redirect to="/signin" />
       }

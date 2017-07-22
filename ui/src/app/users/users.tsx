@@ -1,7 +1,7 @@
 import * as React from 'react'
 
+import { Button, Profile, Table, TextInput } from '../../component/index'
 import { FetchJogLogsAction, RemoveProfileAction } from '../../action/index'
-import { Table, TextInput } from '../../component/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
@@ -30,10 +30,7 @@ const columns = [
   {
     name: 'User',
     sortable: true,
-    formatter: (value) => <div className="flex items-center">
-      <img src={value[1]} className="w2 h2 br-100 mr3" />
-      <div>{value[0]}</div>
-    </div>
+    formatter: (value) => <Profile color="secondary-text" name={value[0]} picture={value[1]}></Profile>
   }, {
     name: 'id',
     sortable: true
@@ -85,12 +82,16 @@ export class UsersPage extends React.Component<Props, State> {
         {this.state.showUserForm && <UserForm user={this.state.selectedUser}
           onClose={event => this.closeUserForm(event)}></UserForm>}
         <div className="flex mb3">
-          <form className="flex">
+          <form className="flex w-100">
             <TextInput type="text"
               placeholder="Search for name or id"
               style={{ width: '500px' }}
               onChange={event => this.onChange(event)}
             ></TextInput>
+            <div className="flex-auto"></div>
+            <div className="pv2">
+              <Button className="ph4" onClick={event => this.openUserForm(event)}>Create User</Button>
+            </div>
           </form>
         </div>
         <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}
@@ -106,6 +107,10 @@ export class UsersPage extends React.Component<Props, State> {
   selectUser(event) {
     const selectedUser = this.props.users.find(user => user.id === event[1])
     this.setState({ showUserForm: true, selectedUser })
+  }
+
+  openUserForm(event) {
+    this.setState({ showUserForm: true, selectedUser: undefined })
   }
 
   closeUserForm(event) {

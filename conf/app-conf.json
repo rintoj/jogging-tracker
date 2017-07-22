@@ -5,11 +5,22 @@
   "api": {
     "oauth2": {
       "enable": true,
+      "default": {
+        "user": {
+          "name": "System Admin",
+          "userId": "admin@system.com",
+          "password": "admin",
+          "roles": [
+            "admin"
+          ]
+        }
+      },
       "rules": [
         "None        *               OPTIONS             /api/**",
         "None        *               PUT                 /api/profile",
         "None        *               GET                 /api/profile/*",
-        "Basic       *               GET                 /api/oauth2/user",
+        "Basic       ADMIN           PUT                 /api/oauth2/user",
+        "Bearer      *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/client"
       ]

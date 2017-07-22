@@ -4,6 +4,7 @@ interface Props {
   name?: string
   roles?: string[]
   picture?: string
+  color?: string
   showButton?: boolean
   onProfileClick?: Function
   onButtonClick?: Function
@@ -31,7 +32,7 @@ export class Profile extends React.Component<Props, State> {
           </div>}
         </div>
         <div className="flex flex-column justify-center flex-auto ph3">
-          < div className="white-text nowrap ttu f6 truncate">{this.props.name}</div>
+          < div className={`${this.props.color || 'white-text'} nowrap ttu f6 truncate`}>{this.props.name}</div>
           <div className="f6 pt1 o-60">{this.role}</div>
         </div>
       </div>

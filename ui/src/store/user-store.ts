@@ -84,7 +84,7 @@ export class UserStore {
 
   @action()
   saveUser(state: AppState, saveUserAction: SaveUserAction): Promise<AppState> {
-    return services.authService.saveUser(saveUserAction.user, saveUserAction.password)
+    return services.authService.saveUser(saveUserAction.user, saveUserAction.password, saveUserAction.createOnly)
       .then(() => services.authService.fetchUsers())
       .then(users => ({ users }))
   }
@@ -104,7 +104,8 @@ export class UserStore {
       services.authService.signIn(signInAction.userId, signInAction.password)
         .then(user => {
           observer.next({ user, authInProgress: false })
-          if (user.authInfo.roles.indexOf('admin') >= 0) {
+          if ((user.authInfo.roles.indexOf('admin') >= 0) ||
+            (user.authInfo.roles.indexOf('manager') >= 0)) {
             return this.fetchUsers(user, observer)
           }
           observer.complete()
@@ -172,7 +173,8 @@ export class UserStore {
         user.authInfo = session
         services.authService.prepareApi(session.accessToken)
         observer.next({ user })
-        if (user.authInfo.roles.indexOf('admin') >= 0) {
+        if ((user.authInfo.roles.indexOf('admin') >= 0) ||
+          (user.authInfo.roles.indexOf('manager') >= 0)) {
           return this.fetchUsers(user, observer)
         }
         observer.complete()

@@ -72,7 +72,8 @@ export class MenuComponent extends React.Component<Props, State> {
         </div>
         <div className="flex-auto"></div>
         {this.props.user && this.props.user.authInfo &&
-          (this.props.user.authInfo.roles || []).indexOf('admin') >= 0 &&
+          ((this.props.user.authInfo.roles || []).indexOf('admin') >= 0 ||
+            (this.props.user.authInfo.roles || []).indexOf('manager') >= 0) &&
           <UserSelector></UserSelector>}
       </div>
     </div>

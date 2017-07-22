@@ -72,8 +72,20 @@ class AuthService {
     })
   }
 
-  saveUser(user: User, password: string) {
-    return api.put('/oauth2/user', Object.assign({}, user, { password, authInfo: undefined }))
+  saveUser(user: User, password: string, createOnly?: boolean) {
+    const params = new URLSearchParams()
+    params.append('userId', user.id)
+    params.append('name', user.name)
+    params.append('picture', user.picture)
+    params.append('roles', user.authInfo.roles.join(','))
+    params.append('password', password)
+
+    return api.put(`/oauth2/user${createOnly ? '?createOnly=true' : ''}`, params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
+      }
+    }).then(response => response.data)
   }
 
   removeProfile(id: string): Promise<any> {

@@ -31,5 +31,5 @@ export class RemoveProfileAction extends Action {
   constructor(public id: string) { super() }
 }
 export class SaveUserAction extends Action {
-  constructor(public user: User, public password: string) { super() }
+  constructor(public user: User, public password: string, public createOnly?: boolean) { super() }
 }
