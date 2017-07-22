@@ -47,7 +47,8 @@ function toTime(minutes) {
 function measure(statistics, id, value, entry) {
   const type = `${id}.${value}`
   const s = (statistics[type] = statistics[type] || {})
-  s[id] = value
+  s.type = id
+  s.value = value
   if (s.slowest == undefined || s.slowest > entry.averageSpeed) s.slowest = entry.averageSpeed
   if (s.fastest == undefined || s.fastest < entry.averageSpeed) s.fastest = entry.averageSpeed
   if (s.shortestDistance == undefined || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
