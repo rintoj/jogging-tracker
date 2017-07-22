@@ -10,6 +10,7 @@ import { BrowserHistory } from 'react-router-dom'
 import { FilterForm } from './filter-form'
 import { JogLog } from '../../state/jog-log'
 import { MenuComponent } from '../menu/menu'
+import { ShowFormAction } from '../../action/ui-actions'
 import { Table } from '../../component/index'
 
 class Props {
@@ -49,7 +50,8 @@ const columns = [
     name: '',
     className: 'tc w2',
     formatter: (value, rows) => <div className="w-100 ">
-      <div className="fa f2 o-60 glow error-text fa-times-circle pointer" onClick={() => {
+      <div className="fa f2 o-60 glow error-text fa-times-circle pointer" onClick={(event) => {
+        event.stopPropagation()
         new RemoveJogLogAction(rows[0]).dispatch()
       }}></div>
     </div>
@@ -74,6 +76,16 @@ export class HomePage extends React.Component<Props, State> {
     ]
   }
 
+  toJogLog(row: any[]): JogLog {
+    return {
+      id: row[0],
+      date: row[1],
+      distance: row[2],
+      time: row[3],
+      averageSpeed: row[4]
+    }
+  }
+
   render() {
     const rows = (this.props.jogLogs || []).map(jogLog => this.toRow(jogLog))
     return <div className="flex">
@@ -83,9 +95,14 @@ export class HomePage extends React.Component<Props, State> {
         <div className="flex mb4">
           <FilterForm></FilterForm>
         </div>
-        <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}></Table>
+        <Table columns={columns} rows={rows} showIndex={true} loading={this.props.requestInProgress}
+          onClickRow={row => this.editRow(row)}></Table>
       </div>
     </div>
+  }
+
+  editRow(row: any[]) {
+    new ShowFormAction(this.toJogLog(row)).dispatch()
   }
 
 }

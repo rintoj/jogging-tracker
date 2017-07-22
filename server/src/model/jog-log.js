@@ -1,3 +1,10 @@
+function calculateAvgSpeed(item) {
+  let minutes = item.time == undefined || !(item.time instanceof Array) || item.time.length != 2 ?
+    0 : (item.time[0] * 60 + item.time[1])
+  item.averageSpeed = minutes === 0 ? 0 : parseFloat(parseFloat(`${item.distance / minutes * 60}`).toFixed(2))
+  return item
+}
+
 module.exports = {
 
   name: 'JogLog',
@@ -28,14 +35,9 @@ module.exports = {
     field: 'user'
   },
 
-  configure: function() {
-
-    // calculate averageSpeed
-    this.modelSchema.pre('save', function(next) {
-      let minutes = this.time == undefined || !(this.time instanceof Array) || this.time.length != 2 ? 0 : (this.time[0] * 60 + this.time[1])
-      this.averageSpeed = minutes === 0 ? 0 : parseFloat(parseFloat(`${this.distance / minutes * 60}`).toFixed(2))
-      next()
-    })
+  beforeSave: function(item) {
+    const items = item instanceof Array ? item : [item]
+    return items.map(calculateAvgSpeed)
   }
 
 }

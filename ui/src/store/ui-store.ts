@@ -8,16 +8,16 @@ export class UiStore {
 
   @action()
   showFormAction(state: AppState, showFormActionAction: ShowFormAction): AppState {
-    return { showForm: true }
+    return { showForm: true, selectedJogLog: showFormActionAction.jogLog }
   }
 
   @action()
   hideFormAction(state: AppState, hideFormActionAction: HideFormAction): AppState {
-    return { showForm: false }
+    return { showForm: false, selectedJogLog: undefined }
   }
 
   @action()
   toggleFormAction(state: AppState, toggleFormActionAction: ToggleFormAction): AppState {
-    return { showForm: !state.showForm }
+    return { showForm: !state.showForm, selectedJogLog: undefined }
   }
 }

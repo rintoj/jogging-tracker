@@ -2,6 +2,11 @@ import { Filters } from '../state/filters'
 import { JogLog } from './../state/jog-log'
 import { api } from './api'
 
+export interface SaveResponse {
+  created: boolean
+  item: JogLog
+}
+
 export class JogLogService {
 
   readonly url = '/joglog'
@@ -18,9 +23,9 @@ export class JogLogService {
       .then(response => response.data)
   }
 
-  add(jogLog: JogLog): Promise<JogLog> {
+  save(jogLog: JogLog): Promise<SaveResponse> {
     return api.put(this.url, jogLog)
-      .then(response => response.data.item)
+      .then(response => response.data)
   }
 
   remove(id: string): Promise<any> {

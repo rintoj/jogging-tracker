@@ -8,6 +8,7 @@ export interface AppState {
   jogLogs?: JogLog[]
   filters?: Filters
   statistics?: Statistics
+  selectedJogLog?: JogLog
   showForm?: boolean
   authInProgress?: boolean
   requestInProgress?: boolean

@@ -1,17 +1,25 @@
 import * as React from 'react'
+import * as moment from 'moment'
 
 import { Button, Loader, TextInput, TimePicker } from '../../component'
+import { data, inject } from 'statex/react'
 
-import { AddJogLogAction } from '../../action/index'
+import { AppState } from '../../state/index'
 import { BrowserHistory } from 'react-router-dom'
 import { HideFormAction } from '../../action/ui-actions'
+import { JogLog } from '../../state/jog-log'
+import { SaveJogLogAction } from '../../action/index'
 import { Time } from '../../state/time'
 
-interface Props {
+class Props {
   history?: BrowserHistory
+
+  @data((state: AppState) => state.selectedJogLog)
+  jogLog?: JogLog
 }
 
 interface State {
+  id?: string
   date?: string
   distance?: number
   time?: Time
@@ -23,6 +31,7 @@ interface State {
   }
 }
 
+@inject(Props)
 export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   constructor(props) {
@@ -32,11 +41,23 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
     }
   }
 
+  componentWillReceiveProps(props: Props) {
+    this.props = props
+    if (props.jogLog != undefined) {
+      this.setState({
+        id: this.props.jogLog.id,
+        date: moment(this.props.jogLog.date).format('YYYY-MM-DD'),
+        distance: this.props.jogLog.distance,
+        time: [this.props.jogLog.time[0], this.props.jogLog.time[1]]
+      })
+    }
+  }
+
   render() {
     return <div className="absolute absolute--fill flex items-center justify-center">
       <div className="title o-50 absolute absolute--fill" onClick={event => this.close()}></div>
       <div className="flex flex-column justify-center mv4 white shadow-2 pa4 br1 z-1">
-        <div className="f2 pb2 mb4 bb divider-br">Make an entry</div>
+        <div className="f2 pb2 mb4 bb divider-br">{this.props.jogLog ? 'Edit' : 'Make'} an entry</div>
         <form className="flex flex-column justify-center item-start w-100">
           <div className="mb4 tc">
             <div>Log your jog time. Enter date, distance (in KM) and time (in HH:MM).</div>
@@ -46,6 +67,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
             <TextInput type="date"
               label="Date"
               min="0" max="100" step="0.01"
+              value={this.state.date || ''}
               error={this.state.errors.date}
               disabled={this.state.loading}
               onChange={event => this.setState({ date: event.target.value })}></TextInput>
@@ -54,7 +76,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
               placeholder="km"
               className="ml4"
               min="0" max="100" step="0.01"
-              value={this.state.distance + ''}
+              value={this.state.distance + '' || ''}
               disabled={this.state.loading}
               error={this.state.errors.distance}
               onChange={event => this.setState({ distance: parseFloat(event.target.value) })}></TextInput>
@@ -62,7 +84,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
               placeholder="Minutes"
               className="ml4"
               hourMax={100}
-              value={this.state.time}
+              value={this.state.time || [0, 0]}
               disabled={this.state.loading}
               error={this.state.errors.time}
               onChange={(event, value) => this.setState({ time: value })}></TimePicker>
@@ -70,10 +92,13 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
           <div className="flex items-center justify-center mt4">
             <Button submit={true} onClick={event => this.add(event)} disabled={this.state.loading}>{
               this.state.loading ? <Loader primaryColor="title" secondaryColor="title"></Loader> :
-                <div className="flex items-center justify-center">
-                  <div className="fa fa-plus"></div>
-                  <div className="ml2">Add Log</div>
-                </div>
+                this.props.jogLog ? <div className="flex items-center justify-center">
+                  <div className="fa fa-edit"></div>
+                  <div className="ml2">Update Log</div>
+                </div> : <div className="flex items-center justify-center">
+                    <div className="fa fa-plus"></div>
+                    <div className="ml2">Add Log</div>
+                  </div>
             }</Button>
             <Button className="ml3" color="primary" onClick={event => this.close()} disabled={this.state.loading}>{
               <div className="flex items-center justify-center">
@@ -112,7 +137,8 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
 
     this.setState({ loading: true })
     this.props.history.push('/home')
-    new AddJogLogAction({
+    new SaveJogLogAction({
+      id: this.state.id,
       date: this.state.date,
       time: this.state.time,
       distance: this.state.distance

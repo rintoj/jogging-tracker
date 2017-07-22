@@ -2,7 +2,7 @@ import { Action } from 'statex'
 import { Filters } from '../state/filters'
 import { JogLog } from './../state/jog-log'
 
-export class AddJogLogAction extends Action {
+export class SaveJogLogAction extends Action {
   constructor(public jogLog: JogLog) { super() }
 }
 export class RemoveJogLogAction extends Action {
