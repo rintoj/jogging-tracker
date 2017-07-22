@@ -132,7 +132,15 @@ export class UserStore {
         user.authInfo = session
         services.authService.prepareApi(session.accessToken)
         observer.next({ user })
-        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        if (user.authInfo.roles.indexOf('admin') >= 0) {
+          services.authService.fetchUsers().then(users => {
+            console.log(users)
+            observer.next({ users })
+            this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+          })
+        } else {
+          this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        }
       })
       .catch(error => {
         console.log(error)

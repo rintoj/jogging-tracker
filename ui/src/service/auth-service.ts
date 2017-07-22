@@ -96,6 +96,19 @@ class AuthService {
       .then(() => this.prepareApi(undefined))
   }
 
+  fetchUsers(): Promise<any> {
+    return api.get('/oauth2/user', undefined)
+      .then(response => response.data)
+      .then(users => users.map((item): User => {
+        return {
+          id: item.userId,
+          name: item.name,
+          picture: item.picture,
+          authInfo: { roles: item.roles }
+        }
+      }))
+  }
+
   isAuthenticated(authInfo: AuthInfo): boolean {
     return authInfo && new Date().getTime() < authInfo.expiresAt
   }
