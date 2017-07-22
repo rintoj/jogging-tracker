@@ -55,18 +55,18 @@ export class UserForm extends React.Component<Props, State> {
           error={this.state.error.id}
           disabled={this.props.user != undefined}
           autoFocus={this.props.user == undefined}
-          value={this.state.user && this.state.user.id}></TextInput>
+          value={this.state.user && this.state.user.id || ''}></TextInput>
         <TextInput label="Full Name"
           onChange={event => this.onNameChange(event)}
           error={this.state.error.name}
           autoFocus={this.props.user != undefined && this.state.user != undefined && this.state.user.name == undefined}
-          value={this.state.user && this.state.user.name}></TextInput>
+          value={this.state.user && this.state.user.name || ''}></TextInput>
         <TextInput label="Password" type="password"
           onChange={event => this.onPasswordChange(event)}
           error={this.state.error.password}
           autoFocus={this.state.user && this.state.user.id != undefined && this.state.user.name != undefined}></TextInput>
         <div className="b pv2 ttu f6">Role</div>
-        <select value={this.state.user && this.state.user.authInfo.roles[0]}
+        <select value={this.state.user && this.state.user.authInfo && this.state.user.authInfo.roles[0]}
           className="input-reset divider-br br1 pv3 ph3 ttc"
           onClick={event => event.stopPropagation()}
           onChange={event => this.selectRole(event)}>

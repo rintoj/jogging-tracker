@@ -16,7 +16,7 @@ import { SetRedirectUrlAction } from '../action/user-actions'
 import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
 import { StatisticsPage } from './statistics/statistics'
-import { User } from '../state/user';
+import { User } from '../state/user'
 import { UsersPage } from './users/users'
 
 class Props {
@@ -45,13 +45,13 @@ export class App extends React.Component<Props, {}> {
       }).dispatch())
   }
 
-  protect(targetPage, roles?: string[]) {
+  protect(targetPage, params?: Object, roles?: string[]) {
     return props => {
       if (!this.authenticated || this.props.user == undefined) {
         new SetRedirectUrlAction(location.pathname).dispatch()
         return <Redirect to="/signin" />
       }
-      return React.createElement(targetPage, Object.assign({}, props, props.match && props.match.params))
+      return React.createElement(targetPage, Object.assign({}, params, props, props.match && props.match.params))
     }
   }
 
@@ -65,7 +65,7 @@ export class App extends React.Component<Props, {}> {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/authorize" component={AuthorizePage} />
         <Route path="/profile" component={ProfilePage} />
-        <Route path="*" render={() => <Redirect to="/statistics" />} />
+        <Route path="*" render={this.protect(Redirect, { to: '/statistics' })} />
       </Switch>
       {this.props.showForm && <MakeAnEntryDialog history={this.props.history}></MakeAnEntryDialog>}
     </div>
