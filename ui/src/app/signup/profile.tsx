@@ -127,7 +127,7 @@ export class ProfilePage extends React.Component<Props, State> {
   }
   goHome(event) {
     event.preventDefault()
-    this.props.history.push('/home')
+    this.props.history.push('/')
   }
 
   create(event) {
@@ -136,7 +136,7 @@ export class ProfilePage extends React.Component<Props, State> {
       const user = Object.assign({}, this.user, { name: this.state.name })
       this.setState({ loading: true, failed: false })
       new SaveProfileAction(user, this.state.password).dispatch()
-        .then(() => new SetRedirectUrlAction('/home').dispatch())
+        .then(() => new SetRedirectUrlAction('/').dispatch())
         .then(() => new SignInAction(user.id, this.state.password).dispatch())
         .catch(error => {
           console.error(error)

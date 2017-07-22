@@ -93,7 +93,7 @@ export class UserStore {
             return this.fetchUsers(user, observer)
           }
           observer.complete()
-          return this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+          return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
         }, error => {
           observer.next({ authInProgress: false })
           observer.error(error)
@@ -140,7 +140,7 @@ export class UserStore {
     return services.authService.fetchUsers().then(users => {
       const selectedUser = users.find(item => item.id === user.id)
       observer.next({ users, selectedUser })
-      this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+      this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
     })
   }
 
@@ -161,13 +161,13 @@ export class UserStore {
           return this.fetchUsers(user, observer)
         }
         observer.complete()
-        return this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
       })
       .catch(error => {
         console.log(error)
         services.authService.clearSession()
         observer.next({ authInProgress: false, user: undefined })
-        this.onRedirect(this.redirectUrl === '/signin' ? '/home' : this.redirectUrl, true)
+        this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
         if (this.redirectUrl === '/signin') {
           this.onRedirect(this.redirectUrl, false)
         }

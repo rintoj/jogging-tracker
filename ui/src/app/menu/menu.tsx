@@ -38,7 +38,7 @@ export class MenuComponent extends React.Component<Props, State> {
   render() {
     return <div className="primary flex flex-column vh-100" style={{ minWidth: (this.state.open ? '280' : '0') + 'px' }}>
       <div className="flex flex-column justify-start bb divider-l-br w-100 ph3 secondary">
-        <div className="white-text f4 nowrap ttu ph2 pv3 mv1">Jog Tracker</div>
+        <div className="white-text f4 nowrap ttu ph2 pv3 mv1 divider-l-br bb">Jog Tracker</div>
         <Profile name={this.user.name}
           roles={this.user.authInfo && this.user.authInfo.roles} showButton={true}
           picture={this.user.picture}

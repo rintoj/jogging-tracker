@@ -32,7 +32,7 @@ export class UserSelector extends React.Component<Props, State> {
   render() {
     return <div className="flex items-center secondary justify-center pv3 ph4">
       <div className="w-100 flex">
-        <IconText icon="address-book" className="flex-auto">{this.props.selectedUser && this.props.selectedUser.name}</IconText>
+        <IconText icon="address-book" className="flex-auto ttu">{this.props.selectedUser && this.props.selectedUser.name}</IconText>
         <div className="ml3 flex ttu accent-text accent--hover pointer pa2 br1 items-center justify-center"
           onClick={event => this.open()}>
           Switch
