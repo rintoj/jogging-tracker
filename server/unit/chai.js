@@ -1,17 +1,17 @@
 const chai = require('chai')
-
+const http = require('chai-http')
 chai.should()
-chai.use(require('chai-http'))
+chai.use(http)
 chai.use(require('chai-sorted'))
 chai.use(require('chai-things'))
 
-const BASE_AUTH_TOKEN = 'N2Q2NWQ5YjYtNWNhZS00ZGI3LWIxOWQtNTZjYmRkMjVlYWFiOmEwYzdiNzQxLWIxOGItNDdlYi1iNmRmLTQ4YTBiZDNjZGUyZQ=='
+chai.BASE_AUTH_TOKEN = 'N2Q2NWQ5YjYtNWNhZS00ZGI3LWIxOWQtNTZjYmRkMjVlYWFiOmEwYzdiNzQxLWIxOGItNDdlYi1iNmRmLTQ4YTBiZDNjZGUyZQ=='
 
 chai.login = function login(done, userId, password) {
   chai.request(chai.baseUrl)
     .post('/api/oauth2/token')
     .set('Content-Type', 'application/x-www-form-urlencoded')
-    .set('Authorization', `Basic ${BASE_AUTH_TOKEN}`)
+    .set('Authorization', `Basic ${chai.BASE_AUTH_TOKEN}`)
     .send({
       'grant_type': 'password',
       'username': userId || 'admin@system.com',

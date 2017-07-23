@@ -12,6 +12,9 @@
     "prototypejs": false, // prototypejs global variables
     "shelljs": false // shelljs global variables
   },
+  "parserOptions": {
+    "ecmaVersion": 8 // or 2017
+  },
   "globals": {
     // e.g. "angular": true
 
