@@ -109,7 +109,7 @@ export class UserStore {
             return this.fetchUsers(user, observer)
           }
           observer.complete()
-          return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
+          return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
         }, error => {
           observer.next({ authInProgress: false })
           observer.error(error)
@@ -147,7 +147,7 @@ export class UserStore {
       .catch(error => {
         observer.next({ authInProgress: false, user: undefined })
         if (this.redirectUrl === '/signin') {
-          this.onRedirect(this.redirectUrl, false)
+          this.onRedirect(this.redirectUrl)
         }
       })
   }
@@ -156,7 +156,7 @@ export class UserStore {
     return services.authService.fetchUsers().then(users => {
       const selectedUser = users.find(item => item.id === user.id)
       observer.next({ users, selectedUser })
-      this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
+      this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
     })
   }
 
@@ -165,7 +165,7 @@ export class UserStore {
     if (session == undefined || !services.authService.isAuthenticated(session)) {
       observer.next({ authInProgress: false, user: undefined })
       observer.complete()
-      return this.onRedirect('/signin', false)
+      return this.onRedirect('/signin')
     }
 
     services.authService.fetchProfile(session.accessToken)
@@ -178,15 +178,15 @@ export class UserStore {
           return this.fetchUsers(user, observer)
         }
         observer.complete()
-        return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
+        return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
       })
       .catch(error => {
         console.log(error)
         services.authService.clearSession()
         observer.next({ authInProgress: false, user: undefined })
-        this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl, true)
+        this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
         if (this.redirectUrl === '/signin') {
-          this.onRedirect(this.redirectUrl, false)
+          this.onRedirect(this.redirectUrl)
         }
       })
   }

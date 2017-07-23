@@ -32,13 +32,10 @@ class Props {
 @inject(Props)
 export class App extends React.Component<Props, {}> {
 
-  private authenticated: boolean
-
   componentDidMount() {
     Promise.resolve()
       .then(() => new SetRedirectUrlAction(location.pathname).dispatch())
-      .then(() => new AuthorizeAction((redirectUrl, authenticated) => {
-        this.authenticated = authenticated
+      .then(() => new AuthorizeAction((redirectUrl) => {
         if (location.pathname !== redirectUrl) {
           this.props.history.replace(redirectUrl)
         }
@@ -47,9 +44,13 @@ export class App extends React.Component<Props, {}> {
 
   protect(targetPage, params?: Object, roles?: string[]) {
     return props => {
-      if (!this.authenticated || this.props.user == undefined) {
+      if (this.props.user == undefined) {
         new SetRedirectUrlAction(location.pathname).dispatch()
         return <Redirect to="/signin" />
+      } else if (roles != undefined && (this.props.user.authInfo == undefined ||
+        this.props.user.authInfo.roles == undefined || roles.indexOf(this.props.user.authInfo.roles[0])) < 0) {
+        new SetRedirectUrlAction(location.pathname).dispatch()
+        return <Redirect to="/statistics" />
       }
       return React.createElement(targetPage, Object.assign({}, params, props, props.match && props.match.params))
     }
@@ -60,7 +61,7 @@ export class App extends React.Component<Props, {}> {
       <Switch>
         <Route path="/logs" render={this.protect(LogPage)} />
         <Route path="/statistics" render={this.protect(StatisticsPage)} />
-        <Route path="/users" render={this.protect(UsersPage)} />
+        <Route path="/users" render={this.protect(UsersPage, undefined, ['admin'])} />
         <Route path="/signin" component={SignInPage} />
         <Route path="/signup" component={SignUpPage} />
         <Route path="/authorize" component={AuthorizePage} />
