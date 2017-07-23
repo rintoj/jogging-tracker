@@ -7,8 +7,8 @@ chai.use(require('chai-things'))
 
 chai.BASE_AUTH_TOKEN = 'N2Q2NWQ5YjYtNWNhZS00ZGI3LWIxOWQtNTZjYmRkMjVlYWFiOmEwYzdiNzQxLWIxOGItNDdlYi1iNmRmLTQ4YTBiZDNjZGUyZQ=='
 
-chai.login = function login(done, userId, password) {
-  chai.request(chai.baseUrl)
+chai.login = function login(baseUrl, done, userId, password) {
+  chai.request(baseUrl)
     .post('/api/oauth2/token')
     .set('Content-Type', 'application/x-www-form-urlencoded')
     .set('Authorization', `Basic ${chai.BASE_AUTH_TOKEN}`)
@@ -25,7 +25,4 @@ chai.login = function login(done, userId, password) {
     })
 }
 
-module.exports = (baseUrl) => {
-  chai.baseUrl = baseUrl
-  return chai
-}
+module.exports = chai

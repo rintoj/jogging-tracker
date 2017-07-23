@@ -1,13 +1,13 @@
-const baseUrl = 'http://localhost:5000'
-const chai = require('./chai')(baseUrl)
+const chai = require('./chai')
 const expect = chai.expect
 
+const baseUrl = 'http://localhost:5000'
 describe('/api/oauth2/user', () => {
 
   const url = '/api/oauth2/user'
 
   before((done) => {
-    chai.login(done)
+    chai.login(baseUrl, done)
   })
 
   it('should be accessible', async() => {
