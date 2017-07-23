@@ -72,6 +72,7 @@ export class RegisterPage extends React.Component<Props, State> {
         .then(() => new SendAuthCodeAction(this.state.email).dispatch())
         .then(() => this.props.onEmailChange(this.state.email))
         .then(() => new SetSignupStateAction('auth-code').dispatch())
+        .catch(() => new SetSignupStateAction('register').dispatch())
     }
   }
 }

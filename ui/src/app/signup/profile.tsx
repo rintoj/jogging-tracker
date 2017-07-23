@@ -123,8 +123,12 @@ export class ProfilePage extends React.Component<Props, State> {
 
   signOut(event) {
     event.preventDefault()
-    new SignOutAction().dispatch()
+    Promise.resolve()
+      .then(() => new SetRedirectUrlAction('/').dispatch())
+      .then(() => new SignOutAction().dispatch())
+      .then(() => this.props.history.replace('/'))
   }
+
   goHome(event) {
     event.preventDefault()
     this.props.history.push('/')

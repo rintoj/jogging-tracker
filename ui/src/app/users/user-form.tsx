@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Button, TextInput } from '../../component/index'
+import { Button, Loader, TextInput } from '../../component/index'
 
 import { Dialog } from '../../component/dialog/dialog'
 import { SaveUserAction } from '../../action/index'
@@ -11,8 +11,8 @@ interface Props {
   onClose?: Function
 }
 interface State {
-  loading?: Boolean
-  failed?: Boolean
+  loading?: boolean
+  failed?: boolean
   user?: User
   password?: string
   error?: {
@@ -53,27 +53,34 @@ export class UserForm extends React.Component<Props, State> {
         <TextInput label="Email Id"
           onChange={event => this.onIdChange(event)}
           error={this.state.error.id}
-          disabled={this.props.user != undefined}
+          disabled={this.props.user != undefined || this.state.loading}
           autoFocus={this.props.user == undefined}
           value={this.state.user && this.state.user.id || ''}></TextInput>
         <TextInput label="Full Name"
           onChange={event => this.onNameChange(event)}
           error={this.state.error.name}
+          disabled={this.state.loading}
           autoFocus={this.props.user != undefined && this.state.user != undefined && this.state.user.name == undefined}
           value={this.state.user && this.state.user.name || ''}></TextInput>
         <TextInput label="Password" type="password"
           onChange={event => this.onPasswordChange(event)}
           error={this.state.error.password}
+          disabled={this.state.loading}
           autoFocus={this.state.user && this.state.user.id != undefined && this.state.user.name != undefined}></TextInput>
         <div className="b pv2 ttu f6">Role</div>
         <select value={this.state.user && this.state.user.authInfo && this.state.user.authInfo.roles[0]}
-          className="input-reset divider-br br1 pv3 ph3 ttc"
+          className={`input-reset divider-br br1 pv3 ph3 ttc ${this.state.loading ? 'divider' : 'white'}`}
+          disabled={this.state.loading}
           onClick={event => event.stopPropagation()}
           onChange={event => this.selectRole(event)}>
           {ROLES.map(role => <option key={role} value={role} className="ttc">{role}</option>)}
         </select>
         <div className="pt4 flex w-100 items-center justify-center">
-          <Button className="mr2 ph4" onClick={event => this.submit(event)}>{this.props.user ? 'Save' : 'Create'}</Button>
+          <Button className="mr2 ph4" onClick={event => this.submit(event)}
+            disabled={this.state.loading}>{this.state.loading ? <div className="flex items-center justify-center">
+              <Loader></Loader>
+            </div> : this.props.user ? 'Save' : 'Create'}
+          </Button>
           <Button className="ml2 ph4" color="secondary" onClick={event => this.close()}>Cancel</Button>
         </div>
       </div>

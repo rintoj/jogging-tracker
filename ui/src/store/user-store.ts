@@ -68,7 +68,7 @@ export class UserStore {
     return services.authService.requestAuthCode(sendAuthCodeAction.email)
       .then(() => Object.assign({}, state, {
         user: { email: sendAuthCodeAction.email }
-      }), error => error)
+      }))
   }
 
   @action()
