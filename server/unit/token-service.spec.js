@@ -2,7 +2,7 @@ const chai = require('./chai')
 const baseUrl = 'http://localhost:5000'
 const url = '/api/oauth2/token'
 
-xdescribe('/api/oauth2/token', () => {
+describe('/api/oauth2/token', () => {
 
   it('should be accessible', async() => {
     const res = await chai.request(baseUrl).options(url)
