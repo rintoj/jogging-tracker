@@ -1,9 +1,9 @@
 import * as React from 'react'
 
 import { Button, Loader, TextInput } from '../../component/index'
+import { FetchUsersAction, SaveUserAction } from '../../action/index'
 
 import { Dialog } from '../../component/dialog/dialog'
-import { SaveUserAction } from '../../action/index'
 import { User } from '../../state/user'
 
 interface Props {
@@ -76,12 +76,12 @@ export class UserForm extends React.Component<Props, State> {
           {ROLES.map(role => <option key={role} value={role} className="ttc">{role}</option>)}
         </select>
         <div className="pt4 flex w-100 items-center justify-center">
-          <Button className="mr2 ph4" onClick={event => this.submit(event)}
+          <Button className="mr2 ph4 flex-auto" onClick={event => this.submit(event)}
             disabled={this.state.loading}>{this.state.loading ? <div className="flex items-center justify-center">
               <Loader></Loader>
             </div> : this.props.user ? 'Save' : 'Create'}
           </Button>
-          <Button className="ml2 ph4" color="secondary" onClick={event => this.close()}>Cancel</Button>
+          <Button className="ml2 ph4 flex-auto" color="secondary" onClick={event => this.close()}>Cancel</Button>
         </div>
       </div>
     </Dialog>
@@ -146,6 +146,7 @@ export class UserForm extends React.Component<Props, State> {
       Promise.resolve()
         .then(() => this.setState({ loading: true, failed: false }))
         .then(() => new SaveUserAction(this.state.user, this.state.password, this.props.user == undefined).dispatch())
+        .then(() => new FetchUsersAction().dispatch())
         .then(() => this.setState({ loading: false }))
         .then(() => this.close())
         .catch(() => this.setState({ loading: false, failed: true }))

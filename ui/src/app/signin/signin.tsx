@@ -61,9 +61,9 @@ export class SignInPage extends React.Component<Props, State> {
           ></TextInput>
           <div className="flex mt4">
             <Button submit={true} className="flex-auto mr2" onClick={event => this.signIn(event)}>Sign In</Button>
-            <Button className="ml2 flex-auto" color="secondary" onClick={event => this.signUp(event)}>Sign Up</Button>
+            <Button className="ml2 flex-auto" color="ternary" onClick={event => this.signUp(event)}>Sign Up</Button>
           </div>
-          <div className="mt4 tc pointer glow o-60" onClick={event => this.forgotPassword(event)}>Forgot password?</div>
+          {/* <div className="mt4 tc pointer glow o-60" onClick={event => this.forgotPassword(event)}>Forgot password?</div> */}
         </form>}
       </div>
     </div>

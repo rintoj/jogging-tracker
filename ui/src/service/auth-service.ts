@@ -73,12 +73,27 @@ class AuthService {
   }
 
   saveUser(user: User, password: string, createOnly?: boolean) {
-    // const params = new URLSearchParams()
-    // params.append('userId', user.id)
-    // params.append('name', user.name)
-    // if (user.picture != undefined) params.append('picture', user.picture)
-    // if (user.authInfo.roles != undefined) params.append('roles', user.authInfo.roles.join(','))
-    // if (password != undefined) params.append('password', password)
+    const data = {
+      userId: user.id,
+      name: user.name,
+      picture: user.picture,
+      roles: user.authInfo.roles,
+      password: password
+    }
+
+    return new Promise((resolve, reject) => {
+      api.put(`/oauth2/user${createOnly ? '?createOnly=true' : ''}`, data)
+        .then(response => {
+          if (createOnly && response.status === 304) {
+            return reject('User already exists')
+          }
+          resolve()
+        })
+
+    })
+  }
+
+  registerUser(user: User, password: string) {
 
     const data = {
       userId: user.id,
@@ -88,7 +103,7 @@ class AuthService {
       password: password
     }
 
-    return api.put(`/oauth2/user${createOnly ? '?createOnly=true' : ''}`, data, {
+    return api.post('/oauth2/register', data, {
       headers: {
         Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
       }

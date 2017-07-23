@@ -20,15 +20,16 @@ export class SetRedirectUrlAction extends Action {
 export class SignInAction extends Action {
   constructor(public userId: string, public password: string) { super() }
 }
-export class SaveProfileAction extends Action {
-  constructor(public user: User, public password: string) { super() }
-}
 export class SignOutAction extends Action { }
+export class FetchUsersAction extends Action { }
 export class SelectUserAction extends Action {
   constructor(public user: User) { super() }
 }
 export class RemoveProfileAction extends Action {
   constructor(public id: string) { super() }
+}
+export class RegisterUserAction extends Action {
+  constructor(public user: User, public password: string) { super() }
 }
 export class SaveUserAction extends Action {
   constructor(public user: User, public password: string, public createOnly?: boolean) { super() }

@@ -19,7 +19,6 @@
         "None        *               OPTIONS             /api/**",
         "None        *               PUT                 /api/profile",
         "None        *               GET                 /api/profile/*",
-        "Basic       ADMIN           PUT                 /api/oauth2/user",
         "Bearer      *               GET                 /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/client"
