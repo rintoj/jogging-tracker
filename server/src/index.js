@@ -6,9 +6,6 @@ const statisticsService = require('./service/statistics-service')
 
 const isDev = process.env.NODE_ENV === 'development'
 const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
-const config = require('../../' + configPath)
-
-const auth0Check = require('./service/auth0-service')(config)
 
 // configure the api
 mongoRestifier(configPath, (properties) => {
@@ -22,12 +19,9 @@ mongoRestifier(configPath, (properties) => {
   // startup the app
   .startup((app) => {
 
-    // get profile service
-    app.use('/api', profileService.fetchProfileRouter)
+    // custom services
+    app.use('/api', profileService)
     app.use('/api', statisticsService)
     app.use('/api', dedupService)
-
-    // save profile service used for register and password reset
-    app.use('/api', auth0Check, profileService.saveProfileRouter)
 
   });
