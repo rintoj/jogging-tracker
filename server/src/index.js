@@ -1,4 +1,3 @@
-const fallback = require('express-history-api-fallback')
 const dedupService = require('./service/dedup-service')
 const mongoRestifier = require('mongo-restifier')
 const profileService = require('./service/profile-service')
@@ -9,9 +8,9 @@ const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
 
 // configure the api
 mongoRestifier(configPath, (properties) => {
-    properties.api.port = process.env.PORT || 5000
-    return properties
-  })
+  properties.api.port = process.env.PORT || 5000
+  return properties
+})
 
   // register models
   .registerModel(require('./model/jog-log'))
@@ -24,4 +23,4 @@ mongoRestifier(configPath, (properties) => {
     app.use('/api', statisticsService)
     app.use('/api', dedupService)
 
-  });
+  })

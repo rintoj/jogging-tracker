@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const resolvable = require('resolvable')
 
 const router = express.Router()
-const saveProfileRouter = express.Router()
 
 const {
   handleError,
@@ -11,7 +10,7 @@ const {
 } = require('../util')
 
 function maskUser(user) {
-  if (user == undefined) return user
+  if (user == null) return user
   return {
     id: user.userId,
     name: user.name,
@@ -29,16 +28,10 @@ function findUser(User, userId) {
 router.get('/profile', function(request, response) {
 
   const User = mongoose.models.User
+  if (User == null) return send('User service is not properly configured!', 500)
+  if (request.user == null) return send('Unauthorized', 401)
 
-  if (User == undefined) {
-    return send('User service is not properly configured!', 500)
-  }
-
-  if (request.user == undefined) {
-    return send('Unauthorized', 401)
-  }
-
-  Promise.resolve(request.user.userId || request.params.userId)
+  return Promise.resolve(request.user.userId || request.params.userId)
     .then(userId => findUser(User, userId))
     .then(user => maskUser(user))
     .then(user => send(response, user))

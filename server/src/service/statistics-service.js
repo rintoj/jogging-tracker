@@ -8,7 +8,6 @@ const jogLogModel = require('../model/jog-log')
 const router = express.Router()
 
 const {
-  handleError,
   send
 } = require('../util')
 
@@ -23,7 +22,7 @@ function startup() {
 function getJogLog(user) {
   if (!started) startup()
   return Promise.resolve(user)
-    .then(user => findAll({
+    .then(() => findAll({
       $query: {
         user
       },
@@ -38,7 +37,7 @@ function getWeek(date) {
 }
 
 function toMinutes(time) {
-  if (time == undefined || !(time instanceof Array) || time.length !== 2) return 0
+  if (time == null || !(time instanceof Array) || time.length !== 2) return 0
   return time[0] * 60 + time[1]
 }
 
@@ -51,10 +50,10 @@ function measure(statistics, id, value, entry, data) {
   statistics[type] = Object.assign({}, statistics[type], data)
   const s = statistics[type]
   s.type = id
-  if (s.slowestSpeed == undefined || s.slowestSpeed > entry.averageSpeed) s.slowestSpeed = entry.averageSpeed
-  if (s.fastestSpeed == undefined || s.fastestSpeed < entry.averageSpeed) s.fastestSpeed = entry.averageSpeed
-  if (s.shortestDistance == undefined || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
-  if (s.longestDistance == undefined || s.longestDistance < entry.distance) {
+  if (s.slowestSpeed == null || s.slowestSpeed > entry.averageSpeed) s.slowestSpeed = entry.averageSpeed
+  if (s.fastestSpeed == null || s.fastestSpeed < entry.averageSpeed) s.fastestSpeed = entry.averageSpeed
+  if (s.shortestDistance == null || s.shortestDistance > entry.distance) s.shortestDistance = entry.distance
+  if (s.longestDistance == null || s.longestDistance < entry.distance) {
     s.longestDistance = entry.distance
     s.longestDistDate = entry.date
   }
@@ -66,16 +65,16 @@ function measure(statistics, id, value, entry, data) {
 
   s.date = entry.date
 
-  s.distance = (s.distance == undefined ? 0 : s.distance) + entry.distance
-  s.speed = (s.speed == undefined ? 0 : s.speed) + entry.averageSpeed
+  s.distance = (s.distance == null ? 0 : s.distance) + entry.distance
+  s.speed = (s.speed == null ? 0 : s.speed) + entry.averageSpeed
   s.time = toTime((toMinutes(s.time) || 0) + toMinutes(entry.time))
   s.entries = (s.entries || 0) + 1
 }
 
-function measureAverage(statistics, id, value, data) {
+function measureAverage(statistics, id, value) {
   const type = `${id}.${value}`
   const s = statistics[type]
-  if (s == undefined) return
+  if (s == null) return
   s.averageDistance = s.distance / s.entries
   s.averageTime = toTime(toMinutes(s.time) / s.entries)
   s.averageSpeed = s.speed / s.entries
@@ -84,34 +83,32 @@ function measureAverage(statistics, id, value, data) {
 router.get('/statistics', function(request, response) {
 
   let userId = request.user.userId
-  if (jogLogModel.userSpace.ignore != undefined && (_.intersection(jogLogModel.userSpace.ignore || [], request.user.roles || []).length !== 0)) {
+  if (jogLogModel.userSpace.ignore != null && (_.intersection(jogLogModel.userSpace.ignore || [], request.user.roles || []).length !== 0))
     userId = request.body[jogLogModel.userSpace.field] || request.query[jogLogModel.userSpace.field]
-  }
 
-  getJogLog(userId).then(data => {
+  getJogLog(userId).then((data) => {
     const statistics = {}
-    let fastest, slowest, month, year, week
-    data.forEach((entry, index) => {
+    let month, year, week
+    data.forEach(entry => {
       const date = new Date(entry.date)
 
-      if (year != undefined && year != date.getFullYear()) {
+      if (year != null && year !== date.getFullYear())
         measureAverage(statistics, 'year', year, {
           year
         })
-      }
-      if (month != undefined && month != date.getMonth()) {
+
+      if (month != null && month !== date.getMonth())
         measureAverage(statistics, 'month', month, {
           year,
           month
         })
-      }
-      if (week != undefined && week != getWeek(date)) {
+
+      if (week != null && week !== getWeek(date))
         measureAverage(statistics, 'week', week, {
           year,
           month,
           week
         })
-      }
 
       year = date.getFullYear()
       month = date.getMonth()
