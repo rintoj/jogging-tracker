@@ -29,6 +29,7 @@ interface State {
 const columns = [
   {
     name: 'User',
+    sort: true,
     sortable: true,
     formatter: (value) => <Profile color="secondary-text" name={value[0]} picture={value[1]}></Profile>
   }, {
