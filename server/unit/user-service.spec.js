@@ -6,7 +6,8 @@ describe('/api/oauth2/user', () => {
 
   const url = '/api/oauth2/user'
 
-  before(async() => chai.login(baseUrl))
+  before(async() => chai.setup(baseUrl))
+  after(async() => chai.cleanup(baseUrl))
 
   it('should be accessible', async() => {
     const res = await chai.request(baseUrl).options(url)
@@ -39,43 +40,30 @@ describe('/api/oauth2/user', () => {
   })
 
   it('should return list of users, if GET used with access token', async() => {
-    const res = await chai.request(baseUrl).get(url).set('Authorization', chai.ACCESS_TOKEN)
+    const res = await chai.get(baseUrl, url)
     res.should.have.status(200)
-    expect(res.body).to.be.an('array').that.does.deep.include({
-      userId: 'admin@system.com',
-      name: 'System Admin',
-      active: true,
-      roles: ['admin']
-    })
+    expect(res.body).to.be.an('array')
+    expect(res.body.length).to.be.greaterThan(2)
   })
 
   it('should return list of users, if POST used with access token', async() => {
-    const res = await chai.request(baseUrl).post(url).set('Authorization', chai.ACCESS_TOKEN)
+    const res = await chai.post(baseUrl, url)
     res.should.have.status(200)
-    expect(res.body).to.be.an('array').that.does.deep.include({
-      userId: 'admin@system.com',
-      name: 'System Admin',
-      active: true,
-      roles: ['admin']
-    })
+    expect(res.body).to.be.an('array')
+    expect(res.body.length).to.be.greaterThan(2)
   })
 
   it('should create a user, if PUT used with access token', async() => {
     try {
-      await chai.request(baseUrl)
-        .delete(`${url}/new-user-123`)
-        .set('Authorization', chai.ACCESS_TOKEN)
+      await chai.delete(baseUrl, `${url}/new-user-123`)
     } catch (e) {
       // it's ok to ignore. just wanted to delete user if exists
     }
 
-    const res = await chai.request(baseUrl)
-      .put(url).set('Authorization', chai.ACCESS_TOKEN)
-      .send({
-        userId: 'new-user-123',
-        name: 'Sys Admin'
-      })
-
+    const res = await chai.put(baseUrl, url).send({
+      userId: 'new-user-123',
+      name: 'Sys Admin'
+    })
     res.should.have.status(200)
     expect(res.body.item).to.be.an('object')
     expect(res.body.item.userId).to.be.equal('new-user-123')
@@ -83,31 +71,28 @@ describe('/api/oauth2/user', () => {
   })
 
   it('should update a user, if PUT used with access token', async() => {
-    const res = await chai.request(baseUrl).put(url).set('Authorization', chai.ACCESS_TOKEN)
-      .send({
-        name: 'Sys Admin'
-      })
+    const res = await chai.put(baseUrl, url).send({
+      userId: 'admin',
+      name: 'System Admin'
+    })
     res.should.have.status(200)
-    expect(res.body.item).to.be.an('object')
-    expect(res.body.item.name).to.be.equal('Sys Admin')
+    const result = await chai.get(baseUrl, `${url}/admin`)
+    result.should.have.status(200)
+    result.body.should.be.an('object')
+    result.body.name.should.be.equal('System Admin')
   })
 
   it('should delete a user, if DELETE used with access token', async() => {
     try {
-      await chai.request(baseUrl)
-        .put(url).set('Authorization', chai.ACCESS_TOKEN)
-        .send({
-          userId: 'new-user-123',
-          name: 'Sys Admin'
-        })
+      await chai.put(baseUrl, url).send({
+        userId: 'new-user-123',
+        name: 'Sys Admin'
+      })
     } catch (e) {
       // create first but ignore any errors
     }
 
-    const res = await chai.request(baseUrl)
-      .delete(`${url}/new-user-123`)
-      .set('Authorization', chai.ACCESS_TOKEN)
-
+    const res = await chai.delete(baseUrl, `${url}/new-user-123`)
     res.should.have.status(200)
     expect(res.body.item).to.be.an('object')
     expect(res.body.item.name).to.be.equal('Sys Admin')
