@@ -69,7 +69,7 @@ export class StatisticsCard extends React.Component<Props, State> {
     return <div className="flex flex-column items-center justify-center pa3"
       key={`${text}:${value}`}>
       <div className="nowrap">
-        <span className="f4 b">{value}</span>
+        <span className="f4">{value}</span>
         <span className="f6 o-60"> {unit}</span>
       </div>
       <div className="f5 o-60 mt2 nowrap">{text}</div>
@@ -81,7 +81,7 @@ export class StatisticsCard extends React.Component<Props, State> {
     return <div className="flex flex-column ph3 pb3">
       <div className="flex flex-column justify-center items-center">
         <div className="flex flex-column items-center justify-center mv4">
-          <div className="f4 mt2 b">{moment(entry.longestDistDate).format('YYYY MMM DD')}</div>
+          <div className="f3 mt2">{moment(entry.longestDistDate).format('YYYY MMM DD')}</div>
           <div className="tc f5 ttu mt2">longest distance on</div>
           <div className="tc o-60 mt1">({entry.type === 'overall' ? 'Overall' : 'in the selected period'})</div>
         </div>
