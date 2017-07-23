@@ -68,7 +68,11 @@ export class ProfilePage extends React.Component<Props, State> {
     return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-around login-card">
         <div className="flex flex-column items-center justify-center">
-          <img src={this.user.picture} alt="" className="w4 h4 br-100 divider-l" />
+          {this.user.picture != undefined && this.user.picture !== '' && this.user.picture !== 'undefined' ?
+            <img src={this.user.picture} alt="" className="w4 h4 br-100 divider-l" /> :
+            <div className="br-100 w4 h4 ttu flex f2 items-center justify-center ternary">
+              {(this.user.name || 'UR').substr(0, 2)}
+            </div>}
           <div className="f3 b tc title-text mt3">{this.user.name}</div>
           <div className="mt2">{this.user.id}</div>
           <div className="ttu tc title-text mt2">{(this.user.authInfo ? this.user.authInfo.roles : (this.user as any).roles)}</div>
