@@ -73,16 +73,23 @@ class AuthService {
   }
 
   saveUser(user: User, password: string, createOnly?: boolean) {
-    const params = new URLSearchParams()
-    params.append('userId', user.id)
-    params.append('name', user.name)
-    params.append('picture', user.picture)
-    params.append('roles', user.authInfo.roles.join(','))
-    params.append('password', password)
+    // const params = new URLSearchParams()
+    // params.append('userId', user.id)
+    // params.append('name', user.name)
+    // if (user.picture != undefined) params.append('picture', user.picture)
+    // if (user.authInfo.roles != undefined) params.append('roles', user.authInfo.roles.join(','))
+    // if (password != undefined) params.append('password', password)
 
-    return api.put(`/oauth2/user${createOnly ? '?createOnly=true' : ''}`, params, {
+    const data = {
+      userId: user.id,
+      name: user.name,
+      picture: user.picture,
+      roles: user.authInfo.roles,
+      password: password
+    }
+
+    return api.put(`/oauth2/user${createOnly ? '?createOnly=true' : ''}`, data, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Basic ${btoa(`${config.authService.clientId}:${config.authService.clientSecret}`)}`
       }
     }).then(response => response.data)

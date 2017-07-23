@@ -7,6 +7,7 @@ export interface ApiOptions {
   headers?: Object
   timeout?: number
   authToken?: string
+  validateStatus?: Function
 }
 
 export interface Request {
@@ -22,7 +23,10 @@ export interface Request {
 export class Api {
 
   private options: ApiOptions = {
-    baseURL: config.apiUrl
+    baseURL: config.apiUrl,
+    validateStatus: (status) => {
+      return status === 304 || status >= 200 && status < 300
+    }
   }
 
   get(url: string, params?: Object, options?: Request) {
