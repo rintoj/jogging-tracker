@@ -5,7 +5,7 @@ const url = '/api/oauth2/revoke'
 
 describe('/api/oauth2/revoke', () => {
 
-  before((done) => chai.login(baseUrl, done))
+  before(async() => chai.login(baseUrl))
 
   it('should be accessible', async() => {
     const res = await chai.request(baseUrl).options(url)
