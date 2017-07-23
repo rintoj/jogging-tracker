@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Button, Profile, Table, TextInput } from '../../component/index'
-import { FetchJogLogsAction, RemoveProfileAction } from '../../action/index'
+import { FetchJogLogsAction, RemoveUserAction } from '../../action/index'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
@@ -45,7 +45,7 @@ const columns = [
     formatter: (value, rows) => <div className="w-100 ">
       <div className="fa f2 o-60 glow error-text fa-times-circle pointer" onClick={(event) => {
         event.stopPropagation()
-        new RemoveProfileAction(rows[1]).dispatch()
+        new RemoveUserAction(rows[1]).dispatch()
       }}></div>
     </div>
   }

@@ -7,7 +7,6 @@ import { data, inject } from 'statex/react'
 
 import { AppState } from '../state/index'
 import { AuthorizeAction } from '../action/index'
-import { AuthorizePage } from './signup/authorize'
 import { BrowserHistory } from 'react-router-dom'
 import { LogPage } from './log/log'
 import { MakeAnEntryDialog } from './make-an-entry/make-an-entry'
@@ -64,7 +63,6 @@ export class App extends React.Component<Props, {}> {
         <Route path="/users" render={this.protect(UsersPage, undefined, ['admin'])} />
         <Route path="/signin" component={SignInPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/authorize" component={AuthorizePage} />
         <Route path="/profile" component={ProfilePage} />
         <Route path="*" render={this.protect(Redirect, { to: '/statistics' })} />
       </Switch>

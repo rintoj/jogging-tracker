@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { SetSignupStateAction, SignInAction } from '../../action'
 import { data, inject } from 'statex/react'
 
 import { AppState } from '../../state/app-state'
 import { BrowserHistory } from 'react-router-dom'
 import { Button } from '../../component'
 import { Loader } from '../../component'
+import { SignInAction } from '../../action'
 import { TextInput } from '../../component'
 
 class Props {
@@ -83,16 +83,7 @@ export class SignInPage extends React.Component<Props, State> {
 
   signUp(event) {
     event.preventDefault()
-    Promise.resolve()
-      .then(() => new SetSignupStateAction('register').dispatch())
-      .then(() => this.props.history.push(`/signup`))
-  }
-
-  forgotPassword(event) {
-    event.preventDefault()
-    Promise.resolve()
-      .then(() => new SetSignupStateAction('forgot').dispatch())
-      .then(() => this.props.history.push(`/signup`))
+    this.props.history.push(`/signup`)
   }
 
   signIn(event) {

@@ -1,11 +1,11 @@
-import { authService } from './auth-service'
 import { jogLogService } from './jog-log.service'
 import { statisticsService } from './statistics-service'
+import { userService } from './user-service'
 import { utilService } from './util-service'
 
 export const services = {
-  authService,
-  utilService,
   jogLogService,
-  statisticsService
+  statisticsService,
+  userService,
+  utilService
 }

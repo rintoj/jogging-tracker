@@ -1,6 +1,5 @@
 import { Filters } from './filters'
 import { JogLog } from './jog-log'
-import { SignUpPageState } from './page-state'
 import { Statistics } from './statistics'
 import { User } from './user'
 
@@ -17,5 +16,4 @@ export interface AppState {
   selectedUser?: User
   draftUser?: User
   history?: string
-  signupPageState?: SignUpPageState
 }

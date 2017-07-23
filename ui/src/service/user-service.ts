@@ -1,78 +1,26 @@
-import * as auth0 from 'auth0-js'
-
 import { AuthInfo } from './../state/auth-info'
 import { User } from './../state/user'
 import { api } from './api'
 import { config } from '../app/config'
 
 const ACCESS_INFO_KEY = 'access_info'
-const AUTH_CONFIG = config.authConfig
 
-class AuthService {
+class UserService {
 
-  private auth0 = new auth0.WebAuth(AUTH_CONFIG)
-
-  requestAuthCode(emailId: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.auth0.passwordlessStart({
-        connection: 'email',
-        email: emailId,
-        send: 'code'
-      }, (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-        resolve()
-      })
-    })
-  }
-
-  verifyAuthCode(emailId: string, authCode: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.auth0.passwordlessVerify({
-        connection: 'email',
-        email: emailId,
-        verificationCode: authCode
-      }, (err, res) => {
-        if (err) return reject(err)
-        resolve()
-      })
-    })
-  }
-
-  handleAuthentication(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.auth0.parseHash({ nonce: AUTH_CONFIG.nonce }, (err, authResult) => {
-        if (err) return reject(err)
-        if (authResult && authResult.accessToken && authResult.idToken) {
-          return Promise.resolve(this.authResultToUser(authResult))
-            .then((user: User) => this.fetchProfile(authResult.idToken, user.id)
-              .then(profile => Object.assign({}, user, profile)))
-            .then((user: User) => {
-              console.log(user)
-              resolve(user)
-            })
-            .catch(error => reject(error))
-        }
-        reject(err)
-      })
-    })
-  }
-
-  fetchProfile(authToken: string, userId?: string) {
-    return api.get(`/profile${userId != undefined ? `/${userId}` : ''}`, undefined, { authToken })
+  fetch(): Promise<any> {
+    return api.get('/oauth2/user', undefined)
       .then(response => response.data)
+      .then(users => users.map((item): User => {
+        return {
+          id: item.userId,
+          name: item.name,
+          picture: item.picture,
+          authInfo: { roles: item.roles }
+        }
+      }))
   }
 
-  saveProfile(user: User, password: string) {
-    return api.put('/profile', Object.assign({}, user, { password, authInfo: undefined }), {
-      headers: {
-        Authorization: `Bearer ${user.authInfo.accessToken}`
-      }
-    })
-  }
-
-  saveUser(user: User, password: string, createOnly?: boolean) {
+  save(user: User, password: string, createOnly?: boolean) {
     const data = {
       userId: user.id,
       name: user.name,
@@ -93,7 +41,7 @@ class AuthService {
     })
   }
 
-  registerUser(user: User, password: string) {
+  register(user: User, password: string) {
 
     const data = {
       userId: user.id,
@@ -110,7 +58,7 @@ class AuthService {
     }).then(response => response.data)
   }
 
-  removeProfile(id: string): Promise<any> {
+  remove(id: string): Promise<any> {
     return api.delete(`/oauth2/user/${id}`)
       .then(response => response.data)
   }
@@ -139,17 +87,9 @@ class AuthService {
       .then(() => this.prepareApi(undefined))
   }
 
-  fetchUsers(): Promise<any> {
-    return api.get('/oauth2/user', undefined)
+  fetchProfile(authToken: string, userId?: string) {
+    return api.get(`/profile${userId != undefined ? `/${userId}` : ''}`, undefined, { authToken })
       .then(response => response.data)
-      .then(users => users.map((item): User => {
-        return {
-          id: item.userId,
-          name: item.name,
-          picture: item.picture,
-          authInfo: { roles: item.roles }
-        }
-      }))
   }
 
   isAuthenticated(authInfo: AuthInfo): boolean {
@@ -187,20 +127,6 @@ class AuthService {
       }
     }
   }
-
-  private authResultToUser(result: any): User {
-    const { idTokenPayload } = result
-    return {
-      id: idTokenPayload.email,
-      picture: idTokenPayload.picture,
-      authInfo: {
-        accessToken: result.idToken,
-        expiresAt: result.expiresIn + new Date().getTime(),
-        refreshToken: result.refreshToken
-      }
-    }
-  }
-
 }
 
-export const authService = new AuthService()
+export const userService = new UserService()
