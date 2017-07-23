@@ -2,9 +2,9 @@ const chai = require('./chai')
 const expect = chai.expect
 
 const baseUrl = 'http://localhost:5000'
-describe('/api/oauth2/user', () => {
+const url = '/api/oauth2/user'
 
-  const url = '/api/oauth2/user'
+describe(url, () => {
 
   before(async() => chai.setup(baseUrl))
   after(async() => chai.cleanup(baseUrl))

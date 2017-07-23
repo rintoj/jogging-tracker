@@ -55,4 +55,15 @@ describe(url, () => {
     })
   })
 
+  it('should NOT allow to delete users', async() => {
+    chai.delete(baseUrl, url, 'Bearer').send({
+      userId: 'test-user',
+      name: 'test-user',
+      password: 'test-user',
+      roles: ['user ']
+    }).end((err, res) => {
+      res.should.not.have.status(200)
+    })
+  })
+
 })

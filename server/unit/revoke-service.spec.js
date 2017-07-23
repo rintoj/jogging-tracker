@@ -3,7 +3,7 @@ const chai = require('./chai')
 const baseUrl = 'http://localhost:5000'
 const url = '/api/oauth2/revoke'
 
-describe('/api/oauth2/revoke', () => {
+describe(url, () => {
 
   before(async() => chai.setup(baseUrl))
   after(async() => chai.setup(baseUrl))
