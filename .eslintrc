@@ -111,7 +111,7 @@
         "after": false
       }
     ],
-    "global-require": "warn",
+    "global-require": "off",
     "guard-for-in": "error",
     "handle-callback-err": "off",
     "id-blacklist": "off",
@@ -423,7 +423,7 @@
     "no-unreachable": "error",
     "no-unsafe-finally": "error",
     "no-unsafe-negation": "error",
-    "no-unused-expressions": "error",
+    "nls": "off",
     "no-unused-labels": "error",
     "no-unused-vars": [
       "warn",

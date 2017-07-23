@@ -6,11 +6,13 @@ const statisticsService = require('./service/statistics-service')
 const isDev = process.env.NODE_ENV === 'development'
 const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
 
-// configure the api
-mongoRestifier(configPath, (properties) => {
+function configure(properties) {
   properties.api.port = process.env.PORT || 5000
   return properties
-})
+}
+
+// configure the api
+const restifier = mongoRestifier(configPath, configure)
 
   // register models
   .registerModel(require('./model/jog-log'))
@@ -24,3 +26,5 @@ mongoRestifier(configPath, (properties) => {
     app.use('/api', dedupService)
 
   })
+
+module.exports = restifier

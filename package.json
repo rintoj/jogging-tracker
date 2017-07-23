@@ -12,7 +12,8 @@
     "publish": "npm run build && git add --all && git commit -a -m 'update build' && npm run deploy",
     "build": "cd ui && npm run build",
     "open": "heroku open",
-    "test": "nodemon --watch server/filter.js --exec 'node server/filter.js'"
+    "test": "mocha server/unit/**/*.spec.js",
+    "tdd": "nodemon --watch server --exec 'npm run test'"
   },
   "repository": {
     "type": "git",

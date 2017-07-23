@@ -30,6 +30,6 @@
   },
   "apiUrl": "//localhost:5000/api",
   "logger": {
-    "level": "INFO"
+    "level": "OFF"
   }
 }
