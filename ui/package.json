@@ -11,8 +11,9 @@
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
     "tdd": "concurrently -r 'npm run watch' 'npm run test:watch'",
-    "test": "npm run clean && npm run compile && istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js",
-    "test:watch": "nodemon --delay 1 --watch build --exec 'istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js'",
+    "pre:test": "npm run clean && npm run compile",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js",
+    "test:watch": "nodemon --delay 1 --watch build --exec 'npm run test'",
     "clean": "rimraf build",
     "compile": "tsc",
     "watch": "npm run compile -- -w"

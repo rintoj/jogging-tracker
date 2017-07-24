@@ -23,7 +23,7 @@ export class Profile extends React.Component<Props, State> {
 
   render() {
     return <div className="flex items-center justify-around w-100 pv2">
-      <div className="flex flex-auto pointer divider-l--hover pa1 br1"
+      <div className="flex flex-auto pointer divider-l--hover pa1 br1 profile-node"
         onClick={event => this.onProfileClick(event)}>
         <div className="avatar">
           {this.props.picture != undefined && this.props.picture !== '' && this.props.picture !== 'undefined' ?
@@ -37,7 +37,7 @@ export class Profile extends React.Component<Props, State> {
           <div className="f6 pt1 o-60">{this.role}</div>
         </div>
       </div>
-      {this.props.showButton && <div className="accent-text ttu pointer pa2 nowrap accent--hover br1"
+      {this.props.showButton && <div className="sign-out-btn accent-text ttu pointer pa2 nowrap accent--hover br1"
         onClick={event => this.onButtonClick(event)}>Sign Out</div>}
     </div >
   }
