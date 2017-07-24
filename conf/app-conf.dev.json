@@ -29,6 +29,10 @@
     "root": "ui/dist"
   },
   "apiUrl": "//localhost:5000/api",
+  "authService": {
+    "clientId": "7d65d9b6-5cae-4db7-b19d-56cbdd25eaab",
+    "clientSecret": "a0c7b741-b18b-47eb-b6df-48a0bd3cde2e"
+  },
   "logger": {
     "level": "OFF"
   }
