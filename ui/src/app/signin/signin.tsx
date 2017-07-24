@@ -71,8 +71,7 @@ export class SignInPage extends React.Component<Props, State> {
 
   validate(): boolean {
     const error = {
-      userId: this.state.userId == undefined || this.state.userId.trim() === '' ? 'Required' :
-        !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.state.userId) ? 'Invalid email' : undefined,
+      userId: this.state.userId == undefined || this.state.userId.trim() === '' ? 'Required' : undefined,
       password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' : undefined
     }
     this.setState(state => ({
