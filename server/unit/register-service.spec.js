@@ -8,7 +8,7 @@ describe(url, () => {
   before(async() => {
     await chai.setup(baseUrl)
     try {
-      chai.deleteUser(baseUrl, 'test-user')
+      await chai.deleteUser(baseUrl, 'test-user')
     } catch (e) {
       // ignore if fails
     }
