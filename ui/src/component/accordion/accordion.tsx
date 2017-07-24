@@ -9,6 +9,7 @@ interface Props {
   className?: string
   badge?: string
   onBadgeClick?: Function
+  onToggle?: Function
 }
 
 interface State {
@@ -25,17 +26,20 @@ export class Accordion extends React.Component<Props, State> {
   }
 
   onClick() {
+    if (typeof this.props.onToggle === 'function') {
+      this.props.onToggle(!this.state.open)
+    }
     this.setState(state => ({ open: !state.open }))
   }
 
   render() {
     return <div className={`${this.props.className}`}>
-      <div className="flex items-center pointer"
+      <div className="flex items-center pointer root"
         onClick={this.onClick.bind(this)}>
         <IconText icon={this.props.icon}
           className="pointer ttu mr3">{this.props.title}</IconText>
         <div className={`fa fa-caret-${this.state.open ? 'up' : 'down'}`}></div>
-        {this.props.badge && !this.state.open && <div className="accent-text ml3 br3 ttu f5"
+        {this.props.badge && !this.state.open && <div className="badge-node accent-text ml3 br3 ttu f5"
           onClick={event => this.onBadgeClick(event)}>{this.props.badge}</div>}
       </div>
       {this.state.open && <div className="pv3">

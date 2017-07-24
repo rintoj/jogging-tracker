@@ -5,7 +5,7 @@ import { chai, expect } from '../../test'
 import { Button } from './button'
 import { shallow } from 'enzyme'
 
-describe('<Button />', () => {
+describe('<Button/>', () => {
 
   it('renders a button', () => {
     const wrapper = shallow(<Button />)

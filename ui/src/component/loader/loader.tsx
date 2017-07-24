@@ -1,4 +1,4 @@
-import '../../../src/component/loader/loader.css'
+// import '../../../src/component/loader/loader.css's
 
 import * as React from 'react'
 
