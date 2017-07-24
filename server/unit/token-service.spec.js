@@ -4,6 +4,9 @@ const url = '/api/oauth2/token'
 
 describe(url, () => {
 
+  before(async() => await chai.setup(baseUrl))
+  after(async() => await chai.cleanup(baseUrl))
+
   it('should be accessible', async() => {
     const res = await chai.request(baseUrl).options(url)
     res.should.have.status(200)

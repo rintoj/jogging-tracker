@@ -6,8 +6,8 @@ const url = '/api/oauth2/user'
 
 describe(url, () => {
 
-  before(async() => chai.setup(baseUrl))
-  after(async() => chai.cleanup(baseUrl))
+  before(async() => await chai.setup(baseUrl))
+  after(async() => await chai.cleanup(baseUrl))
 
   it('should be accessible', async() => {
     const res = await chai.request(baseUrl).options(url)

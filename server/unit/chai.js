@@ -70,10 +70,14 @@ chai.setup = async(baseUrl, userId, password) => {
 }
 
 chai.cleanup = async(baseUrl) => {
-  await chai.login(baseUrl, 'admin@system.com', 'admin')
-  await chai.deleteUser(baseUrl, 'admin')
-  await chai.deleteUser(baseUrl, 'manager')
-  await chai.deleteUser(baseUrl, 'user')
+  try {
+    await chai.login(baseUrl, 'admin@system.com', 'admin')
+    await chai.deleteUser(baseUrl, 'admin')
+    await chai.deleteUser(baseUrl, 'manager')
+    await chai.deleteUser(baseUrl, 'user')
+  } catch (e) {
+    // ignore any errors
+  }
 }
 
 module.exports = chai
