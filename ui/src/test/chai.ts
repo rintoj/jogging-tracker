@@ -1,7 +1,7 @@
 import * as chaiObj from 'chai'
 
-// configure chaiObj
 chaiObj.should()
+chaiObj.use(require('chai-spies'))
 
 export const chai = chaiObj
 export const expect = chaiObj.expect
