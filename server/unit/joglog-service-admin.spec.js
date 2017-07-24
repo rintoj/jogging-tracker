@@ -40,7 +40,7 @@ describe(url, () => {
       result.body.averageSpeed.should.be.equal(1.26)
     })
 
-    xit('should allow to create a log for another user', async() => {
+    it('should allow to create a log for another user', async() => {
       await chai.delete(baseUrl, `${url}/log1`)
       const res = await chai.put(baseUrl, url).send({
         id: 'log1',
@@ -52,7 +52,6 @@ describe(url, () => {
       res.should.have.status(200)
       const result = await chai.get(baseUrl, `${url}/log1`)
       result.should.have.status(200)
-      // console.log(result.body)
       result.body.user.should.be.equal('user')
     })
 
@@ -66,7 +65,7 @@ describe(url, () => {
       res.body.should.have.property('distance')
       res.body.distance.should.be.equal(1.3)
       res.body.should.have.property('user')
-      res.body.user.should.be.equal('admin')
+      res.body.user.should.be.equal('user')
       res.body.should.have.property('averageSpeed')
       res.body.averageSpeed.should.be.equal(1.26)
       res.body.should.have.property('time')
@@ -90,7 +89,7 @@ describe(url, () => {
         id: 'log1',
         date: '2017-12-12',
         distance: 1.4,
-        time: [1, 2]
+        time: [1, 2],
       })
       res.should.have.status(200)
       const result = await chai.get(baseUrl, `${url}/log1`)
@@ -99,8 +98,50 @@ describe(url, () => {
       result.body.averageSpeed.should.be.equal(1.35)
     })
 
+    it('should allow to update other users log and recalculate average speed', async() => {
+      let res = await chai.delete(baseUrl, `${url}/log1`)
+      res.should.have.status(200)
+      res = await chai.put(baseUrl, url).send({
+        id: 'log1',
+        date: '2017-12-12',
+        distance: 1.4,
+        time: [1, 2],
+        user: 'user'
+      })
+      res.should.have.status(200)
+      res = await chai.put(baseUrl, url).send({
+        id: 'log1',
+        date: '2017-12-12',
+        distance: 1.3,
+        time: [1, 2],
+        user: 'user'
+      })
+      res.should.have.status(200)
+      const result = await chai.get(baseUrl, `${url}/log1`)
+      result.should.have.status(200)
+      result.body.should.have.property('averageSpeed')
+      result.body.averageSpeed.should.be.equal(1.26)
+      result.body.should.have.property('user')
+      result.body.user.should.be.equal('user')
+    })
+
     it('should allow to delete an entry if access token is given', async() => {
       const res = await chai.delete(baseUrl, `${url}/log1`)
+      res.should.have.status(200)
+      chai.delete(baseUrl, `${url}/log1`)
+        .end((err, response) => response.should.not.have.status(200))
+    })
+
+    it('should allow to delete other users entry', async() => {
+      let res = await chai.put(baseUrl, url).send({
+        id: 'log1',
+        date: '2017-12-12',
+        distance: 1.4,
+        time: [1, 2],
+        user: 'user'
+      })
+      res.should.have.status(200)
+      res = await chai.delete(baseUrl, `${url}/log1`)
       res.should.have.status(200)
       chai.delete(baseUrl, `${url}/log1`)
         .end((err, response) => response.should.not.have.status(200))
