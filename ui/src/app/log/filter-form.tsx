@@ -10,6 +10,8 @@ import { Filters } from '../../state/filters'
 class Props {
   @data((state: AppState) => state.filters)
   filters?: Filters
+
+  open?: boolean
 }
 
 interface State {
@@ -27,7 +29,7 @@ export class FilterForm extends React.Component<Props, State> {
     super(props)
     this.state = {
       errors: {},
-      filters: {}
+      filters: props.filters || {}
     }
   }
 
@@ -44,7 +46,7 @@ export class FilterForm extends React.Component<Props, State> {
         'Clear filter' : undefined
 
     return <div>
-      <Accordion title="filters" icon="sliders" badge={badge}
+      <Accordion title="filters" icon="sliders" badge={badge} open={this.props.open}
         onBadgeClick={event => this.clearFilters()}>
         <form className="flex">
           <TextInput className="ml3" type="date" label="From Date"
