@@ -79,7 +79,7 @@ export class Table extends React.Component<Props, State> {
       </tr>
     }
 
-    return (this.state.rows || []).map((row, index) =>
+    return this.state.rows.map((row, index) =>
       <tr key={index} className="striped--near-white accent--hover pointer"
         onClick={event => this.onClickRow(row)}>
         {this.props.showIndex && <td className={`tc pv4 ph4-l ph3-m ph2 ttu nowrap`}>{index + 1}</td>}

@@ -2,17 +2,19 @@ import 'jsdom-global/register'
 
 import * as React from 'react'
 
+import { chai, expect } from '../../test'
 import { mount, render } from 'enzyme'
 
 import { Table } from './table'
-import { expect } from '../../test'
 
 const columns = [{
   name: 'Name',
   sort: true,
   sortable: true
 }, {
-  name: 'Value'
+  name: 'Value',
+  alignRight: true,
+  formatter: (value) => value
 }]
 
 const rows = [
@@ -35,6 +37,15 @@ describe('<Table/>', () => {
     expect(ths.text()).to.contain('Value')
   })
 
+  it('renders table headers with given column and index column if specified', () => {
+    const wrapper = render(<Table columns={columns} showIndex={true} />)
+    const ths = wrapper.find('th')
+    expect(ths).to.have.length(3)
+    expect(ths.text()).to.contain('#')
+    expect(ths.text()).to.contain('Name')
+    expect(ths.text()).to.contain('Value')
+  })
+
   it('renders rows with given rows', () => {
     const wrapper = render(<Table columns={columns} rows={rows} />)
     const trs = wrapper.find('tr')
@@ -46,8 +57,8 @@ describe('<Table/>', () => {
   })
 
   it('renders rows with given rows and in sorted order', () => {
-    const wrapper = mount(<Table columns={columns} loading={true} />)
-    wrapper.setProps({ rows, loading: false })
+    const wrapper = mount(<Table showIndex={true} columns={columns} loading={true} />)
+    wrapper.setProps({ rows, loading: false, showIndex: false })
     const trs = wrapper.find('tr')
     expect(trs).to.have.length(3)
     expect(trs.at(1).text()).to.contain('AuthType')
@@ -75,6 +86,28 @@ describe('<Table/>', () => {
     expect(trs2.at(1).text()).to.contain('Auth0')
     expect(trs2.at(2).text()).to.contain('Content-Type')
     expect(trs2.at(2).text()).to.contain('application/json')
+  })
+
+  it('should render an index column if set to true', () => {
+    const wrapper = mount(<Table showIndex={true} columns={columns} rows={rows} />)
+    expect(wrapper.find('th').at(0).text()).to.equal('#')
+    expect(wrapper.find('tr').at(1).find('td').at(0).text()).to.equal('1')
+    expect(wrapper.find('tr').at(2).find('td').at(0).text()).to.equal('2')
+  })
+
+  it('should emit an event onClickRow when row is clicked', () => {
+    const onClickRow = chai.spy()
+    const wrapper = mount(<Table showIndex={true}
+      columns={columns} rows={rows} onClickRow={event => onClickRow()} />)
+    wrapper.find('tr').at(1).simulate('click')
+    onClickRow.should.have.been.called()
+  })
+
+  it('renders without error even if onClickRow is not defined', () => {
+    const onClickRow = chai.spy()
+    const wrapper = mount(<Table columns={columns} rows={rows} />)
+    wrapper.find('tr').at(1).simulate('click')
+    onClickRow.should.have.not.been.called()
   })
 
 })
