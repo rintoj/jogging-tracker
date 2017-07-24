@@ -7,7 +7,7 @@ import { shallow } from 'enzyme'
 
 describe('<IconText/>', () => {
 
-  it('renders a icon-text', () => {
+  it('should render a icon-text', () => {
     const wrapper = shallow(<IconText>Sample Content</IconText>)
     expect(wrapper.text()).to.contain('Sample Content')
   })

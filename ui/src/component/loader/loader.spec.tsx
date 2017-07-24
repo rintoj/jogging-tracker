@@ -6,7 +6,7 @@ import { shallow } from 'enzyme'
 
 describe('<Loader/>', () => {
 
-  it('renders a loader', () => {
+  it('should render a loader', () => {
     const wrapper = shallow(<Loader></Loader>)
     expect(wrapper.find('.spinner-node')).to.have.length(4)
   })

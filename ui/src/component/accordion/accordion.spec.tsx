@@ -9,24 +9,24 @@ import { Accordion } from './accordion'
 
 describe('<Accordion/>', () => {
 
-  it('renders with a the given title', () => {
+  it('should render with a the given title', () => {
     const wrapper = render(<Accordion title="Test" />)
     expect(wrapper.find('.pointer.ttu.mr3').text()).to.equal('Test')
   })
 
-  it('renders the content when open', () => {
+  it('should render the content when open', () => {
     const wrapper = render(<Accordion title="Test" open={true}>
       <div className="container">Test Content</div>
     </Accordion>)
     expect(wrapper.find('.container').text()).to.equal('Test Content')
   })
 
-  it('shows badge when not open', () => {
+  it('should show a badge when not open', () => {
     const wrapper = render(<Accordion title="Test" open={false} badge="Test Badge"></Accordion>)
     expect(wrapper.find('.accent-text.ml3.br3.ttu').text()).to.contain('Test Badge')
   })
 
-  it('hides badge when open', () => {
+  it('should hide the badge when open', () => {
     const wrapper = render(<Accordion title="Test" open={true} badge="Test Badge"></Accordion>)
     expect(wrapper.find('.accent-text.ml3.br3.ttu').text()).not.to.contain('Test Badge')
   })

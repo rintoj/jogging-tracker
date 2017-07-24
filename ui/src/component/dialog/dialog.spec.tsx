@@ -7,7 +7,7 @@ import { shallow } from 'enzyme'
 
 describe('<Dialog/>', () => {
 
-  it('renders a dialog', () => {
+  it('should render a dialog', () => {
     const wrapper = shallow(<Dialog>Sample Content</Dialog>)
     expect(wrapper.text()).to.contain('Sample Content')
   })

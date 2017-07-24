@@ -9,7 +9,7 @@ import { TimePicker } from './time-picker'
 
 describe('<TextInput/>', () => {
 
-  it('renders two numeric inputs', () => {
+  it('should render two numeric inputs', () => {
     const wrapper = shallow(<TimePicker />)
     const inputs = wrapper.find('input')
     expect(inputs).to.have.length(2)
@@ -17,25 +17,25 @@ describe('<TextInput/>', () => {
     expect(inputs.at(1).prop('type')).to.equal('number')
   })
 
-  it('renders with white background', () => {
+  it('should render with white background', () => {
     const wrapper = shallow(<TimePicker />)
     const inputs = wrapper.find('.root-node')
     expect(inputs.hasClass('white')).to.equal(true)
   })
 
-  it('renders with gray background if disabled', () => {
+  it('should render with gray background if disabled', () => {
     const wrapper = shallow(<TimePicker disabled={true} />)
     const inputs = wrapper.find('.root-node')
     expect(inputs.hasClass('divider')).to.equal(true)
   })
 
-  it('renders with error message if specified', () => {
+  it('should render with error message if specified', () => {
     const wrapper = shallow(<TimePicker error={'Test message'} />)
     const inputs = wrapper.find('.error-text')
     expect(inputs.text()).to.equal('Test message')
   })
 
-  it('renders with red border if there is an error', () => {
+  it('should render with red border if there is an error', () => {
     const wrapper = shallow(<TimePicker error={'test'} />)
     const inputs = wrapper.find('.root-node')
     expect(inputs.hasClass('error-br')).to.equal(true)
@@ -55,7 +55,7 @@ describe('<TextInput/>', () => {
     onChange.should.have.been.called()
   })
 
-  it('renders without error even if onChange is not defined', () => {
+  it('should render without error even if onChange is not defined', () => {
     const onChange = chai.spy()
     const wrapper = mount(<TimePicker />)
     wrapper.find('input').at(0).simulate('change')
@@ -69,7 +69,7 @@ describe('<TextInput/>', () => {
     onFocus.should.have.been.called()
   })
 
-  it('renders without error even if onFocus is not defined', () => {
+  it('should render without error even if onFocus is not defined', () => {
     const onFocus = chai.spy()
     const wrapper = mount(<TimePicker />)
     wrapper.find('input').at(0).simulate('focus')
@@ -83,7 +83,7 @@ describe('<TextInput/>', () => {
     onBlur.should.have.been.called()
   })
 
-  it('renders without error even if onBlur is not defined', () => {
+  it('should render without error even if onBlur is not defined', () => {
     const onBlur = chai.spy()
     const wrapper = mount(<TimePicker />)
     wrapper.find('input').at(0).simulate('blur')

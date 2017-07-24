@@ -24,12 +24,12 @@ const rows = [
 
 describe('<Table/>', () => {
 
-  it('renders a table', () => {
+  it('should render a table', () => {
     const wrapper = render(<Table />)
     expect(wrapper.find('table')).to.have.length(1)
   })
 
-  it('renders table headers with given column', () => {
+  it('should render table headers with given column', () => {
     const wrapper = render(<Table columns={columns} />)
     const ths = wrapper.find('th')
     expect(ths).to.have.length(2)
@@ -37,7 +37,7 @@ describe('<Table/>', () => {
     expect(ths.text()).to.contain('Value')
   })
 
-  it('renders table headers with given column and index column if specified', () => {
+  it('should render table headers with given column and index column if specified', () => {
     const wrapper = render(<Table columns={columns} showIndex={true} />)
     const ths = wrapper.find('th')
     expect(ths).to.have.length(3)
@@ -46,7 +46,7 @@ describe('<Table/>', () => {
     expect(ths.text()).to.contain('Value')
   })
 
-  it('renders rows with given rows', () => {
+  it('should render rows with given rows', () => {
     const wrapper = render(<Table columns={columns} rows={rows} />)
     const trs = wrapper.find('tr')
     expect(trs).to.have.length(3)
@@ -56,7 +56,7 @@ describe('<Table/>', () => {
     expect(trs.text()).to.contain('Auth0')
   })
 
-  it('renders rows with given rows and in sorted order', () => {
+  it('should render rows with given rows and in sorted order', () => {
     const wrapper = mount(<Table showIndex={true} columns={columns} loading={true} />)
     wrapper.setProps({ rows, loading: false, showIndex: false })
     const trs = wrapper.find('tr')
@@ -103,7 +103,7 @@ describe('<Table/>', () => {
     onClickRow.should.have.been.called()
   })
 
-  it('renders without error even if onClickRow is not defined', () => {
+  it('should render without error even if onClickRow is not defined', () => {
     const onClickRow = chai.spy()
     const wrapper = mount(<Table columns={columns} rows={rows} />)
     wrapper.find('tr').at(1).simulate('click')

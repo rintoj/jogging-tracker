@@ -10,7 +10,7 @@ interface State { }
 
 export class Page extends React.Component<Props, State> {
   render() {
-    return <div className="flex">
+    return <div className="flex page-node">
       <MenuComponent history={this.props.history} />
       <div className="flex flex-column flex-auto w-100">
         {this.props.children}
