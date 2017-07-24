@@ -103,7 +103,7 @@ describe(url, () => {
     })
   })
 
-  xdescribe('as manager', () => {
+  describe('as manager', () => {
 
     before(async() => await chai.login(baseUrl, 'manager'))
 
@@ -165,13 +165,13 @@ describe(url, () => {
     it('should update a user, if PUT used with access token', async() => {
       const res = await chai.put(baseUrl, url).send({
         userId: 'admin',
-        name: 'System Admin'
+        name: 'System Admin - Updated by manager'
       })
       res.should.have.status(200)
       const result = await chai.get(baseUrl, `${url}/admin`)
       result.should.have.status(200)
       result.body.should.be.an('object')
-      result.body.name.should.be.equal('System Admin')
+      result.body.name.should.be.equal('System Admin - Updated by manager')
     })
 
     it('should delete a user, if DELETE used with access token', async() => {
