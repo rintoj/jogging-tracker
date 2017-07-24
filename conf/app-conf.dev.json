@@ -17,7 +17,6 @@
       },
       "rules": [
         "None        *               OPTIONS             /api/**",
-        "Bearer      ADMIN,USER      *                   /api/joglog",
         "None        *               PUT                 /api/profile",
         "None        *               GET                 /api/profile/*",
         "Bearer      *               GET                 /api/oauth2/user",

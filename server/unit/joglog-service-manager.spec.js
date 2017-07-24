@@ -26,7 +26,7 @@ describe(url, () => {
       res.text.should.equal('PUT,GET,HEAD,POST,DELETE')
     })
 
-    it('should allow to create a log and calculate average speed', async() => {
+    it('should NOT allow to create a log and calculate average speed', async() => {
       const res = await chai.put(baseUrl, url).send({
         id: 'log1',
         date: '2017-12-12',
