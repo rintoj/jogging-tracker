@@ -11,10 +11,10 @@ export class Loader extends React.Component<Props, State> {
 
   render() {
     return <div className={`${this.props.className} spinner`}>
-      <div className={`bounce1 ${this.props.primaryColor || 'ternary'}`}></div>
-      <div className={`bounce2 ${this.props.secondaryColor || 'accent'}`}></div>
-      <div className={`bounce3 ${this.props.primaryColor || 'ternary'}`}></div>
-      <div className={`bounce4 ${this.props.secondaryColor || 'accent'}`}></div>
+      <div className={`spinner-node bounce1 ${this.props.primaryColor || 'ternary'}`}></div>
+      <div className={`spinner-node bounce2 ${this.props.secondaryColor || 'accent'}`}></div>
+      <div className={`spinner-node bounce3 ${this.props.primaryColor || 'ternary'}`}></div>
+      <div className={`spinner-node bounce4 ${this.props.secondaryColor || 'accent'}`}></div>
     </div>
   }
 }

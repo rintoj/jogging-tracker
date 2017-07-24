@@ -11,7 +11,7 @@ interface State { }
 export class IconText extends React.Component<Props, State> {
 
   render() {
-    return <div className={`flex items-center ${this.props.className}`}
+    return <div className={`flex items-center ${this.props.className} root-node`}
       onClick={(event) => this.onClick(event)}>
       <div className={`${this.props.iconSize || 'f4'}`}>
         <div className={`fa fa-${this.props.icon} mr2`}></div>
