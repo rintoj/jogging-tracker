@@ -11,8 +11,8 @@
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
     "tdd": "concurrently -r 'npm run watch' 'npm run test:watch'",
-    "test": "npm run clean && npm run compile && istanbul cover ./node_modules/mocha/bin/_mocha -- build/**/*.spec.js --require ignore-styles",
-    "test:watch": "npm run clean && npm run compile && nodemon --delay 1 --watch dist --exec 'istanbul cover ./node_modules/mocha/bin/_mocha -- build/**/*.spec.js --require ignore-styles'",
+    "test": "npm run clean && npm run compile && istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js",
+    "test:watch": "nodemon --delay 1 --watch build --exec 'istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js'",
     "clean": "rimraf build",
     "compile": "tsc",
     "watch": "npm run compile -- -w"
@@ -29,6 +29,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
     "react-ts": "^2.0.2",
     "rimraf": "^2.6.1",
     "sw-precache": "^5.2.0"
@@ -40,7 +42,6 @@
     "moment": "^2.18.1",
     "numeral": "^2.0.6",
     "react": "^15.5.3",
-    "react-dom": "^15.5.3",
     "react-router-dom": "^4.1.2",
     "reflect-metadata": "^0.1.10",
     "statex": "^1.0.1",
