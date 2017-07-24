@@ -19,36 +19,36 @@ describe('<Profile/>', () => {
     expect(wrapper.find('img')).to.have.length(1)
   })
 
-  it('renders a profile with the given role as user', () => {
+  it('renders a profile with the given role as a user', () => {
     const wrapper = shallow(<Profile roles={['user']} />)
     expect(wrapper.text()).to.contain('User')
   })
 
-  it('renders a profile with the given role as manager', () => {
+  it('renders a profile with the given role as a manager', () => {
     const wrapper = shallow(<Profile roles={['manager']} />)
     expect(wrapper.text()).to.contain('Manager')
   })
 
-  it('renders a profile with the given role as admin', () => {
+  it('renders a profile with the given role as an admin', () => {
     const wrapper = shallow(<Profile roles={['admin']} />)
     expect(wrapper.text()).to.contain('Administrator')
   })
 
-  it('render onProfileClick event must be called on click', () => {
+  it('emits onProfileClick event on click', () => {
     const onProfileClick = chai.spy()
     const wrapper = shallow(<Profile onProfileClick={event => onProfileClick()}></Profile>)
     wrapper.find('.profile-node').simulate('click')
     onProfileClick.should.have.been.called()
   })
 
-  it('render without errors if onProfileClick is not defined', () => {
+  it('renders without errors if onProfileClick is not defined', () => {
     const onProfileClick = chai.spy()
     const wrapper = shallow(<Profile ></Profile>)
     wrapper.find('.profile-node').simulate('click')
     onProfileClick.should.have.not.been.called()
   })
 
-  it('render onButtonClick event must be called on click', () => {
+  it('emits onButtonClick event on clicking sign out button', () => {
     const onButtonClick = chai.spy()
     const wrapper = mount(<Profile showButton={true} onButtonClick={event => onButtonClick()}></Profile>)
     wrapper.find('.sign-out-btn').simulate('click')
