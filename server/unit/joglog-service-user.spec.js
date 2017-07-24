@@ -42,20 +42,22 @@ describe(url, () => {
 
     it('should NOT allow to create a log for another user', async() => {
       await chai.delete(baseUrl, `${url}/log1`)
-      const res = await chai.put(baseUrl, url).send({
+      chai.put(baseUrl, url).send({
         id: 'log1',
         date: '2017-12-12',
         distance: 1.3,
         time: [1, 2],
         user: 'admin'
-      })
-      res.should.have.status(200)
-      const result = await chai.get(baseUrl, `${url}/log1`)
-      result.should.have.status(200)
-      result.body.user.should.be.equal('user')
+      }).send((err, res) => res.should.have.status(401))
     })
 
     it('should allow to fetch the created log with access token', async() => {
+      await chai.put(baseUrl, url).send({
+        id: 'log1',
+        date: '2017-12-12',
+        distance: 1.3,
+        time: [1, 2]
+      })
       const res = await chai.get(baseUrl, `${url}/log1`)
       res.should.have.status(200)
       res.body.should.be.an('object')
@@ -99,30 +101,13 @@ describe(url, () => {
     })
 
     it('should NOT allow to update other users log and recalculate average speed', async() => {
-      let res = await chai.delete(baseUrl, `${url}/log1`)
-      res.should.have.status(200)
-      res = await chai.put(baseUrl, url).send({
+      chai.put(baseUrl, url).send({
         id: 'log1',
         date: '2017-12-12',
         distance: 1.4,
         time: [1, 2],
         user: 'admin'
-      })
-      res.should.have.status(200)
-      res = await chai.put(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        distance: 1.3,
-        time: [1, 2],
-        user: 'manager'
-      })
-      res.should.have.status(200)
-      const result = await chai.get(baseUrl, `${url}/log1`)
-      result.should.have.status(200)
-      result.body.should.have.property('averageSpeed')
-      result.body.averageSpeed.should.be.equal(1.26)
-      result.body.should.have.property('user')
-      result.body.user.should.be.equal('user')
+      }).send((err, res) => res.should.have.status(401))
     })
 
     it('should allow to delete an entry if access token is given', async() => {
@@ -132,19 +117,14 @@ describe(url, () => {
         .end((err, response) => response.should.not.have.status(200))
     })
 
-    xit('should NOT allow to delete other users entry', async() => {
-      let res = await chai.put(baseUrl, url).send({
+    it('should NOT allow to delete other users entry', async() => {
+      chai.put(baseUrl, url).send({
         id: 'log1',
         date: '2017-12-12',
         distance: 1.4,
         time: [1, 2],
         user: 'manager'
-      })
-      res.should.have.status(200)
-      res = await chai.delete(baseUrl, `${url}/log1`)
-      res.should.have.status(200)
-      chai.delete(baseUrl, `${url}/log1`)
-        .end((err, response) => response.should.not.have.status(200))
+      }).end((err, res) => res.should.have.status(401))
     })
 
     it('should allow an entry only if date, distance, time are present', async() => {
@@ -167,25 +147,5 @@ describe(url, () => {
       }).end((err, res) => res.should.not.have.status(200))
     })
 
-    xit('should allow update to an entry only if date, distance, time are present', async() => {
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        distance: 1.4,
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        distance: 1.4
-      }).end((err, res) => res.should.not.have.status(200))
-    })
   })
-
 })

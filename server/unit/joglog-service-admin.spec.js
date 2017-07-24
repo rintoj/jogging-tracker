@@ -167,25 +167,5 @@ describe(url, () => {
       }).end((err, res) => res.should.not.have.status(200))
     })
 
-    xit('should allow update to an entry only if date, distance, time are present', async() => {
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        distance: 1.4,
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        distance: 1.4
-      }).end((err, res) => res.should.not.have.status(200))
-    })
   })
-
 })

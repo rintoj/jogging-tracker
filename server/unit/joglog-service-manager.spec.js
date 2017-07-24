@@ -125,7 +125,7 @@ describe(url, () => {
         .end((err, response) => response.should.not.have.status(200))
     })
 
-    it('should allow to delete other users entry', async() => {
+    it('should NOT allow to delete other users entry', async() => {
       chai.put(baseUrl, url).send({
         id: 'log1',
         date: '2017-12-12',
@@ -154,26 +154,5 @@ describe(url, () => {
         distance: 1.4
       }).end((err, res) => res.should.not.have.status(200))
     })
-
-    xit('should allow update to an entry only if date, distance, time are present', async() => {
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        distance: 1.4,
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        time: [1, 2]
-      }).end((err, res) => res.should.not.have.status(200))
-
-      chai.post(baseUrl, url).send({
-        id: 'log1',
-        date: '2017-12-12',
-        distance: 1.4
-      }).end((err, res) => res.should.not.have.status(200))
-    })
   })
-
 })
