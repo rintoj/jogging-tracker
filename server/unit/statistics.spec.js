@@ -386,4 +386,34 @@ describe(url, () => {
     result[5].averageTime[1].should.be.equal(22)
     result[5].averageSpeed.should.be.equal(0.2)
   })
+
+  it('should NOT return other user\'s statistics if accessed as user', async() => {
+    chai.get(baseUrl, `${url}?user=admin`)
+      .end((err, res) => res.should.have.status(401))
+  })
+
+  it('should NOT return other user\'s statistics if accessed as manager', async() => {
+    await chai.login(baseUrl, 'manager')
+    chai.get(baseUrl, `${url}?user=admin`)
+      .end((err, res) => res.should.have.status(401))
+  })
+
+  it('should return other user\'s statistics if accessed as admin', async() => {
+    await chai.login(baseUrl, 'admin')
+    const res = await chai.get(baseUrl, `${url}?user=user`)
+    res.should.have.status(200)
+    const result = res.body.overall
+    result.should.be.a('array')
+    result.should.be.length(1)
+    result[0].should.be.a('object')
+    result[0].type.should.be.equal('overall')
+    result[0].slowestSpeed.should.be.equal(0.2)
+    result[0].should.have.property('fastestSpeed')
+    result[0].fastestSpeed.should.be.equal(3.66)
+    result[0].should.have.property('shortestDistance')
+    result[0].shortestDistance.should.be.equal(0.47)
+    result[0].should.have.property('longestDistance')
+    result[0].longestDistance.should.be.equal(3.17)
+  })
+
 })

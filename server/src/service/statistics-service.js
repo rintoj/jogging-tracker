@@ -83,8 +83,14 @@ function measureAverage(statistics, id, value) {
 router.get('/statistics', function(request, response) {
 
   let userId = request.user.userId
-  if (jogLogModel.userSpace.ignore != null && (_.intersection(jogLogModel.userSpace.ignore || [], request.user.roles || []).length !== 0))
-    userId = request.body[jogLogModel.userSpace.field] || request.query[jogLogModel.userSpace.field]
+  const ignoreRole = jogLogModel.userSpace.ignore != null && (_.intersection(jogLogModel.userSpace.ignore || [], request.user.roles || []).length !== 0)
+  const userSpecifiedId = request.body[jogLogModel.userSpace.field] || request.query[jogLogModel.userSpace.field]
+  if (!ignoreRole)
+    if (userSpecifiedId != null && userSpecifiedId !== userId) {
+      return send(response, 'You are not authorized to access other users info', 401)
+    }
+
+  userId = userSpecifiedId || userId
 
   getJogLog(userId).then((data) => {
     const statistics = {}
