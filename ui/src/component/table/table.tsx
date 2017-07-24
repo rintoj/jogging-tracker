@@ -30,6 +30,7 @@ export class Table extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
+      rows: props.rows,
       sorts: {}
     }
   }
@@ -105,11 +106,11 @@ export class Table extends React.Component<Props, State> {
 
   render() {
     return <table className={`${this.props.className} card collapse f5 tl w-100 shadow-1 br1`}>
-      <tbody>
+      {this.props.columns != undefined && this.props.columns.length > 0 && <tbody>
         {this.renderHeader()}
         {!this.props.loading && this.renderRecords()}
         {this.props.loading && this.renderLoading()}
-      </tbody>
+      </tbody>}
     </table>
   }
 
