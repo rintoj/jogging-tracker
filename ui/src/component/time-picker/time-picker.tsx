@@ -42,7 +42,7 @@ export class TimePicker extends React.Component<Props, State> {
     return <div className={`${this.props.className} flex flex-column mt2`} >
       <label className="title-text ttu f6 b nowrap">{this.props.label}</label>
       <div
-        className={`flex items-center ba br1 mv2 ${color} ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}>
+        className={`root-node flex items-center ba br1 mv2 ${color} ${this.props.error != undefined ? 'error-br' : 'divider-br'}`}>
         <input className="bn pl2 tr outline-0 transparent"
           autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}

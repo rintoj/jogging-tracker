@@ -49,6 +49,24 @@ describe('<TextInput/>', () => {
     expect(wrapper.find('input').hasClass('divider')).to.equal(true)
   })
 
+  it('renders with gray background if disabled', () => {
+    const wrapper = shallow(<TextInput disabled={true} />)
+    const inputs = wrapper.find('input')
+    expect(inputs.hasClass('divider')).to.equal(true)
+  })
+
+  it('renders with error message if specified', () => {
+    const wrapper = shallow(<TextInput error={'Test message'} />)
+    const inputs = wrapper.find('.error-text')
+    expect(inputs.text()).to.equal('Test message')
+  })
+
+  it('renders with red border if there is an error', () => {
+    const wrapper = shallow(<TextInput error={'test'} />)
+    const inputs = wrapper.find('input')
+    expect(inputs.hasClass('error-br')).to.equal(true)
+  })
+
   it('should emit an event onChange when text value changes', () => {
     const onChange = chai.spy()
     const wrapper = mount(<TextInput onChange={event => onChange()} />)
