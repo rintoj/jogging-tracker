@@ -1,6 +1,6 @@
 {
   "database": {
-    "url": "mongodb://localhost/jogging-tracker"
+    "url": "mongodb://localhost/jog-tracker"
   },
   "api": {
     "oauth2": {
@@ -20,7 +20,7 @@
         "None        *               PUT                 /api/profile",
         "None        *               GET                 /api/profile/*",
         "Bearer      *               GET                 /api/oauth2/user",
-        "Bearer      ADMIN,MANAGER   *                   /api/oauth2/user",
+        "Bearer      ADMIN           *                   /api/oauth2/user",
         "Bearer      ADMIN           *                   /api/oauth2/client"
       ]
     }
@@ -34,6 +34,6 @@
     "clientSecret": "a0c7b741-b18b-47eb-b6df-48a0bd3cde2e"
   },
   "logger": {
-    "level": "OFF"
+    "level": "INFO"
   }
 }

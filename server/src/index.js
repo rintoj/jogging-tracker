@@ -4,7 +4,7 @@ const profileService = require('./service/profile-service')
 const statisticsService = require('./service/statistics-service')
 
 const isDev = process.env.NODE_ENV === 'development'
-const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.json'
+const configPath = isDev ? 'conf/app-conf.dev.json' : 'conf/app-conf.dev.json'
 
 function configure(properties) {
   properties.api.port = process.env.PORT || 5000

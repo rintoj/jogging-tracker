@@ -32,7 +32,7 @@ module.exports = {
 
   userSpace: {
     field: 'user',
-    ignore: ['manager', 'admin']
+    ignore: ['admin']
   },
 
   beforeSave: function(item) {
