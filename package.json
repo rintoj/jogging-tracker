@@ -30,7 +30,7 @@
     "cross-env": "^5.0.1",
     "express-jwt-authz": "^1.0.0",
     "moment": "^2.18.1",
-    "mongo-restifier": "^2.5.0",
+    "mongo-restifier": "^2.5.1",
     "resolvable": "^1.0.1"
   },
   "devDependencies": {
