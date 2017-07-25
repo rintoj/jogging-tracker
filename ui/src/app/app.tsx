@@ -10,7 +10,7 @@ import { AuthorizeAction } from '../action/index'
 import { BrowserHistory } from 'react-router-dom'
 import { LogPage } from './log/log'
 import { MakeAnEntryDialog } from './make-an-entry/make-an-entry'
-import { ProfilePage } from './signup/profile'
+import { ProfilePage } from './signup/profile-page'
 import { SetRedirectUrlAction } from '../action/user-actions'
 import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
@@ -60,10 +60,10 @@ export class App extends React.Component<Props, {}> {
       <Switch>
         <Route path="/logs" render={this.protect(LogPage)} />
         <Route path="/statistics" render={this.protect(StatisticsPage)} />
-        <Route path="/users" render={this.protect(UsersPage, undefined, ['admin'])} />
+        <Route path="/users" render={this.protect(UsersPage, undefined, ['admin', 'manager'])} />
+        <Route path="/profile" render={this.protect(ProfilePage)} />
         <Route path="/signin" component={SignInPage} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/profile" component={ProfilePage} />
         <Route path="*" render={this.protect(Redirect, { to: '/statistics' })} />
       </Switch>
       {this.props.showForm && <MakeAnEntryDialog history={this.props.history}></MakeAnEntryDialog>}
