@@ -1,4 +1,4 @@
-import { jogLogService } from './jog-log.service'
+import { jogLogService } from './jog-log-service'
 import { statisticsService } from './statistics-service'
 import { userService } from './user-service'
 

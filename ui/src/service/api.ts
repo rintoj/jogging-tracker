@@ -22,7 +22,9 @@ export interface Request {
 
 export class Api {
 
-  private options: ApiOptions = {
+  http = axios
+
+  options: ApiOptions = {
     baseURL: config.apiUrl,
     validateStatus: (status) => {
       return status === 304 || status >= 200 && status < 300
@@ -66,7 +68,7 @@ export class Api {
     if (this.options.authToken != undefined || request.authToken != undefined) {
       header.Authorization = `Bearer ${this.options.authToken || request.authToken}`
     }
-    return axios(Object.assign({}, this.options, request, {
+    return this.http(Object.assign({}, this.options, request, {
       headers: Object.assign(header, this.options.headers, request.headers)
     }))
   }
