@@ -27,7 +27,7 @@ export class Menu extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="primary flex flex-column vh-100" style={{ minWidth: '280px' }}>
+    return <div className="primary flex flex-column vh-100 menu-node" style={{ minWidth: '280px' }}>
       <div className="flex flex-column justify-start bb divider-l-br w-100 ph3 secondary">
         <div className="title-node white-text f4 nowrap ttu ph2 pv3 mv1 divider-l-br bb">Jog Tracker</div>
         <Profile name={this.user.name}
