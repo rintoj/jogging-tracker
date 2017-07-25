@@ -17,28 +17,19 @@ class Props {
   user?: User
 }
 
-interface State {
-  open?: boolean
-}
+interface State { }
 
 @inject(Props)
-export class MenuComponent extends React.Component<Props, State> {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      open: true
-    }
-  }
+export class Menu extends React.Component<Props, State> {
 
   get user() {
     return this.props.user || {}
   }
 
   render() {
-    return <div className="primary flex flex-column vh-100" style={{ minWidth: (this.state.open ? '280' : '0') + 'px' }}>
+    return <div className="primary flex flex-column vh-100" style={{ minWidth: '280px' }}>
       <div className="flex flex-column justify-start bb divider-l-br w-100 ph3 secondary">
-        <div className="white-text f4 nowrap ttu ph2 pv3 mv1 divider-l-br bb">Jog Tracker</div>
+        <div className="title-node white-text f4 nowrap ttu ph2 pv3 mv1 divider-l-br bb">Jog Tracker</div>
         <Profile name={this.user.name}
           roles={this.user.authInfo && this.user.authInfo.roles} showButton={true}
           picture={this.user.picture}
@@ -57,23 +48,22 @@ export class MenuComponent extends React.Component<Props, State> {
       <div className="flex flex-column flex-auto">
         <div className="ph3">
           <div className="ttu pa2 o-60 mt4 divider-l-br bb">Navigation</div>
-          <IconText icon="pie-chart" className="pa2 mt2 pointer accent--hover br1 ttu"
+          <IconText icon="pie-chart" className="statistics-node pa2 mt2 pointer accent--hover br1 ttu"
             onClick={event => this.goToStatisticsPage()}>Statistics</IconText>
-          <IconText icon="address-card" className="pa2 mt2 pointer accent--hover br1 ttu"
+          <IconText icon="address-card" className="log-entries-node pa2 mt2 pointer accent--hover br1 ttu"
             onClick={event => this.goHome()}>Log Entries</IconText>
 
-          {this.props.user && this.props.user.authInfo && this.props.user.authInfo.roles.indexOf('admin') >= 0 &&
+          {this.props.user && this.props.user.authInfo && (this.props.user.authInfo.roles.indexOf('admin') >= 0 ||
+            this.props.user.authInfo.roles.indexOf('manager') >= 0) &&
             <div>
               <div className="ttu pa2 o-60 mt4 divider-l-br bb">For Admin Users</div>
-              <IconText icon="user-circle" className="pa2 mt2 pointer accent--hover br1 ttu"
+              <IconText icon="user-circle" className="manage-users-node pa2 mt2 pointer accent--hover br1 ttu"
                 onClick={event => this.manageUsers()}>Manage Users</IconText>
             </div>
           }
         </div>
         <div className="flex-auto"></div>
-        {this.props.user && this.props.user.authInfo &&
-          ((this.props.user.authInfo.roles || []).indexOf('admin') >= 0 ||
-            (this.props.user.authInfo.roles || []).indexOf('manager') >= 0) &&
+        {this.props.user && this.props.user.authInfo && (this.props.user.authInfo.roles || []).indexOf('admin') >= 0 &&
           <UserSelector></UserSelector>}
       </div>
     </div>
