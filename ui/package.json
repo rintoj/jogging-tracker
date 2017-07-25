@@ -12,7 +12,7 @@
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
     "pre:test": "npm run clean && npm run compile",
     "test": "nyc --reporter=html mocha src/**/*.spec.ts*",
-    "tdd": "nodemon -e ts,tsx --delay 1 --watch src --exec 'npm t'",
+    "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
     "clean": "rimraf build",
     "compile": "tsc",
     "watch": "npm run compile -- -w"
