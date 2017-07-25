@@ -10,11 +10,8 @@
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
-    "pre:test": "npm run clean && npm run compile",
     "test": "nyc --reporter=html mocha src/**/*.spec.ts*",
-    "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
-    "clean": "rimraf build",
-    "compile": "tsc",
+    "tdd": "mocha -w -r ts-node/register -r ./src/test/ignore.js --watch-extensions ts,tsx src/**/*.spec.ts*",
     "watch": "npm run compile -- -w"
   },
   "nyc": {
@@ -49,7 +46,6 @@
     "react-test-renderer": "^15.6.1",
     "react-ts": "^2.0.2",
     "require-hacker": "^3.0.0",
-    "rimraf": "^2.6.1",
     "sw-precache": "^5.2.0",
     "ts-node": "^3.3.0"
   },
