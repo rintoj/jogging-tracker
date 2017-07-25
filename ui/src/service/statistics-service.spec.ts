@@ -4,7 +4,7 @@ import { api } from './api'
 import { chai } from '../test/index'
 import { statisticsService } from './statistics-service'
 
-describe('user-service', () => {
+describe('statistics-service', () => {
 
   before(() => chai.simulateBrowser())
 

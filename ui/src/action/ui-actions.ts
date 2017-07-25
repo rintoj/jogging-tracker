@@ -5,4 +5,3 @@ export class ShowFormAction extends Action {
   constructor(public jogLog?: JogLog) { super() }
 }
 export class HideFormAction extends Action { }
-export class ToggleFormAction extends Action { }

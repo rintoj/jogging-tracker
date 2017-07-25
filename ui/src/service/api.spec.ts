@@ -54,14 +54,14 @@ describe('api', () => {
     spy.should.have.been.called.with({ url: '/test', data: { test: 'data' }, method: 'post' })
   })
 
-  it('should make post requests', () => {
+  it('should make put requests', () => {
     const spy = chai.spy()
     api.request = spy
     api.put('/test', { test: 'data' })
     spy.should.have.been.called.with({ url: '/test', data: { test: 'data' }, method: 'put' })
   })
 
-  it('should make post requests', () => {
+  it('should make delete requests', () => {
     const spy = chai.spy()
     api.request = spy
     api.delete('/test', { test: 'data' })

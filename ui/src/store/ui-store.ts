@@ -1,4 +1,4 @@
-import { HideFormAction, ShowFormAction, ToggleFormAction } from '../action/ui-actions'
+import { HideFormAction, ShowFormAction } from '../action/ui-actions'
 import { action, store } from 'statex/react'
 
 import { AppState } from './../state/app-state'
@@ -16,8 +16,4 @@ export class UiStore {
     return { showForm: false, selectedJogLog: undefined }
   }
 
-  @action()
-  toggleFormAction(state: AppState, toggleFormActionAction: ToggleFormAction): AppState {
-    return { showForm: !state.showForm, selectedJogLog: undefined }
-  }
 }

@@ -5,7 +5,7 @@ import { api } from './api'
 import { chai } from '../test/index'
 import { jogLogService } from './jog-log-service'
 
-describe('user-service', () => {
+describe('jog-log-service', () => {
 
   before(() => chai.simulateBrowser())
 
