@@ -75,7 +75,7 @@ export class Table extends React.Component<Props, State> {
     if (this.state.rows == undefined || this.state.rows.length === 0) {
       return <tr className="striped--near-white">
         <td className={`tc pv3 ph4-l ph3-m ph2 ttu nowrap`}
-          colSpan={this.props.columns.length + (this.props.showIndex ? 1 : 0)}>No Records!</td >
+          colSpan={this.props.columns.length + (this.props.showIndex ? 1 : 0)}>No Records</td >
       </tr>
     }
 

@@ -16,7 +16,7 @@ import { SignInPage } from './signin/signin'
 import { SignUpPage } from './signup/signup'
 import { StatisticsPage } from './statistics/statistics'
 import { User } from '../state/user'
-import { UsersPage } from './users/users'
+import { UsersPage } from './users/users-page'
 
 class Props {
   history?: BrowserHistory
