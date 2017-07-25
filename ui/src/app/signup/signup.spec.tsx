@@ -26,25 +26,44 @@ describe('<SignUpPage/>', () => {
     expect(errors.at(3).text()).to.equal('Required')
   })
 
-  it('should show an error message if id is not a valid email', async () => {
+  it('should show an error message if id is not a valid email', (done) => {
     const wrapper = mount(<SignUpPage />)
-    wrapper.find('button').at(0).simulate('click')
     const inputs = wrapper.find('input')
     inputs.at(0).simulate('change', { target: { value: 'admin' } })
-    const errors = wrapper.find('.error-text')
-    setTimeout(() => expect(errors.at(0).text()).to.equal('Invalid email'))
+    wrapper.find('button').at(0).simulate('click')
+    setTimeout(() => {
+      const errors = wrapper.find('.error-text')
+      expect(errors.at(0).text()).to.equal('Invalid email')
+      done()
+    })
   })
 
-  it('should show an error message if password is not less than 6 characters in length', async () => {
+  it('should show an error message if password is not less than 6 characters in length', (done) => {
     const wrapper = mount(<SignUpPage />)
-    wrapper.find('button').at(0).simulate('click')
     const inputs = wrapper.find('input')
     inputs.at(2).simulate('change', { target: { value: 'admin' } })
-    const errors = wrapper.find('.error-text')
-    setTimeout(() => expect(errors.at(2).text()).to.equal('Password must be 6 characters in length'), 100)
+    wrapper.find('button').at(0).simulate('click')
+    setTimeout(() => {
+      const errors = wrapper.find('.error-text')
+      expect(errors.at(2).text()).to.equal('Password must be 6 characters in length')
+      done()
+    }, 100)
   })
 
-  it('should emit RegisterUserAction if form is valid and when login in button is clicked', async () => {
+  it('should show an error message if password does not match confirmation', (done) => {
+    const wrapper = mount(<SignUpPage />)
+    const inputs = wrapper.find('input')
+    inputs.at(2).simulate('change', { target: { value: 'admin' } })
+    inputs.at(3).simulate('change', { target: { value: 'admin1' } })
+    wrapper.find('button').at(0).simulate('click')
+    setTimeout(() => {
+      const errors = wrapper.find('.error-text')
+      expect(errors.at(3).text()).to.equal('Don\'t match!')
+      done()
+    }, 100)
+  })
+
+  it('should emit RegisterUserAction if form is valid and when login in button is clicked', (done) => {
     const spy = chai.spy()
     RegisterUserAction.prototype.dispatch = spy
     const wrapper = mount(<SignUpPage />)
@@ -54,10 +73,13 @@ describe('<SignUpPage/>', () => {
     inputs.at(2).simulate('change', { target: { value: 'admin@123' } })
     inputs.at(3).simulate('change', { target: { value: 'admin@123' } })
     wrapper.find('button').at(0).simulate('click')
-    setTimeout(() => spy.should.have.been.called(), 100)
+    setTimeout(() => {
+      spy.should.have.been.called()
+      done()
+    }, 100)
   })
 
-  it('should show an error message if login fail', async () => {
+  it('should show an error message if login fail', (done) => {
     const spy = chai.spy(() => new Promise((resolve, reject) => {
       reject('Throw error on login')
     }))
@@ -70,24 +92,31 @@ describe('<SignUpPage/>', () => {
     inputs.at(3).simulate('change', { target: { value: 'admin@123' } })
     wrapper.find('button').at(0).simulate('click')
     setTimeout(() => {
-      expect(wrapper.find('.error-text').at(0).text()).to.equal('User already exist')
+      expect(wrapper.find('.error-text').at(0).text()).to.equal('User already exists.')
+      done()
     }, 100)
   })
 
-  it('should go to home when cancel button is clicked', async () => {
+  it('should go to home when cancel button is clicked', (done) => {
     const history = { replace: chai.spy(), push: chai.spy() }
     const wrapper = mount(<SignUpPage history={history} />)
     wrapper.setState({ success: false })
     wrapper.find('button').at(1).simulate('click')
-    setTimeout(() => history.replace.should.have.been.called.with('/'))
+    setTimeout(() => {
+      history.replace.should.have.been.called.with('/')
+      done()
+    }, 100)
   })
 
-  it('should go to home when cancel button is clicked', async () => {
+  it('should go to home when cancel button is clicked', (done) => {
     const history = { replace: chai.spy(), push: chai.spy() }
     const wrapper = mount(<SignUpPage history={history} />)
     wrapper.setState({ success: true })
     wrapper.find('button').at(0).simulate('click')
-    setTimeout(() => history.replace.should.have.been.called.with('/signin'))
+    setTimeout(() => {
+      history.replace.should.have.been.called.with('/signin')
+      done()
+    }, 100)
   })
 
 })

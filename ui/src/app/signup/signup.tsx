@@ -128,7 +128,7 @@ export class SignUpPage extends React.Component<Props, State> {
       password: this.state.password == undefined || this.state.password.trim() === '' ? 'Required' :
         !/^.{6,15}$/.test(this.state.password) ? 'Password must be 6 characters in length' : undefined,
       confirm: this.state.confirm == undefined || this.state.confirm.trim() === '' ? 'Required' :
-        this.state.confirm !== this.state.password ? 'Don\'t  match!' : undefined
+        this.state.confirm !== this.state.password ? 'Don\'t match!' : undefined
     }
     this.setState(state => ({
       error
