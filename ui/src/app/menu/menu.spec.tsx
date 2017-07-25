@@ -96,4 +96,22 @@ describe('<Menu/>', () => {
     expect(wrapper.find('.manage-users-node')).to.have.length(0)
   })
 
+  it('should show switch user for admin', async () => {
+    const history = { replace: chai.spy(), push: chai.spy() }
+    const wrapper = mount(<Menu user={admin} history={history} />)
+    expect(wrapper.find('.user-selector-node')).to.have.length(1)
+  })
+
+  it('should NOT show switch user for managers', async () => {
+    const history = { replace: chai.spy(), push: chai.spy() }
+    const wrapper = mount(<Menu user={manager} history={history} />)
+    expect(wrapper.find('.user-selector-node')).to.have.length(0)
+  })
+
+  it('should NOT show switch user for users', async () => {
+    const history = { replace: chai.spy(), push: chai.spy() }
+    const wrapper = mount(<Menu user={user} history={history} />)
+    expect(wrapper.find('.user-selector-node')).to.have.length(0)
+  })
+
 })
