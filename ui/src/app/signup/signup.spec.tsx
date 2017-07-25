@@ -57,33 +57,37 @@ describe('<SignUpPage/>', () => {
     setTimeout(() => spy.should.have.been.called(), 100)
   })
 
+  it('should show an error message if login fail', async () => {
+    const spy = chai.spy(() => new Promise((resolve, reject) => {
+      reject('Throw error on login')
+    }))
+    RegisterUserAction.prototype.dispatch = spy
+    const wrapper = mount(<SignUpPage />)
+    const inputs = wrapper.find('input')
+    inputs.at(0).simulate('change', { target: { value: 'admin@system.com' } })
+    inputs.at(1).simulate('change', { target: { value: 'Admin User' } })
+    inputs.at(2).simulate('change', { target: { value: 'admin@123' } })
+    inputs.at(3).simulate('change', { target: { value: 'admin@123' } })
+    wrapper.find('button').at(0).simulate('click')
+    setTimeout(() => {
+      expect(wrapper.find('.error-text').at(0).text()).to.equal('User already exist')
+    }, 100)
+  })
+
   it('should go to home when cancel button is clicked', async () => {
     const history = { replace: chai.spy(), push: chai.spy() }
     const wrapper = mount(<SignUpPage history={history} />)
+    wrapper.setState({ success: false })
     wrapper.find('button').at(1).simulate('click')
-    history.replace.should.have.been.called.with('/')
+    setTimeout(() => history.replace.should.have.been.called.with('/'))
   })
 
-  // it('should show an error message if sign in fails', async () => {
-  //   const spy = chai.spy(() => new Promise(() => {
-  //     throw new Error('Simulated sign in failure')
-  //   }))
-  //   SignInAction.prototype.dispatch = spy
-  //   const wrapper = mount(<SignUpPage />)
-  //   const inputs = wrapper.find('input')
-  //   inputs.at(0).simulate('change', { target: { value: 'admin' } })
-  //   inputs.at(1).simulate('change', { target: { value: 'admin' } })
-  //   wrapper.find('button').at(0).simulate('click')
-  //   setTimeout(() => {
-  //     expect(wrapper.find('.error-text').at(1).text()).to.equal('Sorry, we could not authorize your email id or password')
-  //   }, 100)
-  // })
-
-  // it('should go to signup page if clicked on signup', async () => {
-  //   const history = { replace: chai.spy(), push: chai.spy() }
-  //   const wrapper = mount(<SignUpPage history={history} />)
-  //   wrapper.find('button').at(1).simulate('click')
-  //   history.push.should.have.been.called.with('/signup')
-  // })
+  it('should go to home when cancel button is clicked', async () => {
+    const history = { replace: chai.spy(), push: chai.spy() }
+    const wrapper = mount(<SignUpPage history={history} />)
+    wrapper.setState({ success: true })
+    wrapper.find('button').at(0).simulate('click')
+    setTimeout(() => history.replace.should.have.been.called.with('/signin'))
+  })
 
 })
