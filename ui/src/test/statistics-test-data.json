@@ -1,0 +1,1183 @@
+{
+  "overall": [{
+    "type": "overall",
+    "slowestSpeed": 0.07,
+    "fastestSpeed": 83.7,
+    "shortestDistance": 0.2,
+    "longestDistance": 4,
+    "longestDistDate": "2017-04-26T00:00:00.000Z",
+    "date": "2017-07-21T00:00:00.000Z",
+    "distance": 438.8999999999998,
+    "speed": 716.8700000000005,
+    "time": [
+      322,
+      43
+    ],
+    "entries": 207,
+    "averageDistance": 2.1202898550724627,
+    "averageTime": [
+      1,
+      34
+    ],
+    "averageSpeed": 3.4631400966183596
+  }],
+  "yearly": [{
+      "year": 2016,
+      "type": "year",
+      "slowestSpeed": 0.4,
+      "fastestSpeed": 83.7,
+      "shortestDistance": 0.35,
+      "longestDistance": 3.86,
+      "longestDistDate": "2016-12-14T00:00:00.000Z",
+      "date": "2016-12-31T00:00:00.000Z",
+      "distance": 65.52,
+      "speed": 182.55,
+      "time": [
+        36,
+        56
+      ],
+      "entries": 29,
+      "averageDistance": 2.259310344827586,
+      "averageTime": [
+        1,
+        16
+      ],
+      "averageSpeed": 6.294827586206897
+    },
+    {
+      "year": 2017,
+      "type": "year",
+      "slowestSpeed": 0.07,
+      "fastestSpeed": 70.6,
+      "shortestDistance": 0.2,
+      "longestDistance": 4,
+      "longestDistDate": "2017-04-26T00:00:00.000Z",
+      "date": "2017-07-21T00:00:00.000Z",
+      "distance": 373.3799999999997,
+      "speed": 534.3200000000003,
+      "time": [
+        285,
+        47
+      ],
+      "entries": 178,
+      "averageDistance": 2.0976404494382006,
+      "averageTime": [
+        1,
+        36
+      ],
+      "averageSpeed": 3.0017977528089905
+    }
+  ],
+  "monthly": [{
+      "year": 2016,
+      "month": 11,
+      "type": "month",
+      "slowestSpeed": 0.4,
+      "fastestSpeed": 83.7,
+      "shortestDistance": 0.35,
+      "longestDistance": 3.86,
+      "longestDistDate": "2016-12-14T00:00:00.000Z",
+      "date": "2016-12-31T00:00:00.000Z",
+      "distance": 65.52,
+      "speed": 182.55,
+      "time": [
+        36,
+        56
+      ],
+      "entries": 29,
+      "averageDistance": 2.259310344827586,
+      "averageTime": [
+        1,
+        16
+      ],
+      "averageSpeed": 6.294827586206897
+    },
+    {
+      "year": 2017,
+      "month": 0,
+      "type": "month",
+      "slowestSpeed": 0.1,
+      "fastestSpeed": 20.4,
+      "shortestDistance": 0.29,
+      "longestDistance": 3.87,
+      "longestDistDate": "2017-01-09T00:00:00.000Z",
+      "date": "2017-01-31T00:00:00.000Z",
+      "distance": 58.900000000000006,
+      "speed": 91.84,
+      "time": [
+        43,
+        48
+      ],
+      "entries": 27,
+      "averageDistance": 2.1814814814814816,
+      "averageTime": [
+        1,
+        37
+      ],
+      "averageSpeed": 3.4014814814814818
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "type": "month",
+      "slowestSpeed": 0.12,
+      "fastestSpeed": 3.8,
+      "shortestDistance": 0.25,
+      "longestDistance": 3.62,
+      "longestDistDate": "2017-02-09T00:00:00.000Z",
+      "date": "2017-02-28T00:00:00.000Z",
+      "distance": 44.77,
+      "speed": 30.52,
+      "time": [
+        42,
+        47
+      ],
+      "entries": 25,
+      "averageDistance": 1.7908000000000002,
+      "averageTime": [
+        1,
+        43
+      ],
+      "averageSpeed": 1.2207999999999999
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "type": "month",
+      "slowestSpeed": 0.07,
+      "fastestSpeed": 70.6,
+      "shortestDistance": 0.2,
+      "longestDistance": 3.98,
+      "longestDistDate": "2017-03-31T00:00:00.000Z",
+      "date": "2017-03-31T00:00:00.000Z",
+      "distance": 61.45,
+      "speed": 130.41,
+      "time": [
+        42,
+        34
+      ],
+      "entries": 27,
+      "averageDistance": 2.275925925925926,
+      "averageTime": [
+        1,
+        35
+      ],
+      "averageSpeed": 4.83
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "type": "month",
+      "slowestSpeed": 0.26,
+      "fastestSpeed": 44.04,
+      "shortestDistance": 0.21,
+      "longestDistance": 4,
+      "longestDistDate": "2017-04-26T00:00:00.000Z",
+      "date": "2017-04-30T00:00:00.000Z",
+      "distance": 65.74999999999999,
+      "speed": 147.97,
+      "time": [
+        38,
+        38
+      ],
+      "entries": 28,
+      "averageDistance": 2.348214285714285,
+      "averageTime": [
+        1,
+        23
+      ],
+      "averageSpeed": 5.284642857142857
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "type": "month",
+      "slowestSpeed": 0.08,
+      "fastestSpeed": 11.12,
+      "shortestDistance": 0.21,
+      "longestDistance": 3.93,
+      "longestDistDate": "2017-05-28T00:00:00.000Z",
+      "date": "2017-05-31T00:00:00.000Z",
+      "distance": 50.029999999999994,
+      "speed": 52.589999999999996,
+      "time": [
+        44,
+        56
+      ],
+      "entries": 28,
+      "averageDistance": 1.786785714285714,
+      "averageTime": [
+        1,
+        36
+      ],
+      "averageSpeed": 1.8782142857142856
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "type": "month",
+      "slowestSpeed": 0.18,
+      "fastestSpeed": 8.7,
+      "shortestDistance": 0.39,
+      "longestDistance": 3.8,
+      "longestDistDate": "2017-06-18T00:00:00.000Z",
+      "date": "2017-06-30T00:00:00.000Z",
+      "distance": 51.480000000000004,
+      "speed": 43.03,
+      "time": [
+        39,
+        4
+      ],
+      "entries": 23,
+      "averageDistance": 2.2382608695652175,
+      "averageTime": [
+        1,
+        42
+      ],
+      "averageSpeed": 1.8708695652173915
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "type": "month",
+      "slowestSpeed": 0.16,
+      "fastestSpeed": 9,
+      "shortestDistance": 0.29,
+      "longestDistance": 3.53,
+      "longestDistDate": "2017-07-12T00:00:00.000Z",
+      "date": "2017-07-21T00:00:00.000Z",
+      "distance": 41,
+      "speed": 37.959999999999994,
+      "time": [
+        34,
+        0
+      ],
+      "entries": 20,
+      "averageDistance": 2.05,
+      "averageTime": [
+        1,
+        42
+      ],
+      "averageSpeed": 1.8979999999999997
+    }
+  ],
+  "weekly": [{
+      "year": 2016,
+      "month": 11,
+      "week": 49,
+      "type": "week",
+      "slowestSpeed": 1.02,
+      "fastestSpeed": 6.21,
+      "shortestDistance": 0.88,
+      "longestDistance": 3,
+      "longestDistDate": "2016-12-01T00:00:00.000Z",
+      "startOfWeek": "2016-11-26T18:30:00.000Z",
+      "endOfWeek": "2016-12-03T18:29:59.999Z",
+      "date": "2016-12-03T00:00:00.000Z",
+      "distance": 5.47,
+      "speed": 8.790000000000001,
+      "time": [
+        2,
+        22
+      ],
+      "entries": 3,
+      "averageDistance": 1.8233333333333333,
+      "averageTime": [
+        0,
+        47
+      ],
+      "averageSpeed": 2.93
+    },
+    {
+      "year": 2016,
+      "month": 11,
+      "week": 50,
+      "type": "week",
+      "slowestSpeed": 0.4,
+      "fastestSpeed": 20.6,
+      "shortestDistance": 0.97,
+      "longestDistance": 3.41,
+      "longestDistDate": "2016-12-08T00:00:00.000Z",
+      "startOfWeek": "2016-12-03T18:30:00.000Z",
+      "endOfWeek": "2016-12-10T18:29:59.999Z",
+      "date": "2016-12-10T00:00:00.000Z",
+      "distance": 14.399999999999999,
+      "speed": 26.35,
+      "time": [
+        10,
+        51
+      ],
+      "entries": 6,
+      "averageDistance": 2.4,
+      "averageTime": [
+        1,
+        49
+      ],
+      "averageSpeed": 4.391666666666667
+    },
+    {
+      "year": 2016,
+      "month": 11,
+      "week": 51,
+      "type": "week",
+      "slowestSpeed": 0.47,
+      "fastestSpeed": 4.93,
+      "shortestDistance": 0.35,
+      "longestDistance": 3.86,
+      "longestDistDate": "2016-12-14T00:00:00.000Z",
+      "startOfWeek": "2016-12-10T18:30:00.000Z",
+      "endOfWeek": "2016-12-17T18:29:59.999Z",
+      "date": "2016-12-17T00:00:00.000Z",
+      "distance": 13.959999999999999,
+      "speed": 12.71,
+      "time": [
+        10,
+        5
+      ],
+      "entries": 7,
+      "averageDistance": 1.9942857142857142,
+      "averageTime": [
+        1,
+        26
+      ],
+      "averageSpeed": 1.8157142857142858
+    },
+    {
+      "year": 2016,
+      "month": 11,
+      "week": 52,
+      "type": "week",
+      "slowestSpeed": 0.94,
+      "fastestSpeed": 3.56,
+      "shortestDistance": 0.85,
+      "longestDistance": 3.62,
+      "longestDistDate": "2016-12-20T00:00:00.000Z",
+      "startOfWeek": "2016-12-17T18:30:00.000Z",
+      "endOfWeek": "2016-12-24T18:29:59.999Z",
+      "date": "2016-12-24T00:00:00.000Z",
+      "distance": 16.82,
+      "speed": 12.929999999999998,
+      "time": [
+        8,
+        12
+      ],
+      "entries": 6,
+      "averageDistance": 2.8033333333333332,
+      "averageTime": [
+        1,
+        22
+      ],
+      "averageSpeed": 2.155
+    },
+    {
+      "year": 2016,
+      "month": 11,
+      "week": 53,
+      "type": "week",
+      "slowestSpeed": 0.62,
+      "fastestSpeed": 83.7,
+      "shortestDistance": 1.06,
+      "longestDistance": 2.79,
+      "longestDistDate": "2016-12-31T00:00:00.000Z",
+      "startOfWeek": "2016-12-24T18:30:00.000Z",
+      "endOfWeek": "2016-12-31T18:29:59.999Z",
+      "date": "2016-12-31T00:00:00.000Z",
+      "distance": 14.870000000000001,
+      "speed": 121.77000000000001,
+      "time": [
+        5,
+        26
+      ],
+      "entries": 7,
+      "averageDistance": 2.1242857142857146,
+      "averageTime": [
+        0,
+        47
+      ],
+      "averageSpeed": 17.395714285714288
+    },
+    {
+      "year": 2017,
+      "month": 0,
+      "week": 1,
+      "type": "week",
+      "slowestSpeed": 0.6,
+      "fastestSpeed": 9.7,
+      "shortestDistance": 0.7,
+      "longestDistance": 3.72,
+      "longestDistDate": "2017-01-07T00:00:00.000Z",
+      "startOfWeek": "2016-12-31T18:30:00.000Z",
+      "endOfWeek": "2017-01-07T18:29:59.999Z",
+      "date": "2017-01-07T00:00:00.000Z",
+      "distance": 12.05,
+      "speed": 17.72,
+      "time": [
+        5,
+        33
+      ],
+      "entries": 5,
+      "averageDistance": 2.41,
+      "averageTime": [
+        1,
+        7
+      ],
+      "averageSpeed": 3.5439999999999996
+    },
+    {
+      "year": 2017,
+      "month": 0,
+      "week": 2,
+      "type": "week",
+      "slowestSpeed": 0.1,
+      "fastestSpeed": 19.1,
+      "shortestDistance": 0.29,
+      "longestDistance": 3.87,
+      "longestDistDate": "2017-01-09T00:00:00.000Z",
+      "startOfWeek": "2017-01-07T18:30:00.000Z",
+      "endOfWeek": "2017-01-14T18:29:59.999Z",
+      "date": "2017-01-14T00:00:00.000Z",
+      "distance": 12.959999999999999,
+      "speed": 25.450000000000003,
+      "time": [
+        10,
+        50
+      ],
+      "entries": 6,
+      "averageDistance": 2.1599999999999997,
+      "averageTime": [
+        1,
+        48
+      ],
+      "averageSpeed": 4.241666666666667
+    },
+    {
+      "year": 2017,
+      "month": 0,
+      "week": 3,
+      "type": "week",
+      "slowestSpeed": 0.2,
+      "fastestSpeed": 7.36,
+      "shortestDistance": 0.47,
+      "longestDistance": 3.22,
+      "longestDistDate": "2017-01-18T00:00:00.000Z",
+      "startOfWeek": "2017-01-14T18:30:00.000Z",
+      "endOfWeek": "2017-01-21T18:29:59.999Z",
+      "date": "2017-01-21T00:00:00.000Z",
+      "distance": 9.84,
+      "speed": 10.47,
+      "time": [
+        12,
+        29
+      ],
+      "entries": 6,
+      "averageDistance": 1.64,
+      "averageTime": [
+        2,
+        5
+      ],
+      "averageSpeed": 1.745
+    },
+    {
+      "year": 2017,
+      "month": 0,
+      "week": 4,
+      "type": "week",
+      "slowestSpeed": 0.56,
+      "fastestSpeed": 20.4,
+      "shortestDistance": 1.36,
+      "longestDistance": 3.8,
+      "longestDistDate": "2017-01-23T00:00:00.000Z",
+      "startOfWeek": "2017-01-21T18:30:00.000Z",
+      "endOfWeek": "2017-01-28T18:29:59.999Z",
+      "date": "2017-01-28T00:00:00.000Z",
+      "distance": 18.03,
+      "speed": 34.709999999999994,
+      "time": [
+        9,
+        45
+      ],
+      "entries": 7,
+      "averageDistance": 2.575714285714286,
+      "averageTime": [
+        1,
+        24
+      ],
+      "averageSpeed": 4.958571428571427
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "week": 5,
+      "type": "week",
+      "slowestSpeed": 0.44,
+      "fastestSpeed": 1.66,
+      "shortestDistance": 0.52,
+      "longestDistance": 3.58,
+      "longestDistDate": "2017-02-04T00:00:00.000Z",
+      "startOfWeek": "2017-01-28T18:30:00.000Z",
+      "endOfWeek": "2017-02-04T18:29:59.999Z",
+      "date": "2017-02-04T00:00:00.000Z",
+      "distance": 12.98,
+      "speed": 7.67,
+      "time": [
+        11,
+        29
+      ],
+      "entries": 7,
+      "averageDistance": 1.8542857142857143,
+      "averageTime": [
+        1,
+        38
+      ],
+      "averageSpeed": 1.0957142857142856
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "week": 6,
+      "type": "week",
+      "slowestSpeed": 0.58,
+      "fastestSpeed": 1.71,
+      "shortestDistance": 0.84,
+      "longestDistance": 3.62,
+      "longestDistDate": "2017-02-09T00:00:00.000Z",
+      "startOfWeek": "2017-02-04T18:30:00.000Z",
+      "endOfWeek": "2017-02-11T18:29:59.999Z",
+      "date": "2017-02-10T00:00:00.000Z",
+      "distance": 9.44,
+      "speed": 4.51,
+      "time": [
+        10,
+        21
+      ],
+      "entries": 5,
+      "averageDistance": 1.888,
+      "averageTime": [
+        2,
+        4
+      ],
+      "averageSpeed": 0.9019999999999999
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "week": 7,
+      "type": "week",
+      "slowestSpeed": 0.48,
+      "fastestSpeed": 1.93,
+      "shortestDistance": 0.28,
+      "longestDistance": 2.9,
+      "longestDistDate": "2017-02-13T00:00:00.000Z",
+      "startOfWeek": "2017-02-11T18:30:00.000Z",
+      "endOfWeek": "2017-02-18T18:29:59.999Z",
+      "date": "2017-02-18T00:00:00.000Z",
+      "distance": 10.39,
+      "speed": 7.279999999999999,
+      "time": [
+        10,
+        58
+      ],
+      "entries": 7,
+      "averageDistance": 1.4842857142857144,
+      "averageTime": [
+        1,
+        34
+      ],
+      "averageSpeed": 1.0399999999999998
+    },
+    {
+      "year": 2017,
+      "month": 1,
+      "week": 8,
+      "type": "week",
+      "slowestSpeed": 0.12,
+      "fastestSpeed": 3.8,
+      "shortestDistance": 0.25,
+      "longestDistance": 3.55,
+      "longestDistDate": "2017-02-22T00:00:00.000Z",
+      "startOfWeek": "2017-02-18T18:30:00.000Z",
+      "endOfWeek": "2017-02-25T18:29:59.999Z",
+      "date": "2017-02-25T00:00:00.000Z",
+      "distance": 10.88,
+      "speed": 11.280000000000001,
+      "time": [
+        8,
+        32
+      ],
+      "entries": 6,
+      "averageDistance": 1.8133333333333335,
+      "averageTime": [
+        1,
+        25
+      ],
+      "averageSpeed": 1.8800000000000001
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "week": 9,
+      "type": "week",
+      "slowestSpeed": 0.6,
+      "fastestSpeed": 2.16,
+      "shortestDistance": 0.68,
+      "longestDistance": 3.47,
+      "longestDistDate": "2017-03-03T00:00:00.000Z",
+      "startOfWeek": "2017-02-25T18:30:00.000Z",
+      "endOfWeek": "2017-03-04T18:29:59.999Z",
+      "date": "2017-03-03T00:00:00.000Z",
+      "distance": 14.16,
+      "speed": 7.819999999999999,
+      "time": [
+        11,
+        3
+      ],
+      "entries": 6,
+      "averageDistance": 2.36,
+      "averageTime": [
+        1,
+        51
+      ],
+      "averageSpeed": 1.3033333333333332
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "week": 10,
+      "type": "week",
+      "slowestSpeed": 0.07,
+      "fastestSpeed": 70.6,
+      "shortestDistance": 0.2,
+      "longestDistance": 3.59,
+      "longestDistDate": "2017-03-11T00:00:00.000Z",
+      "startOfWeek": "2017-03-04T18:30:00.000Z",
+      "endOfWeek": "2017-03-11T18:29:59.999Z",
+      "date": "2017-03-11T00:00:00.000Z",
+      "distance": 18.04,
+      "speed": 89.55,
+      "time": [
+        10,
+        10
+      ],
+      "entries": 7,
+      "averageDistance": 2.577142857142857,
+      "averageTime": [
+        1,
+        27
+      ],
+      "averageSpeed": 12.792857142857143
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "week": 11,
+      "type": "week",
+      "slowestSpeed": 0.53,
+      "fastestSpeed": 9.73,
+      "shortestDistance": 1.45,
+      "longestDistance": 3.68,
+      "longestDistDate": "2017-03-17T00:00:00.000Z",
+      "startOfWeek": "2017-03-11T18:30:00.000Z",
+      "endOfWeek": "2017-03-18T18:29:59.999Z",
+      "date": "2017-03-18T00:00:00.000Z",
+      "distance": 16.049999999999997,
+      "speed": 19.990000000000002,
+      "time": [
+        9,
+        40
+      ],
+      "entries": 6,
+      "averageDistance": 2.6749999999999994,
+      "averageTime": [
+        1,
+        37
+      ],
+      "averageSpeed": 3.331666666666667
+    },
+    {
+      "year": 2017,
+      "month": 2,
+      "week": 12,
+      "type": "week",
+      "slowestSpeed": 0.21,
+      "fastestSpeed": 1.47,
+      "shortestDistance": 0.54,
+      "longestDistance": 2.21,
+      "longestDistDate": "2017-03-20T00:00:00.000Z",
+      "startOfWeek": "2017-03-18T18:30:00.000Z",
+      "endOfWeek": "2017-03-25T18:29:59.999Z",
+      "date": "2017-03-25T00:00:00.000Z",
+      "distance": 6.16,
+      "speed": 3.86,
+      "time": [
+        9,
+        34
+      ],
+      "entries": 5,
+      "averageDistance": 1.232,
+      "averageTime": [
+        1,
+        55
+      ],
+      "averageSpeed": 0.772
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "week": 13,
+      "type": "week",
+      "slowestSpeed": 0.77,
+      "fastestSpeed": 5.71,
+      "shortestDistance": 1.38,
+      "longestDistance": 3.98,
+      "longestDistDate": "2017-03-31T00:00:00.000Z",
+      "startOfWeek": "2017-03-25T18:30:00.000Z",
+      "endOfWeek": "2017-04-01T18:29:59.999Z",
+      "date": "2017-04-01T00:00:00.000Z",
+      "distance": 16.75,
+      "speed": 13.59,
+      "time": [
+        11,
+        4
+      ],
+      "entries": 7,
+      "averageDistance": 2.392857142857143,
+      "averageTime": [
+        1,
+        35
+      ],
+      "averageSpeed": 1.9414285714285715
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "week": 14,
+      "type": "week",
+      "slowestSpeed": 0.35,
+      "fastestSpeed": 23.67,
+      "shortestDistance": 0.62,
+      "longestDistance": 3.7,
+      "longestDistDate": "2017-04-03T00:00:00.000Z",
+      "startOfWeek": "2017-04-01T18:30:00.000Z",
+      "endOfWeek": "2017-04-08T18:29:59.999Z",
+      "date": "2017-04-08T00:00:00.000Z",
+      "distance": 14.2,
+      "speed": 33.620000000000005,
+      "time": [
+        10,
+        19
+      ],
+      "entries": 7,
+      "averageDistance": 2.0285714285714285,
+      "averageTime": [
+        1,
+        28
+      ],
+      "averageSpeed": 4.802857142857143
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "week": 15,
+      "type": "week",
+      "slowestSpeed": 0.26,
+      "fastestSpeed": 5.86,
+      "shortestDistance": 0.21,
+      "longestDistance": 2.44,
+      "longestDistDate": "2017-04-12T00:00:00.000Z",
+      "startOfWeek": "2017-04-08T18:30:00.000Z",
+      "endOfWeek": "2017-04-15T18:29:59.999Z",
+      "date": "2017-04-14T00:00:00.000Z",
+      "distance": 8.82,
+      "speed": 12.47,
+      "time": [
+        7,
+        1
+      ],
+      "entries": 6,
+      "averageDistance": 1.47,
+      "averageTime": [
+        1,
+        10
+      ],
+      "averageSpeed": 2.0783333333333336
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "week": 16,
+      "type": "week",
+      "slowestSpeed": 0.72,
+      "fastestSpeed": 29.33,
+      "shortestDistance": 1.54,
+      "longestDistance": 3.91,
+      "longestDistDate": "2017-04-21T00:00:00.000Z",
+      "startOfWeek": "2017-04-15T18:30:00.000Z",
+      "endOfWeek": "2017-04-22T18:29:59.999Z",
+      "date": "2017-04-22T00:00:00.000Z",
+      "distance": 19.51,
+      "speed": 40.6,
+      "time": [
+        10,
+        47
+      ],
+      "entries": 7,
+      "averageDistance": 2.7871428571428574,
+      "averageTime": [
+        1,
+        32
+      ],
+      "averageSpeed": 5.8
+    },
+    {
+      "year": 2017,
+      "month": 3,
+      "week": 17,
+      "type": "week",
+      "slowestSpeed": 0.8,
+      "fastestSpeed": 44.04,
+      "shortestDistance": 1.69,
+      "longestDistance": 4,
+      "longestDistDate": "2017-04-26T00:00:00.000Z",
+      "startOfWeek": "2017-04-22T18:30:00.000Z",
+      "endOfWeek": "2017-04-29T18:29:59.999Z",
+      "date": "2017-04-29T00:00:00.000Z",
+      "distance": 16.9,
+      "speed": 58.05,
+      "time": [
+        6,
+        26
+      ],
+      "entries": 6,
+      "averageDistance": 2.8166666666666664,
+      "averageTime": [
+        1,
+        4
+      ],
+      "averageSpeed": 9.674999999999999
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "week": 18,
+      "type": "week",
+      "slowestSpeed": 0.2,
+      "fastestSpeed": 2.1,
+      "shortestDistance": 0.3,
+      "longestDistance": 3.71,
+      "longestDistDate": "2017-04-30T00:00:00.000Z",
+      "startOfWeek": "2017-04-29T18:30:00.000Z",
+      "endOfWeek": "2017-05-06T18:29:59.999Z",
+      "date": "2017-05-06T00:00:00.000Z",
+      "distance": 7.68,
+      "speed": 5.03,
+      "time": [
+        9,
+        14
+      ],
+      "entries": 6,
+      "averageDistance": 1.28,
+      "averageTime": [
+        1,
+        32
+      ],
+      "averageSpeed": 0.8383333333333334
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "week": 19,
+      "type": "week",
+      "slowestSpeed": 0.57,
+      "fastestSpeed": 8.1,
+      "shortestDistance": 0.81,
+      "longestDistance": 3.07,
+      "longestDistDate": "2017-05-08T00:00:00.000Z",
+      "startOfWeek": "2017-05-06T18:30:00.000Z",
+      "endOfWeek": "2017-05-13T18:29:59.999Z",
+      "date": "2017-05-13T00:00:00.000Z",
+      "distance": 10.830000000000002,
+      "speed": 15.89,
+      "time": [
+        9,
+        10
+      ],
+      "entries": 6,
+      "averageDistance": 1.8050000000000004,
+      "averageTime": [
+        1,
+        32
+      ],
+      "averageSpeed": 2.6483333333333334
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "week": 20,
+      "type": "week",
+      "slowestSpeed": 0.53,
+      "fastestSpeed": 11.12,
+      "shortestDistance": 0.81,
+      "longestDistance": 3.52,
+      "longestDistDate": "2017-05-19T00:00:00.000Z",
+      "startOfWeek": "2017-05-13T18:30:00.000Z",
+      "endOfWeek": "2017-05-20T18:29:59.999Z",
+      "date": "2017-05-20T00:00:00.000Z",
+      "distance": 12.540000000000001,
+      "speed": 20.6,
+      "time": [
+        6,
+        28
+      ],
+      "entries": 6,
+      "averageDistance": 2.0900000000000003,
+      "averageTime": [
+        1,
+        5
+      ],
+      "averageSpeed": 3.4333333333333336
+    },
+    {
+      "year": 2017,
+      "month": 4,
+      "week": 21,
+      "type": "week",
+      "slowestSpeed": 0.08,
+      "fastestSpeed": 2.44,
+      "shortestDistance": 0.21,
+      "longestDistance": 2.84,
+      "longestDistDate": "2017-05-27T00:00:00.000Z",
+      "startOfWeek": "2017-05-20T18:30:00.000Z",
+      "endOfWeek": "2017-05-27T18:29:59.999Z",
+      "date": "2017-05-27T00:00:00.000Z",
+      "distance": 10.29,
+      "speed": 6.8100000000000005,
+      "time": [
+        13,
+        44
+      ],
+      "entries": 7,
+      "averageDistance": 1.47,
+      "averageTime": [
+        1,
+        58
+      ],
+      "averageSpeed": 0.972857142857143
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "week": 22,
+      "type": "week",
+      "slowestSpeed": 0.75,
+      "fastestSpeed": 8.7,
+      "shortestDistance": 1.73,
+      "longestDistance": 3.93,
+      "longestDistDate": "2017-05-28T00:00:00.000Z",
+      "startOfWeek": "2017-05-27T18:30:00.000Z",
+      "endOfWeek": "2017-06-03T18:29:59.999Z",
+      "date": "2017-06-02T00:00:00.000Z",
+      "distance": 17.02,
+      "speed": 15.809999999999999,
+      "time": [
+        11,
+        4
+      ],
+      "entries": 6,
+      "averageDistance": 2.8366666666666664,
+      "averageTime": [
+        1,
+        51
+      ],
+      "averageSpeed": 2.635
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "week": 23,
+      "type": "week",
+      "slowestSpeed": 1.28,
+      "fastestSpeed": 3.69,
+      "shortestDistance": 0.55,
+      "longestDistance": 3.63,
+      "longestDistDate": "2017-06-04T00:00:00.000Z",
+      "startOfWeek": "2017-06-03T18:30:00.000Z",
+      "endOfWeek": "2017-06-10T18:29:59.999Z",
+      "date": "2017-06-08T00:00:00.000Z",
+      "distance": 13.5,
+      "speed": 11.82,
+      "time": [
+        6,
+        40
+      ],
+      "entries": 5,
+      "averageDistance": 2.7,
+      "averageTime": [
+        1,
+        20
+      ],
+      "averageSpeed": 2.364
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "week": 24,
+      "type": "week",
+      "slowestSpeed": 0.18,
+      "fastestSpeed": 1.18,
+      "shortestDistance": 0.39,
+      "longestDistance": 2.32,
+      "longestDistDate": "2017-06-17T00:00:00.000Z",
+      "startOfWeek": "2017-06-10T18:30:00.000Z",
+      "endOfWeek": "2017-06-17T18:29:59.999Z",
+      "date": "2017-06-17T00:00:00.000Z",
+      "distance": 8.16,
+      "speed": 4,
+      "time": [
+        10,
+        38
+      ],
+      "entries": 5,
+      "averageDistance": 1.6320000000000001,
+      "averageTime": [
+        2,
+        8
+      ],
+      "averageSpeed": 0.8
+    },
+    {
+      "year": 2017,
+      "month": 5,
+      "week": 25,
+      "type": "week",
+      "slowestSpeed": 0.38,
+      "fastestSpeed": 2.86,
+      "shortestDistance": 0.93,
+      "longestDistance": 3.8,
+      "longestDistDate": "2017-06-18T00:00:00.000Z",
+      "startOfWeek": "2017-06-17T18:30:00.000Z",
+      "endOfWeek": "2017-06-24T18:29:59.999Z",
+      "date": "2017-06-24T00:00:00.000Z",
+      "distance": 12.38,
+      "speed": 8.049999999999999,
+      "time": [
+        11,
+        40
+      ],
+      "entries": 6,
+      "averageDistance": 2.0633333333333335,
+      "averageTime": [
+        1,
+        57
+      ],
+      "averageSpeed": 1.3416666666666666
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "week": 26,
+      "type": "week",
+      "slowestSpeed": 0.84,
+      "fastestSpeed": 3.57,
+      "shortestDistance": 1.1,
+      "longestDistance": 3.27,
+      "longestDistDate": "2017-06-26T00:00:00.000Z",
+      "startOfWeek": "2017-06-24T18:30:00.000Z",
+      "endOfWeek": "2017-07-01T18:29:59.999Z",
+      "date": "2017-07-01T00:00:00.000Z",
+      "distance": 15.27,
+      "speed": 10.549999999999999,
+      "time": [
+        10,
+        2
+      ],
+      "entries": 6,
+      "averageDistance": 2.545,
+      "averageTime": [
+        1,
+        40
+      ],
+      "averageSpeed": 1.758333333333333
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "week": 27,
+      "type": "week",
+      "slowestSpeed": 0.22,
+      "fastestSpeed": 1.85,
+      "shortestDistance": 0.57,
+      "longestDistance": 3.4,
+      "longestDistDate": "2017-07-06T00:00:00.000Z",
+      "startOfWeek": "2017-07-01T18:30:00.000Z",
+      "endOfWeek": "2017-07-08T18:29:59.999Z",
+      "date": "2017-07-07T00:00:00.000Z",
+      "distance": 13.059999999999999,
+      "speed": 7.52,
+      "time": [
+        11,
+        24
+      ],
+      "entries": 6,
+      "averageDistance": 2.1766666666666663,
+      "averageTime": [
+        1,
+        54
+      ],
+      "averageSpeed": 1.2533333333333332
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "week": 28,
+      "type": "week",
+      "slowestSpeed": 0.99,
+      "fastestSpeed": 6.35,
+      "shortestDistance": 1.44,
+      "longestDistance": 3.53,
+      "longestDistDate": "2017-07-12T00:00:00.000Z",
+      "startOfWeek": "2017-07-08T18:30:00.000Z",
+      "endOfWeek": "2017-07-15T18:29:59.999Z",
+      "date": "2017-07-15T00:00:00.000Z",
+      "distance": 17.43,
+      "speed": 15.99,
+      "time": [
+        10,
+        42
+      ],
+      "entries": 7,
+      "averageDistance": 2.4899999999999998,
+      "averageTime": [
+        1,
+        32
+      ],
+      "averageSpeed": 2.2842857142857143
+    },
+    {
+      "year": 2017,
+      "month": 6,
+      "week": 29,
+      "type": "week",
+      "slowestSpeed": 0.16,
+      "fastestSpeed": 9,
+      "shortestDistance": 0.29,
+      "longestDistance": 2.55,
+      "longestDistDate": "2017-07-20T00:00:00.000Z",
+      "startOfWeek": "2017-07-15T18:30:00.000Z",
+      "endOfWeek": "2017-07-22T18:29:59.999Z",
+      "date": "2017-07-21T00:00:00.000Z",
+      "distance": 8.059999999999999,
+      "speed": 13.61,
+      "time": [
+        9,
+        0
+      ],
+      "entries": 6,
+      "averageDistance": 1.343333333333333,
+      "averageTime": [
+        1,
+        30
+      ],
+      "averageSpeed": 2.268333333333333
+    }
+  ]
+}

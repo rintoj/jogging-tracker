@@ -6,7 +6,7 @@ import { chai, expect } from '../../test'
 import { mount, render } from 'enzyme'
 
 import { RegisterUserAction } from '../../action/index'
-import { SignUpPage } from './signup'
+import { SignUpPage } from './signup-page'
 
 describe('<SignUpPage/>', () => {
 

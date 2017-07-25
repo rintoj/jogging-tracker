@@ -6,7 +6,7 @@ import { HideFormAction, SaveJogLogAction } from '../../action/index'
 import { chai, expect } from '../../test'
 import { mount, render } from 'enzyme'
 
-import { MakeAnEntryDialog } from './make-an-entry'
+import { MakeAnEntryDialog } from './make-an-entry-dialog'
 
 const jogLog = {
   date: '2017-12-12',

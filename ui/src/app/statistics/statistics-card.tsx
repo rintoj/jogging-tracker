@@ -52,17 +52,15 @@ export class StatisticsCard extends React.Component<Props, State> {
   }
 
   toTitle(entry: StatisticsEntry) {
-    if (entry.type === 'year') {
-      const yearlyEntry: YearlyStatisticsEntry = entry as YearlyStatisticsEntry
-      return `${yearlyEntry.year}`
+    if (entry.type === 'week') {
+      const weeklyEntry: WeeklyStatisticsEntry = entry as WeeklyStatisticsEntry
+      return `${moment(weeklyEntry.startOfWeek).format('YYYY MMM DD')} - ${moment(weeklyEntry.endOfWeek).format('DD')}`
     } else if (entry.type === 'month') {
       const monthlyEntry: MonthlyStatisticsEntry = entry as MonthlyStatisticsEntry
       return `${monthlyEntry.year} ${this.toMonthName(monthlyEntry.month)} `
-    } else if (entry.type === 'week') {
-      const weeklyEntry: WeeklyStatisticsEntry = entry as WeeklyStatisticsEntry
-      return `${moment(weeklyEntry.startOfWeek).format('YYYY MMM DD')} - ${moment(weeklyEntry.endOfWeek).format('DD')}`
     }
-    return 'Overall'
+    const yearlyEntry: YearlyStatisticsEntry = entry as YearlyStatisticsEntry
+    return `${yearlyEntry.year}`
   }
 
   renderValue(text: string, value: any, unit?: string) {
@@ -77,7 +75,6 @@ export class StatisticsCard extends React.Component<Props, State> {
   }
 
   renderStatisticsEntry(entry: StatisticsEntry) {
-    if (entry == undefined) return undefined
     return <div className="flex flex-column ph3 pb3">
       <div className="flex flex-column justify-center items-center">
         <div className="flex flex-column items-center justify-center mv4">

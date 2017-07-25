@@ -7,7 +7,7 @@ import { chai, expect } from '../../test'
 import { mount, render } from 'enzyme'
 
 import { JogLog } from '../../state/jog-log'
-import { LogPage } from './log'
+import { LogPage } from './log-page'
 
 const jogLogs: JogLog[] = [{
   date: '2016-12-16 00:00:00',
