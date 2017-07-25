@@ -63,8 +63,8 @@ export class Menu extends React.Component<Props, State> {
           }
         </div>
         <div className="flex-auto"></div>
-        {this.props.user && this.props.user.authInfo && (this.props.user.authInfo.roles || []).indexOf('admin') >= 0 &&
-          <UserSelector></UserSelector>}
+        {this.props.user && this.props.user.authInfo && this.props.user.authInfo.roles &&
+          this.props.user.authInfo.roles.indexOf('admin') >= 0 && <UserSelector></UserSelector>}
       </div>
     </div>
   }

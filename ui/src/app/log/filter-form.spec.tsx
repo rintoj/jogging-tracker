@@ -66,6 +66,7 @@ describe('<FilterForm/>', () => {
     const inputs = wrapper.find('input')
     expect(inputs).to.have.length(2)
     FetchJogLogsAction.prototype.dispatch = spy
+    inputs.at(0).simulate('change', { target: { value: '' } })
     inputs.at(1).simulate('change')
     spy.should.have.been.called()
   })
@@ -76,6 +77,11 @@ describe('<FilterForm/>', () => {
     FetchJogLogsAction.prototype.dispatch = spy
     wrapper.find('.badge-node').simulate('click')
     spy.should.have.been.called()
+  })
+
+  it('should render without error even if filters are not passed', () => {
+    const wrapper = mount(<FilterForm />)
+    wrapper.setState({ open: false })
   })
 
 })

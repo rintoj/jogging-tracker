@@ -41,9 +41,8 @@ export class FilterForm extends React.Component<Props, State> {
   }
 
   render() {
-    const badge = this.state.filters == undefined ?
-      undefined : this.state.filters.fromDate != undefined || this.state.filters.toDate != undefined ?
-        'Clear filter' : undefined
+    const badge = this.state.filters.fromDate != undefined || this.state.filters.toDate != undefined ?
+      'Clear filter' : undefined
 
     return <div>
       <Accordion title="filters" icon="sliders" badge={badge} open={this.props.open}

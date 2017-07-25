@@ -16,10 +16,32 @@ const columns = [{
   alignRight: true,
   formatter: (value) => value
 }]
+const columns2 = [{
+  name: 'Name',
+  sortable: true
+}, {
+  name: 'Value',
+  alignRight: true,
+  formatter: (value) => value
+}]
+const columns3 = [{
+  name: 'Name',
+  sortable: true
+}, {
+  name: 'Value',
+  sort: true,
+  alignRight: true,
+  formatter: (value) => value
+}]
 
 const rows = [
   ['Content-Type', 'application/json'],
   ['AuthType', 'Auth0']
+]
+const rows2 = [
+  ['Content-Type', 'application/json'],
+  ['Content-Type', 'Auth0'],
+  ['Content-Type', 'Auth0']
 ]
 
 describe('<Table/>', () => {
@@ -67,6 +89,19 @@ describe('<Table/>', () => {
     expect(trs.at(2).text()).to.contain('application/json')
   })
 
+  it('should render rows with given rows and in sorted order of second column', () => {
+    const wrapper = mount(<Table showIndex={true} columns={columns2} loading={true} />)
+    wrapper.setProps({ rows: rows2, loading: false, showIndex: false })
+    const trs = wrapper.find('tr')
+    expect(trs).to.have.length(4)
+    expect(trs.at(1).text()).to.contain('Content-Type')
+    expect(trs.at(1).text()).to.contain('application/json')
+    expect(trs.at(2).text()).to.contain('Content-Type')
+    expect(trs.at(2).text()).to.contain('Auth0')
+    expect(trs.at(3).text()).to.contain('Content-Type')
+    expect(trs.at(3).text()).to.contain('Auth0')
+  })
+
   it('should change sort when clicking on sortable header', () => {
     const wrapper = mount(<Table columns={columns} loading={true} />)
     wrapper.setProps({ rows, loading: false })
@@ -106,6 +141,13 @@ describe('<Table/>', () => {
   it('should render without error even if onClickRow is not defined', () => {
     const onClickRow = chai.spy()
     const wrapper = mount(<Table columns={columns} rows={rows} />)
+    wrapper.find('tr').at(1).simulate('click')
+    onClickRow.should.have.not.been.called()
+  })
+
+  it('should render without sorting if no sort is provided', () => {
+    const onClickRow = chai.spy()
+    const wrapper = mount(<Table columns={columns3} rows={rows} />)
     wrapper.find('tr').at(1).simulate('click')
     onClickRow.should.have.not.been.called()
   })
