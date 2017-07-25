@@ -49,7 +49,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
         id: this.props.jogLog.id,
         date: moment(this.props.jogLog.date).format('YYYY-MM-DD'),
         distance: this.props.jogLog.distance,
-        time: [this.props.jogLog.time[0], this.props.jogLog.time[1]]
+        time: (this.props.jogLog && this.props.jogLog.time) == undefined ? [0, 0] : [this.props.jogLog.time[0], this.props.jogLog.time[1]]
       })
     }
   }
@@ -76,7 +76,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
               placeholder="km"
               className="ml4"
               min="0" max="100" step="0.01"
-              value={this.state.distance + '' || ''}
+              value={this.state.distance + ''}
               disabled={this.state.loading}
               error={this.state.errors.distance}
               onChange={event => this.setState({ distance: parseFloat(event.target.value) })}></TextInput>

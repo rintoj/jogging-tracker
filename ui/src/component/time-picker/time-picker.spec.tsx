@@ -55,6 +55,13 @@ describe('<TextInput/>', () => {
     onChange.should.have.been.called()
   })
 
+  it('should call onChange even when user delete the content', () => {
+    const onChange = chai.spy()
+    const wrapper = mount(<TimePicker onChange={event => onChange()} />)
+    wrapper.find('input').at(1).simulate('change', { target: { value: '' } })
+    onChange.should.have.been.called()
+  })
+
   it('should render without error even if onChange is not defined', () => {
     const onChange = chai.spy()
     const wrapper = mount(<TimePicker />)
@@ -62,10 +69,17 @@ describe('<TextInput/>', () => {
     onChange.should.have.not.been.called()
   })
 
-  it('should emit an event onFocus when focus change', () => {
+  it('should emit an event onFocus when hour focus change', () => {
     const onFocus = chai.spy()
     const wrapper = mount(<TimePicker onFocus={event => onFocus()} />)
     wrapper.find('input').at(0).simulate('focus')
+    onFocus.should.have.been.called()
+  })
+
+  it('should emit an event onFocus when minute focus change', () => {
+    const onFocus = chai.spy()
+    const wrapper = mount(<TimePicker onFocus={event => onFocus()} />)
+    wrapper.find('input').at(1).simulate('focus')
     onFocus.should.have.been.called()
   })
 
@@ -76,10 +90,17 @@ describe('<TextInput/>', () => {
     onFocus.should.have.not.been.called()
   })
 
-  it('should emit an event onBlur when blur change', () => {
+  it('should emit an event onBlur when hour blur change', () => {
     const onBlur = chai.spy()
     const wrapper = mount(<TimePicker onBlur={event => onBlur()} />)
     wrapper.find('input').at(0).simulate('blur')
+    onBlur.should.have.been.called()
+  })
+
+  it('should emit an event onBlur when minute blur change', () => {
+    const onBlur = chai.spy()
+    const wrapper = mount(<TimePicker onBlur={event => onBlur()} />)
+    wrapper.find('input').at(1).simulate('blur')
     onBlur.should.have.been.called()
   })
 

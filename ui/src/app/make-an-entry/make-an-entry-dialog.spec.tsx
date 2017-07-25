@@ -80,6 +80,24 @@ describe('<MakeAnEntryDialog/>', () => {
     }, 100)
   })
 
+  it('should dispatch SaveJogLogAction and navigate to /logs when saved', async () => {
+    const spy = chai.spy(() => new Promise((resolve) => resolve()))
+    const history = []
+    SaveJogLogAction.prototype.dispatch = spy
+    const wrapper = mount(<MakeAnEntryDialog history={history} />)
+    wrapper.setState({ jogLog: {} })
+    const inputs = wrapper.find('input')
+    inputs.at(0).simulate('change', { target: { value: '2017-05-02' } })
+    inputs.at(1).simulate('change', { target: { value: '1.2' } })
+    inputs.at(2).simulate('change', { target: { value: '1' } })
+    inputs.at(3).simulate('change', { target: { value: '30' } })
+    wrapper.find('button').at(0).simulate('click')
+    spy.should.have.been.called()
+    setTimeout(() => {
+      expect(history[0]).to.equal('/logs')
+    }, 100)
+  })
+
   it('should close the dialog once the save is completed', async () => {
     SaveJogLogAction.prototype.dispatch = chai.spy(() => new Promise((resolve) => resolve()))
     const spy = chai.spy()
