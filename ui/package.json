@@ -10,17 +10,13 @@
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
-    "test": "nyc mocha -t 100000 src/**/*.spec.ts*",
+    "test": "nyc mocha src/**/*.spec.ts",
     "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
     "watch": "npm run compile -- -w"
   },
   "nyc": {
     "check-coverage": true,
     "per-file": true,
-    "lines": 95,
-    "statements": 95,
-    "functions": 95,
-    "branches": 95,
     "extension": [
       ".ts",
       ".tsx"

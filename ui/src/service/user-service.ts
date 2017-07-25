@@ -93,7 +93,7 @@ class UserService {
   }
 
   isAuthenticated(authInfo: AuthInfo): boolean {
-    return authInfo && new Date().getTime() < authInfo.expiresAt
+    return authInfo == undefined ? false : new Date().getTime() < authInfo.expiresAt
   }
 
   getSession(): AuthInfo {
