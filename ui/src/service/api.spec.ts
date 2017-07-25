@@ -4,7 +4,6 @@ import { api } from './api'
 
 describe('api', () => {
 
-
   it('should validate the status to be true if code is between 200 and 300 or 304', () => {
     expect(api.options.validateStatus(100)).to.equal(false)
     expect(api.options.validateStatus(200)).to.equal(true)
@@ -13,8 +12,6 @@ describe('api', () => {
     expect(api.options.validateStatus(401)).to.equal(false)
     expect(api.options.validateStatus(404)).to.equal(false)
   })
-
-
 
   it('should make http request without errors', () => {
     const spy = chai.spy()
