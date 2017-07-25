@@ -14,7 +14,7 @@ class Props {
   history?: BrowserHistory
 
   @data((state: AppState) => state.statistics)
-  statistics: Statistics
+  statistics?: Statistics
 }
 
 interface State { }
@@ -31,7 +31,7 @@ export class StatisticsPage extends React.Component<Props, State> {
   }
 
   getOverall() {
-    return this.props.statistics && this.props.statistics.overall && this.props.statistics.overall[0]
+    return this.props.statistics && this.props.statistics.overall && this.props.statistics.overall[0] || {}
   }
 
   moonDistance(overall) {
