@@ -10,22 +10,36 @@
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
-    "test": "nyc --reporter=html mocha src/**/*.spec.ts*",
+    "test": "nyc mocha src/**/*.spec.ts*",
     "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
     "watch": "npm run compile -- -w"
   },
   "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 95,
+    "statements": 95,
+    "functions": 95,
+    "branches": 95,
     "extension": [
       ".ts",
       ".tsx"
     ],
     "exclude": [
-      "**/*.d.ts"
+      "**/*.d.ts",
+      "**/node_modules/**",
+      "**/.git/**",
+      "**/dist/**"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary"
     ],
     "require": [
       "ts-node/register",
       "./src/test/ignore.js"
-    ]
+    ],
+    "cache": true
   },
   "devDependencies": {
     "@types/mocha": "^2.2.41",

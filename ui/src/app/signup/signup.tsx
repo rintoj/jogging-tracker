@@ -154,7 +154,6 @@ export class SignUpPage extends React.Component<Props, State> {
         .then(() => new RegisterUserAction(this.state.user, this.state.password).dispatch())
         .then(() => this.setState({ loading: false, success: true }))
         .catch((error) => {
-          console.error(error)
           this.setState({ loading: false, failed: true })
         })
     }

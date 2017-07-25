@@ -41,8 +41,8 @@ describe('<SignInPage/>', () => {
   })
 
   it('should show an error message if sign in fails', async () => {
-    const spy = chai.spy(() => new Promise(() => {
-      throw new Error('Simulated sign in failure')
+    const spy = chai.spy(() => new Promise((resolve, reject) => {
+      reject('Simulated sign in failure')
     }))
     SignInAction.prototype.dispatch = spy
     const wrapper = mount(<SignInPage />)
