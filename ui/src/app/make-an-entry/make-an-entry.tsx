@@ -114,12 +114,12 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   validate() {
     const errors = {
-      date: this.state.date == undefined ? 'Required!' : undefined,
-      time: this.state.time == undefined ? 'Required!' :
+      date: this.state.date == undefined ? 'Required' : undefined,
+      time: this.state.time == undefined ? 'Required' :
         this.state.time.length !== 2 || this.state.time[0] < 0 || this.state.time[0] > 100 ||
           this.state.time[1] < 0 || this.state.time[1] > 59 ?
           'Invalid time' : undefined,
-      distance: this.state.distance == undefined ? 'Required!' :
+      distance: this.state.distance == undefined ? 'Required' :
         this.state.distance < 0 || this.state.distance > 100 ? 'Invalid distance' : undefined
     }
 
@@ -136,7 +136,6 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
     if (!this.validate()) return
 
     this.setState({ loading: true })
-    this.props.history.push('/logs')
     new SaveJogLogAction({
       id: this.state.id,
       date: this.state.date,
@@ -144,6 +143,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
       distance: this.state.distance
     }).dispatch()
       .then(() => this.setState({ loading: false }))
+      .then(() => this.props.history.push('/logs'))
       .then(() => this.close())
       .catch(() => this.setState({ loading: false }))
 
