@@ -10,13 +10,24 @@
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
-    "tdd": "concurrently -r 'npm run watch' 'npm run test:watch'",
     "pre:test": "npm run clean && npm run compile",
-    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --require ignore-styles build/**/*.spec.js",
-    "test:watch": "nodemon --delay 1 --watch build --exec 'npm run test'",
+    "test": "nyc --reporter=html mocha src/**/*.spec.ts*",
+    "tdd": "nodemon -e ts,tsx --delay 1 --watch src --exec 'npm t'",
     "clean": "rimraf build",
     "compile": "tsc",
     "watch": "npm run compile -- -w"
+  },
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
   },
   "devDependencies": {
     "@types/mocha": "^2.2.41",
@@ -33,11 +44,13 @@
     "jsdom-global": "3.0.2",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "nyc": "^11.0.3",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
     "react-ts": "^2.0.2",
     "rimraf": "^2.6.1",
-    "sw-precache": "^5.2.0"
+    "sw-precache": "^5.2.0",
+    "ts-node": "^3.3.0"
   },
   "dependencies": {
     "axios": "^0.16.2",

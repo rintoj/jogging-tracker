@@ -4,9 +4,9 @@ import * as React from 'react'
 
 import { HideFormAction, SaveJogLogAction } from '../../action/index'
 import { chai, expect } from '../../test'
+import { mount, render } from 'enzyme'
 
 import { MakeAnEntryDialog } from './make-an-entry'
-import { mount } from 'enzyme'
 
 const jogLog = {
   date: '2017-12-12',
@@ -22,7 +22,7 @@ const invalidJogLog = {
 describe('<MakeAnEntryDialog/>', () => {
 
   it('should render the form', () => {
-    const wrapper = mount(<MakeAnEntryDialog />)
+    const wrapper = render(<MakeAnEntryDialog />)
     const inputs = wrapper.find('input')
     expect(inputs).to.have.length(4)
     const buttons = wrapper.find('button')
