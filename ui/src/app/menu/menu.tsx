@@ -38,7 +38,7 @@ export class Menu extends React.Component<Props, State> {
         ></Profile>
       </div>
       <div className="mh3 mt3 ph2">
-        <Button className="w-100" onClick={event => this.makeAnEntry()}>
+        <Button className="make-an-entry-btn w-100" onClick={event => this.makeAnEntry()}>
           <div className="flex items-center justify-center">
             <div className="fa fa-add"></div>
             <div className="ml2">Make an entry</div>

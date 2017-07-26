@@ -32,14 +32,16 @@ export class UserSelector extends React.Component<Props, State> {
   render() {
     return <div className="flex items-center secondary justify-center pv3 ph4 user-selector-node">
       <div className="w-100 flex">
-        <IconText icon="address-book" className="flex-auto ttu">{this.props.selectedUser && this.props.selectedUser.name}</IconText>
-        <div className="ml3 flex ttu accent-text accent--hover pointer pa2 br1 items-center justify-center"
+        <IconText icon="address-book" className="selected-user-node flex-auto ttu">
+          {this.props.selectedUser && this.props.selectedUser.name}
+        </IconText>
+        <div className="switch-button ml3 flex ttu accent-text accent--hover pointer pa2 br1 items-center justify-center"
           onClick={event => this.open()}>
           Switch
       </div>
       </div>
       {this.state.open && <Dialog color="secondary" onClose={event => this.close()}>
-        <div className="f3 w-100 pt4 ph4 pb3">Select a user</div>
+        <div className="switch-users-page f3 w-100 pt4 ph4 pb3">Select a user</div>
         <div className="divider-l-br bb w-100"></div>
         <div className="flex flex-wrap overflow-hidden overflow-y-auto ph4 mt2" style={{ width: '300px', maxHeight: '200px' }}>
           {this.props.users.map(user => <Profile key={user.id}

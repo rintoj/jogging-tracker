@@ -78,7 +78,7 @@ export class UsersPage extends React.Component<Props, State> {
       .map(user => this.toRow(user))
 
     return <Page history={this.props.history}>
-      <div className="pa4 w-100 vh-100 overflow-y-auto">
+      <div className="users-page pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb3">Users</div>
         {this.state.showUserForm && <UserForm user={this.state.selectedUser}
           onClose={event => this.closeUserForm(event)}></UserForm>}

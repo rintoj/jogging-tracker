@@ -56,7 +56,7 @@ export class MakeAnEntryDialog extends React.Component<Props, State> {
 
   render() {
     return <Dialog onClose={event => this.close()}>
-      <div className="pa4">
+      <div className="make-an-entry-dialog pa4">
         <div className="f2 pb2 mb4 bb divider-br">{this.props.jogLog ? 'Edit' : 'Make'} an entry</div>
         <form className="flex flex-column justify-center item-start w-100">
           <div className="mb4 tc">

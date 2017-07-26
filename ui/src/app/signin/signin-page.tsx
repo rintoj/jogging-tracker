@@ -36,7 +36,7 @@ export class SignInPage extends React.Component<Props, State> {
   }
 
   render() {
-    return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
+    return <div className="sign-in-page primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-start login-card">
         <div className="flex flex-column items-center justify-center">
           <img src={require('../../assets/img/logo.png')} alt="" className="w3 h3" />

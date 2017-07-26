@@ -16,7 +16,7 @@ export class IconText extends React.Component<Props, State> {
       <div className={`${this.props.iconSize || 'f4'}`}>
         <div className={`fa fa-${this.props.icon} mr2`}></div>
       </div>
-      <div>{this.props.children}</div>
+      <div className="text-node">{this.props.children}</div>
     </div>
   }
 

@@ -93,7 +93,7 @@ export class LogPage extends React.Component<Props, State> {
   render() {
     const rows = (this.props.jogLogs || []).map(jogLog => this.toRow(jogLog))
     return <Page history={this.props.history}>
-      <div className="pa4 w-100 vh-100 overflow-y-auto">
+      <div className="log-page pa4 w-100 vh-100 overflow-y-auto">
         <div className="f2 mb4">Log Entries</div>
         <div className="flex mb4">
           <FilterForm></FilterForm>

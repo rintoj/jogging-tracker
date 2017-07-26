@@ -2,7 +2,7 @@ import {
   Selector
 } from 'testcafe'
 
-fixture('signin')
+fixture('Sign In Page')
   .page `http://localhost:3000/signin`
 
 const idInput = Selector('#userId')

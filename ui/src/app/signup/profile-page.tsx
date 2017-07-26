@@ -33,7 +33,7 @@ export class ProfilePage extends React.Component<Props, State> {
   render() {
     const user = this.props.user
     if (user == undefined) return <div />
-    return <div className="primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
+    return <div className="profile-page primary flex flex-column flex-auto w-100 vh-100 items-center justify-center">
       <div className="card pa4 ma4 shadow-3 br1 w-100 flex flex-column justify-around login-card">
         <div className="flex flex-column items-center justify-center flex-auto">
           <div className="flex-auto"></div>
