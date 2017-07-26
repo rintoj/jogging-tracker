@@ -6,9 +6,11 @@ fixture('signin')
   .page `http://localhost:3000/signup`
 
 const idInput = Selector('#userId')
+const nameInput = Selector('#name')
 const passwordInput = Selector('#password')
+const confirmInput = Selector('#confirm')
 const submitButton = Selector('button').nth(0)
-const signupButton = Selector('button').nth(1)
+const cancelButton = Selector('button').nth(1)
 
 test('should show validation errors if incorrect values are entered', async t => {
   await t.click(submitButton)
@@ -18,21 +20,32 @@ test('should show validation errors if incorrect values are entered', async t =>
     .expect(Selector('.error-text').nth(3).innerText).eql('Required')
 })
 
-// test('should successfully validate user id and password and navigate to home page', async t => {
-//   await t.typeText(idInput, 'admin@system.com')
-//   await t.typeText(passwordInput, 'admin')
-//   await t.click(submitButton)
-//     .expect(Selector('.menu-node').exists).ok('Login failed!')
-// })
+test('should allow invalid email as user id', async t => {
+  await t.typeText(idInput, 'test-user')
+  await t.click(submitButton)
+    .expect(Selector('.error-text').nth(0).innerText).eql('Invalid email')
+})
 
-// test('should validate user and should not navigate to home page if fails', async t => {
-//   await t.typeText(idInput, 'admin@system.com')
-//   await t.typeText(passwordInput, 'invalid-pass')
-//   await t.click(submitButton)
-//     .expect(Selector('.menu-node').exists).notOk('Login did not fail!')
-// })
+test('should show "password do not match" error if confirmation is incorrect', async t => {
+  await t.typeText(idInput, 'test-user@system.com')
+  await t.typeText(nameInput, 'New User')
+  await t.typeText(passwordInput, 'test@123')
+  await t.typeText(confirmInput, 'test')
+  await t.click(submitButton)
+    .expect(Selector('.error-text').nth(3).innerText).eql('Don\'t match!')
+})
 
-// test('should navigate to signup page if signup button is clicked', async t => {
-//   await t.click(signupButton)
-//     .expect(Selector('.f2.mb4').exists).ok('Navigation to signup page failed!')
-// })
+test('should successfully create a user if validation is successful', async t => {
+  const id = Math.random().toString().substr(-6)
+  await t.typeText(idInput, `test-user-${id}@system.com`)
+  await t.typeText(nameInput, 'New User')
+  await t.typeText(passwordInput, 'test@123')
+  await t.typeText(confirmInput, 'test@123')
+  await t.click(submitButton)
+    .expect(Selector('.f2').innerText).eql('User is registered')
+})
+
+test('should navigate to signup page if signup button is clicked', async t => {
+  await t.click(cancelButton)
+    .expect(Selector('.title-text').exists).ok()
+})
