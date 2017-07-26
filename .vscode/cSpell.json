@@ -6,11 +6,12 @@
     "language": "en",
     // words - list of words to be always considered correct
     "words": [
-        "signup",
-        "signin",
+        "Transpiler",
+        "dedup",
         "joblog",
         "joglog",
-        "dedup"
+        "signin",
+        "signup"
     ],
     // flagWords - list of words to be always considered incorrect
     // This is useful for offensive words and common spelling errors.

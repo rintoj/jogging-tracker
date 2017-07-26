@@ -4,6 +4,7 @@
   "description": "Jog Tracker is a React project for tracking jogging times of users. This project is built using mongo-restifier as API later and MongoDB as DB.",
   "main": "server/src/index.js",
   "scripts": {
+    "postinstall": "cd ui && npm install",
     "start": "cross-env NODE_ENV=production node server/src/index.js",
     "develop": "concurrently -r 'npm run develop:server' 'npm run develop:ui'",
     "develop:ui": "cd ui && npm start",
@@ -12,8 +13,11 @@
     "publish": "npm run build && git add --all && git commit -a -m 'update build' && npm run deploy",
     "build": "cd ui && npm run build",
     "open": "heroku open",
-    "test": "mocha server/test/**/*.spec.js",
-    "tdd": "nodemon --watch server --exec 'npm run test'"
+    "test": "npm run test:server && npm run test:ui",
+    "test:server": "mocha server/test/**/*.spec.js",
+    "test:ui": "cd ui && npm test",
+    "e2e": "node e2e/index.js",
+    "tdd": "nodemon --watch server --exec 'npm run test:server'"
   },
   "repository": {
     "type": "git",
@@ -42,6 +46,7 @@
     "concurrently": "^3.5.0",
     "eslint": "^4.2.0",
     "mocha": "^3.4.2",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "selenium-webdriver": "^3.5.0"
   }
 }
