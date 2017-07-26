@@ -5,9 +5,9 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 **Table of Contents**
 
 - [Get Started](#get-started)
-- [URLs](#urls)
-- [Database Requirement](#database-requirement)
-- [Tools and Libraries](#tools-and-libraries)
+  - [URLs](#urls)
+  - [Database Requirement](#database-requirement)
+- [Tools and Libraries Used](#tools-and-libraries-used)
 - [Features](#features)
   - [Sign Up](#sign-up)
   - [Sign In](#sign-in)
@@ -18,9 +18,10 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
   - [Create User (Admin and Manager)](#create-user-admin-and-manager)
   - [Manage User's Log (Admin Only)](#manage-users-log-admin-only)
 - [API Documentation](#api-documentation)
-- [Unit Tests - Front End](#unit-tests---front-end)
-- [Functional Tests - Back End](#functional-tests---back-end)
-- [End to End Tests](#end-to-end-tests)
+- [Tests](#tests)
+  - [Unit Tests - Front End](#unit-tests---front-end)
+  - [Functional Tests - Back End](#functional-tests---back-end)
+  - [End to End Tests](#end-to-end-tests)
 - [Author](#author)
 
 # Get Started
@@ -51,12 +52,12 @@ npm run test:ui
 
 ```
 
-# URLs
+## URLs
 
 - App: [http://localhost:5000](http://localhost:5000)
 - API: [http://localhost:5000/api](http://localhost:5000/api)
 
-# Database Requirement
+## Database Requirement
 
 This setup requires an instance of MongoDB to be running in the local machine at default port. Alternatively you can configure a DB of your own - modify `conf/app-conf.prod.json` (for production) &  `conf/app-conf.dev.json` (for development)
 
