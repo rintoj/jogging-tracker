@@ -45,21 +45,25 @@ export class SignUpPage extends React.Component<Props, State> {
         <div className="f2 divider-br bb mb4">Register</div>
         {this.state.failed && <div className="error-text ttu mb3 tc">User already exists.</div>}
         <TextInput label="Email Id"
+          id="userId"
           onChange={event => this.onIdChange(event)}
           error={this.state.error.id}
           disabled={this.state.loading}
           autoFocus={true}
           value={this.state.user && this.state.user.id || ''}></TextInput>
         <TextInput label="Full Name"
+          id="name"
           onChange={event => this.onNameChange(event)}
           error={this.state.error.name}
           disabled={this.state.loading}
           value={this.state.user && this.state.user.name || ''}></TextInput>
         <TextInput label="Password" type="password"
+          id="password"
           onChange={event => this.onPasswordChange(event)}
           error={this.state.error.password}
           disabled={this.state.loading}></TextInput>
         <TextInput label="Confirm" type="password"
+          id="confirm"
           onChange={event => this.onConfirmChange(event)}
           error={this.state.error.confirm}
           disabled={this.state.loading}

@@ -21,7 +21,7 @@ describe('user-store', () => {
 
   it('should authorize a user', async () => {
     const state = {}
-    const action = new AuthorizeAction(() => undefined)
+    const action = new AuthorizeAction(undefined)
     const result = await toPromise(userStore.authorize(state, action))
     expect(result).be.a('array')
     expect(result).be.length(2)

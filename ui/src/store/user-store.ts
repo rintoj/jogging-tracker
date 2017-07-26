@@ -143,8 +143,7 @@ export class UserStore {
     const session: AuthInfo = services.userService.getSession()
     if (session == undefined || !services.userService.isAuthenticated(session)) {
       observer.next({ authInProgress: false, user: undefined })
-      observer.complete()
-      return this.onRedirect('/signin')
+      return observer.complete()
     }
 
     services.userService.fetchProfile(session.accessToken)
