@@ -1,20 +1,10 @@
 import {
-  Selector
-} from 'testcafe'
+  Selector,
+  login
+} from './test-util'
 
 fixture('Main Menu')
   .page `http://localhost:3000/signin`
-
-const idInput = Selector('#userId')
-const passwordInput = Selector('#password')
-const submitButton = Selector('button').nth(0)
-
-async function login(t) {
-  await t.typeText(idInput, 'admin@system.com')
-  await t.typeText(passwordInput, 'admin')
-  await t.click(submitButton)
-    .expect(Selector('.menu-node').exists).ok('Login failed!')
-}
 
 test('should show profile page when user clicks on user profile at the top of the menu', async t => {
   await login(t)
@@ -46,4 +36,18 @@ test('should switch user when clicking a user profile from user list', async t =
     .expect(Selector('.switch-users-page').exists).ok()
   await t.click(Selector('.profile-node').nth(2))
     .expect(Selector('.selected-user-node .text-node').innerText).contains('ANNA HELEN')
+})
+
+test('should not show option to manage users to normal user', async t => {
+  await login(t, 'user')
+  await t.expect(Selector('.manage-users-node').exists).notOk()
+})
+
+test('should not show option to switch users if logged in user is a normal user or manager', async t => {
+  await login(t, 'user')
+  await t.expect(Selector('.switch-button').exists).notOk()
+  await t.click(Selector('.sign-out-btn'))
+    .expect(Selector('.sign-in-page').exists).ok()
+  await login(t, 'manager')
+  await t.expect(Selector('.switch-button').exists).notOk()
 })
