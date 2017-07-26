@@ -13,11 +13,12 @@
     "shelljs": false // shelljs global variables
   },
   "parserOptions": {
-    "ecmaVersion": 8 // or 2017
+    "ecmaVersion": 8, // or 2017
+    "sourceType": "module"
   },
   "globals": {
     // e.g. "angular": true
-
+    "fixture": true
   },
   "plugins": [
     // e.g. "react" (must run `npm install eslint-plugin-react` first)
