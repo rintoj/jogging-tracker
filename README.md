@@ -6,48 +6,48 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 
 ### Simple Sign Up
 
-![SignUp](./docs/img/signup.png)
+![SignUp](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/signup.png)
 
 ### Sign In
 
-![SignUp](./docs/img/signin.png)
+![SignUp](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/signin.png)
 
 ### Dashboard
 
-![Dashboard](./docs/img/dashboard.png)
+![Dashboard](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/dashboard.png)
 
 ### Jog Logs
 
-![Jog Logs](./docs/img/logs.png)
+![Jog Logs](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/logs.png)
 
 ### Make An Entry
 
-![Make An Entry](./docs/img/make-an-entry.png)
+![Make An Entry](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/make-an-entry.png)
 
 ### Manage Users (Admin & Manager)
 
-![Manage Users](./docs/img/manage-users.png)
+![Manage Users](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/manage-users.png)
 
 ### Create User (Admin & Manager)
 
-![Create User](./docs/img/create-user.png)
+![Create User](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/create-user.png)
 
 ### Manage User's Log (Admin Only)
 
-![Manage User's Log](./docs/img/manage-users-records.png)
+![Manage User's Log](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/manage-users-records.png)
 
 ## API Documentation
 
-![API Documentation](./docs/img/api-doc.png)
+![API Documentation](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/api-doc.png)
 
 ## Unit Tests - Front End
 
-![Ui Tests](./docs/img/ui-tests.png)
-![Ui Test Summary](./docs/img/test-summary.png)
+![Ui Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/ui-tests.png)
+![Ui Test Summary](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/test-summary.png)
 
 ## Functional Tests - Back End
 
-![Server Tests](./docs/img/server-tests.png)
+![Server Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/server-tests.png)
 
 ## Author
 
