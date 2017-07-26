@@ -127,16 +127,18 @@ This setup requires an instance of MongoDB to be running in the local machine at
 
 ![API Documentation](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/api-doc.png)
 
-# Unit Tests - Front End
+# Tests
+
+## Unit Tests - Front End
 
 ![Ui Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/ui-tests.png)
 ![Ui Test Summary](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/test-summary.png)
 
-# Functional Tests - Back End
+## Functional Tests - Back End
 
 ![Server Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/server-tests.png)
 
-# End to End Tests
+## End to End Tests
 
 ![End To End Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/e2e-tests.png)
 
