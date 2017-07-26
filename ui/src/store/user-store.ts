@@ -17,12 +17,12 @@ const REDIRECT_URL_KEY = 'redirect_url'
 @store()
 export class UserStore {
 
-  private _redirectUrl: string
-  private onRedirect: Function
+  _redirectUrl: string
+  onRedirect: Function
 
   get redirectUrl() {
     return this.validateUrl(this._redirectUrl ||
-      (this._redirectUrl = localStorage.getItem(REDIRECT_URL_KEY) || 'home'))
+      (this._redirectUrl = localStorage.getItem(REDIRECT_URL_KEY) || '/home'))
   }
 
   set redirectUrl(url: string) {
@@ -90,7 +90,7 @@ export class UserStore {
           observer.next({ user, authInProgress: false })
           if ((user.authInfo.roles.indexOf('admin') >= 0) ||
             (user.authInfo.roles.indexOf('manager') >= 0)) {
-            return this.fetchUserList(user, observer, true)
+            return this.fetchUserList(user, observer, true).then(() => observer.complete())
           }
           observer.complete()
           return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
@@ -145,7 +145,7 @@ export class UserStore {
         observer.next({ user })
         if ((user.authInfo.roles.indexOf('admin') >= 0) ||
           (user.authInfo.roles.indexOf('manager') >= 0)) {
-          return this.fetchUserList(user, observer, true)
+          return this.fetchUserList(user, observer, true).then(() => observer.complete())
         }
         observer.complete()
         return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
@@ -153,10 +153,8 @@ export class UserStore {
       .catch(error => {
         services.userService.clearSession()
         observer.next({ authInProgress: false, user: undefined })
-        this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
-        if (this.redirectUrl === '/signin') {
-          this.onRedirect(this.redirectUrl)
-        }
+        this.onRedirect(this.redirectUrl === '/signin' ? this.redirectUrl : '/')
+        observer.complete()
       })
   }
 
