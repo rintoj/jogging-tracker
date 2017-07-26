@@ -39,7 +39,9 @@ export class ProfilePage extends React.Component<Props, State> {
           <div className="flex-auto"></div>
           <div className="flex flex-column items-center justify-center">
             {user.picture != undefined && user.picture !== '' && user.picture !== 'undefined' ?
-              <img src={user.picture} alt="" className="w4 h4 br-100 divider-l" /> :
+              <div className="w4 h4 br-100 divider-l overflow-hidden">
+                <img src={user.picture} alt="" style={{ objectFit: 'cover' }} />
+              </div> :
               <div className="br-100 w4 h4 ttu flex f2 items-center justify-center ternary">
                 {(user.name || 'UR').substr(0, 2)}
               </div>}

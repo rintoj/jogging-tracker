@@ -26,8 +26,10 @@ export class Profile extends React.Component<Props, State> {
       <div className="flex flex-auto pointer divider-l--hover pa1 br1 profile-node"
         onClick={event => this.onProfileClick(event)}>
         <div className="avatar">
-          {this.props.picture != undefined && this.props.picture !== '' && this.props.picture !== 'undefined' ?
-            <img src={this.props.picture} alt="" className="divider-l-br ba br-100 avatar" /> :
+          {this.props.picture != undefined && this.props.picture !== '' ?
+            <div className="avatar br-100 overflow-hidden">
+              <img src={this.props.picture} alt="" style={{ objectFit: 'cover' }} />
+            </div> :
             <div className="br-100 avatar ttu flex items-center justify-center ternary">
               {(this.props.name || 'UR').substr(0, 2)}
             </div>}
