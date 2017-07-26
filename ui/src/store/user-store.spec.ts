@@ -455,4 +455,25 @@ describe('user-store', () => {
     expect(userStore.validateUrl('/authorize')).be.equal('/signin')
   })
 
+  it('should redirect without error even if onRedirect is not defined', () => {
+    userStore.onRedirect = undefined
+    userStore.redirect()
+  })
+
+  it('should redirect to home page if redirect url is /signin', () => {
+    const spy = chai.spy()
+    userStore.onRedirect = spy
+    userStore.redirectUrl = '/signin'
+    userStore.redirect()
+    spy.should.have.been.called.with('/')
+  })
+
+  it('should redirect to redirect url if this is called after signin', () => {
+    const spy = chai.spy()
+    userStore.onRedirect = spy
+    userStore.redirectUrl = '/signin'
+    userStore.redirect(true)
+    spy.should.have.been.called.with('/signin')
+  })
+
 })

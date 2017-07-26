@@ -93,7 +93,7 @@ export class UserStore {
             return this.fetchUserList(user, observer, true).then(() => observer.complete())
           }
           observer.complete()
-          return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
+          return this.redirect()
         }, error => {
           observer.next({ authInProgress: false })
           observer.error(error)
@@ -122,11 +122,20 @@ export class UserStore {
     return { selectedUser: selectUserAction.user }
   }
 
+  redirect(error?: boolean) {
+    if (typeof this.onRedirect === 'function') {
+      if (error) {
+        return this.onRedirect(this.redirectUrl === '/signin' ? this.redirectUrl : '/')
+      }
+      this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
+    }
+  }
+
   private fetchUserList(user: User, observer: Observer<AppState>, reroute: boolean): Promise<any> {
     return services.userService.fetch().then(users => {
       const selectedUser = users.find(item => item.id === user.id)
       observer.next({ users, selectedUser })
-      if (reroute) this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
+      if (reroute) this.redirect()
     })
   }
 
@@ -148,12 +157,12 @@ export class UserStore {
           return this.fetchUserList(user, observer, true).then(() => observer.complete())
         }
         observer.complete()
-        return this.onRedirect(this.redirectUrl === '/signin' ? '/' : this.redirectUrl)
+        return this.redirect()
       })
       .catch(error => {
         services.userService.clearSession()
         observer.next({ authInProgress: false, user: undefined })
-        this.onRedirect(this.redirectUrl === '/signin' ? this.redirectUrl : '/')
+        this.redirect(true)
         observer.complete()
       })
   }

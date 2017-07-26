@@ -152,4 +152,17 @@ describe('<Table/>', () => {
     onClickRow.should.have.not.been.called()
   })
 
+  it('should sort columns based on the given index', () => {
+    const wrapper = mount(<Table columns={columns3} rows={rows2} />)
+    wrapper.instance().sort(1, { 1: true })
+    const trs = wrapper.find('tr')
+    expect(trs).to.have.length(4)
+    expect(trs.at(1).text()).to.contain('Content-Type')
+    expect(trs.at(1).text()).to.contain('Auth0')
+    expect(trs.at(2).text()).to.contain('Content-Type')
+    expect(trs.at(2).text()).to.contain('Auth0')
+    expect(trs.at(3).text()).to.contain('Content-Type')
+    expect(trs.at(3).text()).to.contain('application/json')
+  })
+
 })
