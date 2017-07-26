@@ -10,7 +10,7 @@
     "build:dev": "react-ts -- build development",
     "lint": "tslint src/**/*.tsx",
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
-    "test": "nyc mocha src/**/*.spec.ts",
+    "test": "nyc mocha src/**/*.spec.ts src/**/*.spec.tsx",
     "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
     "watch": "npm run compile -- -w"
   },

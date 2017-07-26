@@ -1,4 +1,5 @@
 {
+  "production": true,
   "database": {
     "url": "mongodb://toptal_app:welcome123@ds161742.mlab.com:61742/heroku_brz0d43j"
   },
@@ -17,11 +18,11 @@
       },
       "rules": [
         "None        *               OPTIONS             /api/**",
-        "Bearer      ADMIN,USER      *                   /api/joglog",
         "None        *               PUT                 /api/profile",
         "None        *               GET                 /api/profile/*",
         "Bearer      *               GET                 /api/oauth2/user",
         "Bearer      ADMIN,MANAGER   *                   /api/oauth2/user",
+        "Bearer      ADMIN,MANAGER   *                   /api/oauth2/user/**",
         "Bearer      ADMIN           *                   /api/oauth2/client"
       ]
     }

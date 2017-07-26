@@ -1,4 +1,5 @@
 {
+  "production": false,
   "database": {
     "url": "mongodb://localhost/jog-tracker"
   },

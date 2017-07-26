@@ -43,7 +43,6 @@ describe('user-store', () => {
       'expiresAt': new Date().getTime() + 3600 * 60,
       roles: ['manager']
     })
-    userStore.onRedirect = () => undefined
     services.userService.fetch = () => new Promise((resolve) => resolve([{ id: 'user1', authInfo: { roles: ['manager'] } }]))
     services.userService.fetchProfile = () => new Promise((resolve) => resolve({ id: 'user1' }))
     userStore.setRedirectUrl(state, new SetRedirectUrlAction('/signin'))
@@ -97,8 +96,6 @@ describe('user-store', () => {
       'expiresAt': new Date().getTime() + 3600 * 60,
       roles: ['user']
     })
-    userStore.onRedirect = () => undefined
-    services.userService.fetch = () => new Promise((resolve) => resolve([{ id: 'user1', authInfo: { roles: ['user'] } }]))
     services.userService.fetchProfile = () => new Promise((resolve) => resolve({ id: 'user1' }))
     userStore.setRedirectUrl(state, new SetRedirectUrlAction('/signin'))
     const result = await toPromise(userStore.authorize(state, action))
@@ -229,9 +226,6 @@ describe('user-store', () => {
   })
 
   it('should sign in a user', async () => {
-    services.userService.fetch = chai.spy(() => new Promise((resolve, reject) => resolve([
-      { id: 'user' }, { id: 'manager' }, { id: 'admin' }
-    ])))
     services.userService.signIn = chai.spy(() => new Promise((resolve, reject) => resolve({
       id: 'user',
       authInfo: { roles: ['user'] }
