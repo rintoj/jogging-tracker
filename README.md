@@ -2,8 +2,6 @@
 
 Jog Tracker is app build for jogger to keep track of daily progress and see aggregated statistics. The interface is clean, clear and is easy to use from the moment you first start using the app.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
 - [Get Started](#get-started)
@@ -23,8 +21,6 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 - [Unit Tests - Front End](#unit-tests---front-end)
 - [Functional Tests - Back End](#functional-tests---back-end)
 - [Author](#author)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Get Started
 
