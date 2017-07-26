@@ -36,6 +36,10 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 
 ![Manage User's Log](./docs/img/manage-users-records.png)
 
+## API Documentation
+
+![API Documentation](./docs/img/api-doc.png)
+
 ## Unit Tests - Front End
 
 ![Ui Tests](./docs/img/ui-tests.png)
