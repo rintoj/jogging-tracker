@@ -68,7 +68,7 @@ This setup requires an instance of MongoDB to be running in the local machine at
 }
 ```
 
-# Tools and Libraries
+# Tools and Libraries Used
 
 | PURPOSE      | LIBRARY
 |--------------|-----------------------------------------------
