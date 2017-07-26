@@ -45,7 +45,7 @@ export class UserForm extends React.Component<Props, State> {
 
   render() {
     return <Dialog onClose={event => this.close()}>
-      <div className="flex flex-column pa4" style={{ width: '400px' }}>
+      <div className="user-form flex flex-column pa4" style={{ width: '400px' }}>
         <div className="f2 divider-br bb mb4">{this.props.user ? 'Update' : 'Create a'} user</div>
         {this.state.failed && this.props.user != undefined ?
           <div className="error-text ttu mb3 tc">Failed! Try again</div>
