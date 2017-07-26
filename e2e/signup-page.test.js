@@ -3,7 +3,7 @@ import {
 } from 'testcafe'
 
 fixture('Sign Up Page')
-  .page `http://localhost:3000/signup`
+  .page `http://localhost:5000/signup`
 
 const idInput = Selector('#userId')
 const nameInput = Selector('#name')
@@ -20,7 +20,7 @@ test('should show validation errors if incorrect values are entered', async t =>
     .expect(Selector('.error-text').nth(3).innerText).eql('Required')
 })
 
-test('should allow invalid email as user id', async t => {
+test('should not allow invalid email as user id', async t => {
   await t.typeText(idInput, 'test-user')
   await t.click(submitButton)
     .expect(Selector('.error-text').nth(0).innerText).eql('Invalid email')

@@ -12,8 +12,7 @@
     "precache": "sw-precache --config=sw-precache-config.js --verbose",
     "test": "nyc mocha src/**/*.spec.ts src/**/*.spec.tsx",
     "tdd": "nodemon -e ts,tsx --watch src --exec 'npm t'",
-    "watch": "npm run compile -- -w",
-    "e2e": "testcafe chrome e2e/"
+    "watch": "npm run compile -- -w"
   },
   "nyc": {
     "check-coverage": true,
@@ -58,7 +57,6 @@
     "react-ts": "^2.0.2",
     "require-hacker": "^3.0.0",
     "sw-precache": "^5.2.0",
-    "testcafe": "^0.16.2",
     "ts-node": "^3.3.0"
   },
   "dependencies": {

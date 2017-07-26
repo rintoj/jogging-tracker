@@ -4,7 +4,7 @@ import {
 } from './test-util'
 
 fixture('Main Menu')
-  .page `http://localhost:3000/signin`
+  .page `http://localhost:5000/signin`
 
 test('should show profile page when user clicks on user profile at the top of the menu', async t => {
   await login(t)

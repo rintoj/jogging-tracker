@@ -16,7 +16,7 @@
     "test": "npm run test:server && npm run test:ui",
     "test:server": "mocha server/test/**/*.spec.js",
     "test:ui": "cd ui && npm test",
-    "e2e": "node e2e/index.js",
+    "e2e": "testcafe chrome e2e/",
     "tdd": "nodemon --watch server --exec 'npm run test:server'"
   },
   "repository": {
@@ -32,7 +32,6 @@
   "homepage": "https://gitlab.com/rintoj/jogging-tracker#README",
   "dependencies": {
     "cross-env": "^5.0.1",
-    "express-jwt-authz": "^1.0.0",
     "moment": "^2.18.1",
     "mongo-restifier": "^2.5.1",
     "resolvable": "^1.0.1"
@@ -47,6 +46,7 @@
     "eslint": "^4.2.0",
     "mocha": "^3.4.2",
     "nodemon": "^1.11.0",
-    "selenium-webdriver": "^3.5.0"
+    "testcafe": "^0.16.2",
+    "testcafe-react-selectors": "0.0.5"
   }
 }

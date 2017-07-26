@@ -4,7 +4,7 @@ import {
 } from './test-util'
 
 fixture('User Page')
-  .page `http://localhost:3000/signin`
+  .page `http://localhost:5000/signin`
 
 async function openPage(t) {
   await t.click(Selector('.manage-users-node'))

@@ -7,19 +7,20 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 - [Get Started](#get-started)
 - [URLs](#urls)
 - [Database Requirement](#database-requirement)
+- [Tools and Libraries](#tools-and-libraries)
 - [Features](#features)
   - [Sign Up](#sign-up)
   - [Sign In](#sign-in)
   - [Dashboard](#dashboard)
   - [Jog Logs](#jog-logs)
   - [Make An Entry](#make-an-entry)
-  - [Manage Users (Admin & Manager)](#manage-users-admin--manager)
-  - [Create User (Admin & Manager)](#create-user-admin--manager)
+  - [Manage Users (Admin and Manager)](#manage-users-admin-and-manager)
+  - [Create User (Admin and Manager)](#create-user-admin-and-manager)
   - [Manage User's Log (Admin Only)](#manage-users-log-admin-only)
 - [API Documentation](#api-documentation)
-- [Tools & Libraries](#tools--libraries)
 - [Unit Tests - Front End](#unit-tests---front-end)
 - [Functional Tests - Back End](#functional-tests---back-end)
+- [End to End Tests](#end-to-end-tests)
 - [Author](#author)
 
 # Get Started
@@ -67,6 +68,27 @@ This setup requires an instance of MongoDB to be running in the local machine at
 }
 ```
 
+# Tools and Libraries
+
+| PURPOSE      | LIBRARY
+|--------------|-----------------------------------------------
+| View Library | [ReactJS](https://facebook.github.io/react/) |
+| State Management | [StateX](https://github.com/rintoj/statex) |
+| CSS (Functional) | [Tachyons](http://tachyons.io/) |
+| CSS Processor | [SaSS](http://sass-lang.com/) |
+| AJAX Library | [Axios](https://github.com/mzabriskie/axios) |
+| Transpiler | [TypeScript](https://www.typescriptlang.org/) |
+| Packaging | [WebPack](https://webpack.js.org/) |
+| Database | [MongoDB](https://www.mongodb.com/) |
+| API Library | [Mongo Restifier](https://github.com/rintoj/mongo-restifier) |
+| Web Framework | [Express](https://expressjs.com/) |
+| Object DB Modeling | [Mongoose](http://mongoosejs.com/) |
+| Test Suites | [Mocha](https://mochajs.org/) |
+| Assertion Library | [Chai](http://chaijs.com/) |
+| React Testing Library | [Enzyme](http://airbnb.io/enzyme/index.html) |
+| End to End Testing | [TestCafe](https://devexpress.github.io/testcafe/) |
+| Code Coverage | [Istanbul](https://istanbul.js.org/) |
+
 # Features
 
 ## Sign Up
@@ -89,11 +111,11 @@ This setup requires an instance of MongoDB to be running in the local machine at
 
 ![Make An Entry](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/make-an-entry.png)
 
-## Manage Users (Admin & Manager)
+## Manage Users (Admin and Manager)
 
 ![Manage Users](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/manage-users.png)
 
-## Create User (Admin & Manager)
+## Create User (Admin and Manager)
 
 ![Create User](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/create-user.png)
 
@@ -105,25 +127,6 @@ This setup requires an instance of MongoDB to be running in the local machine at
 
 ![API Documentation](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/api-doc.png)
 
-# Tools & Libraries
-
-| PURPOSE      | LIBRARY
-|--------------|-----------------------------------------------
-| View Library | [ReactJS](https://facebook.github.io/react/) |
-| State Management | [StateX](https://github.com/rintoj/statex) |
-| CSS (Functional) | [Tachyons](http://tachyons.io/) |
-| CSS Processor | [SaSS](http://sass-lang.com/) |
-| AJAX Library | [Axios](https://github.com/mzabriskie/axios) |
-| Transpiler | [TypeScript](https://www.typescriptlang.org/) |
-| Packaging | [WebPack](https://webpack.js.org/) |
-| Database | [MongoDB](https://www.mongodb.com/) |
-| API Library | [Mongo Restifier](https://github.com/rintoj/mongo-restifier) |
-| Web Framework | [Express](https://expressjs.com/) |
-| Object DB Modeling | [Mongoose](http://mongoosejs.com/) |
-| Test Suites | [Mocha](https://mochajs.org/) |
-| Assertion Library | [Chai](http://chaijs.com/) & [Enzyme](http://airbnb.io/enzyme/index.html) |
-| Code Coverage | [Istanbul](https://istanbul.js.org/) |
-
 # Unit Tests - Front End
 
 ![Ui Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/ui-tests.png)
@@ -132,6 +135,10 @@ This setup requires an instance of MongoDB to be running in the local machine at
 # Functional Tests - Back End
 
 ![Server Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/server-tests.png)
+
+# End to End Tests
+
+![End To End Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/e2e-tests.png)
 
 # Author
 

@@ -4,7 +4,7 @@ import {
 } from './test-util'
 
 fixture('Statistics Page')
-  .page `http://localhost:3000/signin`
+  .page `http://localhost:5000/signin`
 
 async function selectPage() {
   const inputs = await Selector('.make-an-entry-dialog input')
