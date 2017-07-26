@@ -1,7 +1,7 @@
 {
   "production": true,
   "database": {
-    "url": "mongodb://toptal_app:welcome123@ds161742.mlab.com:61742/heroku_brz0d43j"
+    "url": "mongodb://localhost/jog-tracker"
   },
   "api": {
     "oauth2": {
@@ -30,7 +30,7 @@
   "static": {
     "root": "ui/dist"
   },
-  "apiUrl": "https://jog-tracker-tt.herokuapp.com/api",
+  "apiUrl": "//localhost:5000/api",
   "authService": {
     "clientId": "7d65d9b6-5cae-4db7-b19d-56cbdd25eaab",
     "clientSecret": "a0c7b741-b18b-47eb-b6df-48a0bd3cde2e"
