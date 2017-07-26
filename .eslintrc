@@ -185,7 +185,7 @@
     "newline-per-chained-call": "off",
     "no-alert": "off",
     "no-array-constructor": "warn",
-    "no-await-in-loop": "error",
+    "no-await-in-loop": "off",
     "no-bitwise": "warn",
     "no-buffer-constructor": "off",
     "no-caller": "error",
