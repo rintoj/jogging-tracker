@@ -4,6 +4,7 @@ Jog Tracker is app build for jogger to keep track of daily progress and see aggr
 
 **Table of Contents**
 
+- [Jog Tracker](#jog-tracker)
 - [Get Started](#get-started)
   - [URLs](#urls)
   - [Database Requirement](#database-requirement)
@@ -59,7 +60,7 @@ npm run test:ui
 
 ## Database Requirement
 
-This setup requires an instance of MongoDB to be running in the local machine at default port. Alternatively you can configure a DB of your own - modify `conf/app-conf.prod.json` (for production) &  `conf/app-conf.dev.json` (for development)
+This setup requires an instance of MongoDB to be running in the local machine at default port. Alternatively you can configure a DB of your own - modify `conf/app-conf.prod.json` (for production) & `conf/app-conf.dev.json` (for development)
 
 ```json
 {
@@ -71,77 +72,77 @@ This setup requires an instance of MongoDB to be running in the local machine at
 
 # Tools and Libraries Used
 
-| PURPOSE      | LIBRARY
-|--------------|-----------------------------------------------
-| View Library | [ReactJS](https://facebook.github.io/react/) |
-| State Management | [StateX](https://github.com/rintoj/statex) |
-| CSS (Functional) | [Tachyons](http://tachyons.io/) |
-| CSS Processor | [SaSS](http://sass-lang.com/) |
-| AJAX Library | [Axios](https://github.com/mzabriskie/axios) |
-| Transpiler | [TypeScript](https://www.typescriptlang.org/) |
-| Packaging | [WebPack](https://webpack.js.org/) |
-| Database | [MongoDB](https://www.mongodb.com/) |
-| API Library | [Mongo Restifier](https://github.com/rintoj/mongo-restifier) |
-| Web Framework | [Express](https://expressjs.com/) |
-| Object DB Modeling | [Mongoose](http://mongoosejs.com/) |
-| Test Suites | [Mocha](https://mochajs.org/) |
-| Assertion Library | [Chai](http://chaijs.com/) |
-| React Testing Library | [Enzyme](http://airbnb.io/enzyme/index.html) |
-| End to End Testing | [TestCafe](https://devexpress.github.io/testcafe/) |
-| Code Coverage | [Istanbul](https://istanbul.js.org/) |
+| PURPOSE               | LIBRARY                                                      |
+| --------------------- | ------------------------------------------------------------ |
+| View Library          | [ReactJS](https://facebook.github.io/react/)                 |
+| State Management      | [StateX](https://github.com/rintoj/statex)                   |
+| CSS (Functional)      | [Tachyons](http://tachyons.io/)                              |
+| CSS Processor         | [SaSS](http://sass-lang.com/)                                |
+| AJAX Library          | [Axios](https://github.com/mzabriskie/axios)                 |
+| Transpiler            | [TypeScript](https://www.typescriptlang.org/)                |
+| Packaging             | [WebPack](https://webpack.js.org/)                           |
+| Database              | [MongoDB](https://www.mongodb.com/)                          |
+| API Library           | [Mongo Restifier](https://github.com/rintoj/mongo-restifier) |
+| Web Framework         | [Express](https://expressjs.com/)                            |
+| Object DB Modeling    | [Mongoose](http://mongoosejs.com/)                           |
+| Test Suites           | [Mocha](https://mochajs.org/)                                |
+| Assertion Library     | [Chai](http://chaijs.com/)                                   |
+| React Testing Library | [Enzyme](http://airbnb.io/enzyme/index.html)                 |
+| End to End Testing    | [TestCafe](https://devexpress.github.io/testcafe/)           |
+| Code Coverage         | [Istanbul](https://istanbul.js.org/)                         |
 
 # Features
 
 ## Sign Up
 
-![SignUp](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/signup.png)
+![SignUp](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/signup.png)
 
 ## Sign In
 
-![SignUp](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/signin.png)
+![SignUp](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/signin.png)
 
 ## Dashboard
 
-![Dashboard](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/dashboard.png)
+![Dashboard](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/dashboard.png)
 
 ## Jog Logs
 
-![Jog Logs](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/logs.png)
+![Jog Logs](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/logs.png)
 
 ## Make An Entry
 
-![Make An Entry](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/make-an-entry.png)
+![Make An Entry](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/make-an-entry.png)
 
 ## Manage Users (Admin and Manager)
 
-![Manage Users](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/manage-users.png)
+![Manage Users](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/manage-users.png)
 
 ## Create User (Admin and Manager)
 
-![Create User](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/create-user.png)
+![Create User](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/create-user.png)
 
 ## Manage User's Log (Admin Only)
 
-![Manage User's Log](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/manage-users-records.png)
+![Manage User's Log](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/manage-users-records.png)
 
 # API Documentation
 
-![API Documentation](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/api-doc.png)
+![API Documentation](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/api-doc.png)
 
 # Tests
 
 ## Unit Tests - Front End
 
-![Ui Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/ui-tests.png)
-![Ui Test Summary](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/test-summary.png)
+![Ui Tests](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/ui-tests.png)
+![Ui Test Summary](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/test-summary.png)
 
 ## Functional Tests - Back End
 
-![Server Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/server-tests.png)
+![Server Tests](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/server-tests.png)
 
 ## End to End Tests
 
-![End To End Tests](http://git.toptal.com/Rinto-Jose/rinto-jose/raw/master/docs/img/e2e-tests.png)
+![End To End Tests](https://raw.githubusercontent.com/rintoj/jogging-tracker/master/docs/img/e2e-tests.png)
 
 # Author
 
@@ -150,7 +151,7 @@ This setup requires an instance of MongoDB to be running in the local machine at
 Read my blogs at [Medium.com](https://medium.com/@rintoj)
 
 Follow me:
-  [Github](https://github.com/rintoj)
+[Github](https://github.com/rintoj)
 | [Facebook](https://www.facebook.com/rinto.jose)
 | [Twitter](https://twitter.com/rintoj)
 | [Google+](https://plus.google.com/+RintoJoseMankudy)
